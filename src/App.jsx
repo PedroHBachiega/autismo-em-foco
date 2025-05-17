@@ -9,6 +9,7 @@ import SobreAutismo from './pages/SobreAutismo/SobreAutismo'
 import Tratamentos from './pages/Tratamentos/Tratamentos'
 import Leisedireitos from './pages/Leisedireitos/Leisedireitos'
 import Eventos from './pages/Eventos/Eventos'
+import Agendamento from './pages/Agendamento/Agendamento'
 import Layout from './Layout';
 
 function App() {
@@ -59,6 +60,11 @@ function App() {
                  <Route path="/Eventos" element={
           <Layout>
             <Eventos />
+          </Layout>
+        } />
+          <Route path="/Agendamento" element={
+          <Layout>
+            <Agendamento />
           </Layout>
         } />
       </Routes>
