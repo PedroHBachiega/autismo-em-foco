@@ -1,12 +1,37 @@
-# React + Vite
+# Autismo em Foco
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Projeto interdisciplinar desenvolvido por alunos da Fatec Matão.
 
-Currently, two official plugins are available:
+## Integrantes
+- Pedro Bachiega
+- Pedro Scabelo
+- Vitor Bonilha
+- Matheus Tamine
+- Geysa Topan
+- Igor
+- Pedro Albuquerque
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Sobre o Projeto
 
-## Expanding the ESLint configuration
+O **Autismo em Foco** é uma plataforma informativa e colaborativa sobre o autismo (TEA - Transtorno do Espectro Autista). O objetivo é fornecer informações confiáveis, atualizadas e acessíveis sobre o autismo, além de criar um espaço de apoio e troca de experiências para familiares, amigos e conhecidos de pessoas autistas.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Funcionalidades
+- **Informações sobre o Autismo:** Conteúdo educativo, leis, direitos, tratamentos e eventos relacionados ao TEA.
+- **Comunidade:** Espaço para mães, parentes e conhecidos compartilharem vivências, experiências e dicas, promovendo apoio mútuo e fortalecimento da causa.
+- **Agendamento:** Ferramenta para encontrar clínicas e profissionais especializados em TEA na região do usuário, facilitando o acesso a tratamentos adequados para crianças e adultos.
+
+## Tecnologias Utilizadas
+- **Frontend:** React, Vite, Tailwind CSS
+- **Backend:** Node.js
+- **Banco de Dados e Autenticação:** Firebase, Firebase Store
+
+## Como rodar o projeto
+
+1. Clone este repositório
+2. Instale as dependências com `npm install`
+3. Configure as variáveis do Firebase conforme o ambiente do seu grupo
+4. Rode o projeto com `npm run dev`
+
+---
+
+Este projeto é parte de um trabalho interdisciplinar da Fatec Matão, com o objetivo de promover informação, inclusão e apoio à comunidade autista e seus familiares.
