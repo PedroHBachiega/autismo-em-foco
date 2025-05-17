@@ -7,8 +7,8 @@ Projeto interdisciplinar desenvolvido por alunos da Fatec Matão.
 - Pedro Scabelo
 - Vitor Bonilha
 - Matheus Tamine
-- Geysa Topan
-- Igor
+- Geysa Ribeiro
+- Igor Ferreira
 - Pedro Albuquerque
 
 ## Sobre o Projeto
