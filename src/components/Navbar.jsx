@@ -20,7 +20,7 @@ const Navbar = () => {
         <Link to="/Eventos" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Eventos</Link>
         <Link to="/Tratamentos" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Tratamento</Link>
         <Link to="/Agendamento" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Agendamento</Link>
-        <Link to="/Sobre" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Sobre nós</Link>
+        <Link to="/Comunidade" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Comunidade</Link>
       </div>
       <div>
         {!user ? (
@@ -33,4 +33,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar; 
+export default Navbar;

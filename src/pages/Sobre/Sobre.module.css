@@ -1,0 +1,207 @@
+.sobreContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.header {
+  text-align: center;
+  padding: 40px 20px;
+  margin-bottom: 40px;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  color: #2361ad;
+  margin-bottom: 15px;
+}
+
+.header p {
+  font-size: 1.2rem;
+  color: #555;
+}
+
+.mission {
+  display: flex;
+  align-items: center;
+  margin-bottom: 60px;
+  background-color: #f0f7ff;
+  border-radius: 10px;
+  padding: 40px;
+}
+
+.missionContent {
+  flex: 1;
+  padding-right: 40px;
+}
+
+.missionContent h2 {
+  font-size: 2rem;
+  color: #2361ad;
+  margin-bottom: 20px;
+}
+
+.missionContent p {
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.missionImage {
+  flex: 1;
+  height: 300px;
+  background-color: #e0e0e0;
+  border-radius: 10px;
+}
+
+.values {
+  margin-bottom: 60px;
+}
+
+.values h2 {
+  text-align: center;
+  font-size: 2rem;
+  color: #2361ad;
+  margin-bottom: 30px;
+}
+
+.valuesList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.valueItem {
+  background-color: white;
+  border-radius: 10px;
+  padding: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.valueItem h3 {
+  font-size: 1.3rem;
+  color: #2361ad;
+  margin-bottom: 15px;
+}
+
+.valueItem p {
+  color: #555;
+  line-height: 1.5;
+}
+
+.team {
+  margin-bottom: 60px;
+}
+
+.team h2 {
+  text-align: center;
+  font-size: 2rem;
+  color: #2361ad;
+  margin-bottom: 30px;
+}
+
+.teamMembers {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.teamMember {
+  background-color: white;
+  border-radius: 10px;
+  padding: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.memberPhoto {
+  width: 150px;
+  height: 150px;
+  background-color: #e0e0e0;
+  border-radius: 50%;
+  margin: 0 auto 20px;
+}
+
+.teamMember h3 {
+  font-size: 1.3rem;
+  color: #2361ad;
+  margin-bottom: 10px;
+}
+
+.teamMember p {
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.contact {
+  background-color: #f0f7ff;
+  border-radius: 10px;
+  padding: 40px;
+  text-align: center;
+}
+
+.contact h2 {
+  font-size: 2rem;
+  color: #2361ad;
+  margin-bottom: 15px;
+}
+
+.contact > p {
+  color: #555;
+  margin-bottom: 30px;
+}
+
+.contactInfo {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.contactItem {
+  background-color: white;
+  border-radius: 10px;
+  padding: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.contactItem h3 {
+  font-size: 1.3rem;
+  color: #2361ad;
+  margin-bottom: 15px;
+}
+
+.contactItem p {
+  color: #555;
+}
+
+.socialLinks {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.socialLink {
+  color: #2361ad;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.socialLink:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .mission {
+    flex-direction: column;
+    padding: 30px;
+  }
+  
+  .missionContent {
+    padding-right: 0;
+    margin-bottom: 30px;
+  }
+  
+  .missionImage {
+    width: 100%;
+  }
+}

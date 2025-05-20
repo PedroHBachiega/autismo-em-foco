@@ -1,0 +1,192 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.header {
+  text-align: center;
+  padding: 60px 20px;
+  background-color: #f0f7ff;
+  border-radius: 10px;
+  margin-bottom: 40px;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  color: #2e5eaa;
+  margin-bottom: 15px;
+}
+
+.header p {
+  font-size: 1.2rem;
+  color: #555;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.mainLaw {
+  background-color: #e6f2ff;
+  border-radius: 10px;
+  padding: 30px;
+  margin-bottom: 40px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.mainLaw h2 {
+  font-size: 1.8rem;
+  color: #2e5eaa;
+  margin-bottom: 20px;
+}
+
+.mainLaw p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #444;
+  margin-bottom: 15px;
+}
+
+.lawsSection {
+  margin-bottom: 60px;
+}
+
+.lawsSection h2 {
+  text-align: center;
+  font-size: 2rem;
+  color: #2e5eaa;
+  margin-bottom: 30px;
+}
+
+.lawsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+}
+
+.lawCard {
+  background-color: white;
+  border-radius: 10px;
+  padding: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.lawCard:hover {
+  transform: translateY(-5px);
+}
+
+.lawCard h3 {
+  font-size: 1.3rem;
+  color: #2e5eaa;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.lawCard p {
+  color: #555;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+.lawCard a {
+  display: inline-block;
+  color: #2e5eaa;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.lawCard a:hover {
+  text-decoration: underline;
+}
+
+.rightsSection {
+  margin-bottom: 60px;
+}
+
+.rightsSection h2 {
+  text-align: center;
+  font-size: 2rem;
+  color: #2e5eaa;
+  margin-bottom: 30px;
+}
+
+.rightsList {
+  background-color: white;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.rightItem {
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.rightItem:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.rightItem h3 {
+  font-size: 1.3rem;
+  color: #2e5eaa;
+  margin-bottom: 10px;
+}
+
+.rightItem p {
+  color: #555;
+  line-height: 1.5;
+}
+
+.helpSection {
+  background-color: #f0f7ff;
+  border-radius: 10px;
+  padding: 40px;
+  text-align: center;
+}
+
+.helpSection h2 {
+  font-size: 1.8rem;
+  color: #2e5eaa;
+  margin-bottom: 15px;
+}
+
+.helpSection p {
+  color: #555;
+  max-width: 700px;
+  margin: 0 auto 25px;
+}
+
+.contactButton {
+  display: inline-block;
+  background-color: #2e5eaa;
+  color: white;
+  padding: 12px 30px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.contactButton:hover {
+  background-color: #1d4b8f;
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 40px 15px;
+  }
+  
+  .header h1 {
+    font-size: 2rem;
+  }
+  
+  .lawsGrid {
+    grid-template-columns: 1fr;
+  }
+}

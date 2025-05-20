@@ -4,13 +4,13 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
-  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
+  apiKey: "AIzaSyAkdylfQ_B1enXYQ4XmsFxmsYaLnJ5zrdo",
+  authDomain: "pi-saudetec.firebaseapp.com",
+  projectId: "pi-saudetec",
+  storageBucket: "pi-saudetec.firebasestorage.app",
+  messagingSenderId: "940410171334",
+  appId: "1:940410171334:web:811c2436acc7714c314cc7",
+  measurementId: "G-EE4MS5GH14"
 };
 
 const app = initializeApp(firebaseConfig);
