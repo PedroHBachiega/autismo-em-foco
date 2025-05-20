@@ -1,0 +1,143 @@
+.tratamentosContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.header {
+  text-align: center;
+  padding: 40px 20px;
+  margin-bottom: 30px;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  color: #2361ad;
+  margin-bottom: 15px;
+}
+
+.header p {
+  font-size: 1.2rem;
+  color: #555;
+}
+
+.intro {
+  max-width: 800px;
+  margin: 0 auto 40px;
+  text-align: center;
+}
+
+.intro p {
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.therapies {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  margin-bottom: 60px;
+}
+
+.therapyCard {
+  background-color: white;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.therapyCard h2 {
+  font-size: 1.8rem;
+  color: #2361ad;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.therapyContent {
+  display: flex;
+  gap: 30px;
+}
+
+.therapyImage {
+  flex: 0 0 250px;
+  height: 200px;
+  background-color: #e0e0e0;
+  border-radius: 10px;
+}
+
+.therapyInfo {
+  flex: 1;
+}
+
+.therapyInfo p {
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.therapyInfo h3 {
+  font-size: 1.3rem;
+  color: #2361ad;
+  margin-bottom: 15px;
+}
+
+.therapyInfo ul {
+  padding-left: 20px;
+}
+
+.therapyInfo li {
+  color: #555;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.findProfessional {
+  background-color: #f0f7ff;
+  border-radius: 10px;
+  padding: 40px;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.findProfessional h2 {
+  font-size: 2rem;
+  color: #2361ad;
+  margin-bottom: 15px;
+}
+
+.findProfessional p {
+  color: #555;
+  margin-bottom: 25px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.primaryButton {
+  background-color: #2361ad;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.primaryButton:hover {
+  background-color: #1d4b8f;
+}
+
+@media (max-width: 768px) {
+  .therapyContent {
+    flex-direction: column;
+  }
+  
+  .therapyImage {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}
