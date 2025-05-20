@@ -1,0 +1,265 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.header {
+  text-align: center;
+  padding: 60px 20px;
+  background-color: #f0f7ff;
+  border-radius: 10px;
+  margin-bottom: 40px;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  color: #2e5eaa;
+  margin-bottom: 15px;
+}
+
+.header p {
+  font-size: 1.2rem;
+  color: #555;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.contentGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+}
+
+.mainContent {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.createPost {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.postInput {
+  width: 100%;
+  min-height: 100px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  resize: none;
+  margin-bottom: 15px;
+  font-family: inherit;
+}
+
+.postButton {
+  background-color: #2e5eaa;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.postButton:hover {
+  background-color: #1d4b8f;
+}
+
+.feedFilter {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.filterButton {
+  background-color: #f0f7ff;
+  border: 1px solid #ddd;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.filterButton:hover, .filterButton.active {
+  background-color: #2e5eaa;
+  color: white;
+  border-color: #2e5eaa;
+}
+
+.postsList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.postCard {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.postHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.postAuthor {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.authorAvatar {
+  width: 40px;
+  height: 40px;
+  background-color: #f0f7ff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.postDate {
+  font-size: 0.8rem;
+  color: #777;
+}
+
+.moreButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #777;
+}
+
+.postContent {
+  margin-bottom: 15px;
+}
+
+.postActions {
+  display: flex;
+  gap: 15px;
+  border-top: 1px solid #eee;
+  padding-top: 15px;
+}
+
+.actionButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.9rem;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sidebarCard {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.sidebarCard h2 {
+  font-size: 1.3rem;
+  color: #2e5eaa;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.profilePreview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.profileAvatar {
+  width: 80px;
+  height: 80px;
+  background-color: #f0f7ff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.editProfileButton {
+  background-color: #f0f7ff;
+  color: #2e5eaa;
+  border: 1px solid #2e5eaa;
+  padding: 8px 15px;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: all 0.3s;
+}
+
+.editProfileButton:hover {
+  background-color: #2e5eaa;
+  color: white;
+}
+
+.groupsList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.groupItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.groupInfo {
+  flex: 1;
+}
+
+.groupInfo h3 {
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.groupInfo p {
+  font-size: 0.8rem;
+  color: #777;
+}
+
+@media (max-width: 768px) {
+  .contentGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .header {
+    padding: 40px 15px;
+  }
+  
+  .header h1 {
+    font-size: 2rem;
+  }
+}
