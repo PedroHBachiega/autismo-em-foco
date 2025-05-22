@@ -64,6 +64,13 @@
   flex: 0 0 250px;
   height: 200px;
   background-color: #e0e0e0;
+  border-radius: 10px; 
+}
+
+.imagemTerapias {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   border-radius: 10px;
 }
 
