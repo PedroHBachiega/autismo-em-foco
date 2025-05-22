@@ -20,18 +20,18 @@ const Footer = () => {
       
       <div className={styles.socialLinks}>
         <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className={styles.socialIcon}>
-          <img src="/src/assets/facebook-icon.png" alt="Facebook" />
+          <img src="/src/assets/facebook.png" alt="Facebook" />
         </a>
         <a href="https://github.com" target="_blank" rel="noopener noreferrer" className={styles.socialIcon}>
-          <img src="/src/assets/github-icon.png" alt="GitHub" />
+          <img src="/src/assets/github.png" alt="GitHub" />
         </a>
         <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className={styles.socialIcon}>
-          <img src="/src/assets/instagram-icon.png" alt="Instagram" />
+          <img src="/src/assets/instagram.png" alt="Instagram" />
         </a>
       </div>
       
       <div className={styles.copyright}>
-        ©2023 - Todos os direitos reservados.
+        ©2025- Todos os direitos reservados.
       </div>
     </footer>
   );
