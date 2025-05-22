@@ -33,8 +33,8 @@
   background-color: white;
   padding: 20px;
   border-radius: 8px 8px 0 0;
-  max-width: 250px;
-  text-align: left;
+  max-width: 400px;
+  text-align: center;
   position: absolute;
   bottom: 0;
   left: 50%;
@@ -46,6 +46,7 @@
   font-weight: normal;
   margin-bottom: 5px;
   color: #333;
+  text-align: center;
 }
 
 .heroTextBox h1 {
