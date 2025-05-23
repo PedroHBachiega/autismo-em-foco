@@ -1,75 +1,146 @@
-import { useState } from 'react'
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from './pages/Home/Home'
-import Login from './pages/Login/Login'
-import Register from './pages/Register/Register'
-import Comunidade from './pages/Comunidade/Comunidade'
-import Sobre from './pages/Sobre/Sobre'
-import SobreAutismo from './pages/SobreAutismo/SobreAutismo'
-import Tratamentos from './pages/Tratamentos/Tratamentos'
-import Leisedireitos from './pages/Leisedireitos/Leisedireitos'
-import Eventos from './pages/Eventos/Eventos'
-import Agendamento from './pages/Agendamento/Agendamento'
-import Layout from './Layout';
+// src/App.jsx
 
-function App() {
+import React from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+
+// Context & Auth (somente para consumir o contexto, não para prover)
+import { useAuthValue } from './context/AuthContext';
+
+// Layout & Pages
+import Layout from './Layout';
+import Home from './pages/Home/Home';
+import Login from './pages/Login/Login';
+import Register from './pages/Register/Register';
+import Comunidade from './pages/Comunidade/Comunidade';
+import Sobre from './pages/Sobre/Sobre';
+import SobreAutismo from './pages/SobreAutismo/SobreAutismo';
+import Tratamentos from './pages/Tratamentos/Tratamentos';
+import Leisedireitos from './pages/Leisedireitos/Leisedireitos';
+import Eventos from './pages/Eventos/Eventos';
+import Agendamento from './pages/Agendamento/Agendamento';
+import CreatePost from './pages/CreatePost/CreatePost';
+import Post from './pages/Post/Post';
+
+// PrivateRoute para checar autenticação antes de renderizar certos componentes
+function PrivateRoute({ children }) {
+  const { user } = useAuthValue();
+  return user ? children : <Navigate to="/login" replace />;
+}
+
+export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-      
-        <Route path="/" element={
+    // Aqui NÃO colocamos BrowserRouter nem AuthProvider — já existe em main.jsx
+    <Routes>
+      {/* Página inicial (público) */}
+      <Route
+        path="/"
+        element={
           <Layout>
             <Home />
           </Layout>
-        } />
-        <Route path="/Login" element={
+        }
+      />
+
+      {/* Rotas de autenticação (público) */}
+      <Route
+        path="/login"
+        element={
           <Layout>
             <Login />
           </Layout>
-        } />
-        <Route path="/Register" element={
+        }
+      />
+      <Route
+        path="/register"
+        element={
           <Layout>
             <Register />
           </Layout>
-        } />
-        <Route path="/Comunidade" element={
+        }
+      />
+
+      {/* Outras páginas institucionais (público) */}
+      <Route
+        path="/comunidade"
+        element={
           <Layout>
             <Comunidade />
           </Layout>
-        } />
-        <Route path="/Sobre" element={
+        }
+      />
+      <Route
+        path="/sobre"
+        element={
           <Layout>
             <Sobre />
           </Layout>
-        } />
-         <Route path="/SobreAutismo" element={
+        }
+      />
+      <Route
+        path="/sobreautismo"
+        element={
           <Layout>
             <SobreAutismo />
           </Layout>
-        } />
-         <Route path="/Tratamentos" element={
+        }
+      />
+      <Route
+        path="/tratamentos"
+        element={
           <Layout>
             <Tratamentos />
           </Layout>
-        } />
-         <Route path="/Leisedireitos" element={
+        }
+      />
+      <Route
+        path="/leisedireitos"
+        element={
           <Layout>
             <Leisedireitos />
           </Layout>
-        } />
-                 <Route path="/Eventos" element={
+        }
+      />
+      <Route
+        path="/eventos"
+        element={
           <Layout>
             <Eventos />
           </Layout>
-        } />
-          <Route path="/Agendamento" element={
+        }
+      />
+      <Route
+        path="/agendamento"
+        element={
           <Layout>
             <Agendamento />
           </Layout>
-        } />
-      </Routes>
-    </BrowserRouter>
+        }
+      />
+
+      {/* Rota privada: só acessível com usuário logado */}
+      <Route
+        path="/posts/create"
+        element={
+          <Layout>
+            <PrivateRoute>
+              <CreatePost />
+            </PrivateRoute>
+          </Layout>
+        }
+      />
+
+      {/* Visualizar post (público) */}
+      <Route
+        path="/posts/:id"
+        element={
+          <Layout>
+            <Post />
+          </Layout>
+        }
+      />
+
+      {/* Catch-all: qualquer rota não mapeada redireciona para "/" */}
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 }
-
-export default App;

@@ -1,13 +1,12 @@
-import { useState } from "react";
-import { useAuthentication } from "../../Hooks/UseAuthentication";
-import { Link } from "react-router-dom";
-import GoogleButton from "../../components/GoogleButton";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import GoogleButton from '../../components/GoogleButton';
+import { useAuthValue } from '../../context/AuthContext';
 
 function Login() {
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
-
-  const { login, loginWithGoogle, error, loading } = useAuthentication();
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const { login, loginWithGoogle, error, loading } = useAuthValue();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
