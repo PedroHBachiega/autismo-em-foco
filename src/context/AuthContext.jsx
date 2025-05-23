@@ -1,7 +1,7 @@
 // src/context/AuthContext.jsx
 
 import React, { createContext, useContext } from 'react';
-import { useAuthentication } from '../hooks/useAuthentication';
+import { useAuthentication } from '../Hooks/UseAuthentication';
 
 // 1. Cria o contexto
 const AuthContext = createContext();

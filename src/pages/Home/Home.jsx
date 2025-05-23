@@ -24,7 +24,7 @@ const Home = () => {
           </div>
           <h3>O que é o autismo?</h3>
           <p>Conheça as principais características do transtorno do espectro autista e como ele se manifesta.</p>
-          <Link to="/SobreAutismo" className={styles.cardButton}>Acessar</Link>
+          <Link to="/sobreautismo" className={styles.cardButton}>Acessar</Link>
         </div>
 
         <div className={styles.card}>
@@ -33,7 +33,7 @@ const Home = () => {
           </div>
           <h3>Leis relacionadas</h3>
           <p>Confira os direitos das pessoas com autismo garantidos por lei.</p>
-          <Link to="/Leisedireitos" className={styles.cardButton}>Acessar</Link>
+          <Link to="/leisedireitos" className={styles.cardButton}>Acessar</Link>
         </div>
 
         <div className={styles.card}>
@@ -42,7 +42,7 @@ const Home = () => {
           </div>
           <h3>Datas Especiais</h3>
           <p>Descubra eventos e datas importantes para a conscientização sobre o autismo.</p>
-          <Link to="/Eventos" className={styles.cardButton}>Acessar</Link>
+          <Link to="/eventos" className={styles.cardButton}>Acessar</Link>
         </div>
       </section>
 
