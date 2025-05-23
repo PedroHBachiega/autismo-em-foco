@@ -49,9 +49,15 @@
 
 .missionImage {
   flex: 1;
-  height: 300px;
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
   background-color: #e0e0e0;
-  border-radius: 10px;
+  border-radius: 20px;
+}
+
+.imgApoio {
+  border-radius: 20px;
 }
 
 .values {
@@ -120,6 +126,13 @@
   background-color: #e0e0e0;
   border-radius: 50%;
   margin: 0 auto 20px;
+}
+
+.membrosEquipe{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 .teamMember h3 {
