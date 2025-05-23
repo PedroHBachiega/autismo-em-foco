@@ -7,20 +7,16 @@ const Navbar = () => {
   return (
     <nav className="flex items-center justify-between bg-[#2361ad] px-8 py-2 h-14">
       <div className="flex items-center font-bold text-white text-2xl font-[\'Arial Rounded MT Bold\']">
-        <span className="mr-1">autismo</span>
-        <span className="text-xl mx-0.5" style={{ color: '#f44336' }}>•</span>
-        <span className="text-xl mx-0.5" style={{ color: '#4caf50' }}>•</span>
-        <span className="text-xl mx-0.5" style={{ color: '#2196f3' }}>•</span>
-        <span className="text-base italic ml-2 font-normal">em foco</span>
+        <img src="/src/assets/logotipo.png" alt="logotipo"  className="mx-auto w-28 h-auto" />
       </div>
       <div className="flex gap-4">
         <Link to="/" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Home</Link>
-        <Link to="/SobreAutismo" className="text-white font-bold text-base hover:text-blue-200 transition-colors">O que é o autismo?</Link>
-        <Link to="/Leisedireitos" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Leis e direitos</Link>
-        <Link to="/Eventos" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Eventos</Link>
-        <Link to="/Tratamentos" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Tratamento</Link>
-        <Link to="/Agendamento" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Agendamento</Link>
-        <Link to="/Comunidade" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Comunidade</Link>
+        <Link to="/sobreautismo" className="text-white font-bold text-base hover:text-blue-200 transition-colors">O que é o autismo?</Link>
+        <Link to="/leisedireitos" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Leis e direitos</Link>
+        <Link to="/eventos" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Eventos</Link>
+        <Link to="/tratamentos" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Tratamento</Link>
+        <Link to="/agendamento" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Agendamento</Link>
+        <Link to="/comunidade" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Comunidade</Link>
       </div>
       <div>
         {!user ? (
