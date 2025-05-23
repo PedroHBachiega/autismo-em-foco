@@ -1,46 +1,60 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './Comunidade.module.css'
+import { Link } from 'react-router-dom'
+import { db } from '../../firebase/config'
+import { useAuthValue } from '../../context/AuthContext'
+import { useDeleteDocument } from '../../hooks/useDeleteDocument'
+import { collection, getDocs, query, orderBy } from 'firebase/firestore'
 
 const Comunidade = () => {
-  // Dados simulados para os posts da comunidade
-  const posts = [
-    {
-      id: 1,
-      author: "Maria Silva",
-      avatar: "👩",
-      date: "15/10/2023",
-      content: "Ontem meu filho teve uma crise no supermercado. Alguém tem dicas de como lidar com situações assim em locais públicos?",
-      likes: 24,
-      comments: 15
-    },
-    {
-      id: 2,
-      author: "João Pereira",
-      avatar: "👨",
-      date: "14/10/2023",
-      content: "Descobrimos que nosso filho de 3 anos está no espectro. Alguém pode recomendar bons profissionais em São Paulo?",
-      likes: 18,
-      comments: 22
-    },
-    {
-      id: 3,
-      author: "Dra. Ana Mendes",
-      avatar: "👩‍⚕️",
-      date: "12/10/2023",
-      content: "Estou organizando um grupo de apoio para pais de crianças autistas em Campinas. Interessados podem entrar em contato por mensagem.",
-      likes: 45,
-      comments: 8
-    },
-    {
-      id: 4,
-      author: "Carlos Oliveira",
-      avatar: "👨‍🦱",
-      date: "10/10/2023",
-      content: "Minha filha de 7 anos começou a usar comunicação alternativa e tem sido incrível ver seu progresso! Recomendo muito para quem está com dificuldades na comunicação verbal.",
-      likes: 36,
-      comments: 12
-    }
-  ];
+  const { user } = useAuthValue();
+  const uid = user?.uid;
+  const [fetchedPosts, setFetchedPosts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [fetchError, setFetchError] = useState(null);
+
+  const { deleteDocument } = useDeleteDocument("posts");
+
+  useEffect(() => {
+    let isMounted = true;
+    
+    const fetchPosts = async () => {
+      setIsLoading(true);
+      try {
+        const postsRef = collection(db, "posts");
+        const q = query(postsRef, orderBy("createdAt", "desc"));
+        const querySnapshot = await getDocs(q);
+        
+        const posts = [];
+        querySnapshot.forEach((doc) => {
+          posts.push({
+            id: doc.id,
+            ...doc.data()
+          });
+        });
+        
+        if (isMounted) {
+          console.log("Posts fetched:", posts.length);
+          setFetchedPosts(posts);
+          setFetchError(null);
+          setIsLoading(false);
+        }
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+        if (isMounted) {
+          setFetchError("Erro ao carregar os posts");
+          setIsLoading(false);
+        }
+      }
+    };
+
+    fetchPosts();
+    
+    // Cleanup function to prevent state updates after unmount
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   // Dados simulados para os grupos da comunidade
   const groups = [
@@ -80,11 +94,10 @@ const Comunidade = () => {
       <div className={styles.contentGrid}>
         <main className={styles.mainContent}>
           <div className={styles.createPost}>
-            <textarea 
-              placeholder="Compartilhe algo com a comunidade..." 
-              className={styles.postInput}
-            />
-            <button className={styles.postButton}>Publicar</button>
+            <h2>Compartilhe algo com a comunidade...</h2>
+            <Link to="/posts/create">
+              <button className={styles.postButton}>Criar Post</button>
+            </Link>
           </div>
 
           <div className={styles.feedFilter}>
@@ -94,34 +107,63 @@ const Comunidade = () => {
           </div>
 
           <div className={styles.postsList}>
-            {posts.map(post => (
-              <div key={post.id} className={styles.postCard}>
-                <div className={styles.postHeader}>
-                  <div className={styles.postAuthor}>
-                    <div className={styles.authorAvatar}>{post.avatar}</div>
-                    <div>
-                      <h3>{post.author}</h3>
-                      <span className={styles.postDate}>{post.date}</span>
+            {isLoading && <p className={styles.loadingMessage}>Carregando posts...</p>}
+            {fetchError && <p className={styles.errorMessage}>{fetchError}</p>}
+            
+            {!isLoading && !fetchError && fetchedPosts.length === 0 && (
+              <p className={styles.emptyMessage}>Nenhum post encontrado. Seja o primeiro a compartilhar!</p>
+            )}
+            
+            {fetchedPosts.length > 0 && 
+              fetchedPosts.map(post => (
+                <div key={post.id} className={styles.postCard}>
+                  <div className={styles.postHeader}>
+                    <div className={styles.postAuthor}>
+                      <div className={styles.authorAvatar}>👤</div>
+                      <div>
+                        <h3>{post.createdBy || "Usuário"}</h3>
+                        <span className={styles.postDate}>
+                          {post.createdAt?.toDate().toLocaleDateString('pt-BR') || "Data desconhecida"}
+                        </span>
+                      </div>
                     </div>
+                    {user && post.uid === user.uid && (
+                      <button 
+                        className={styles.moreButton}
+                        onClick={() => {
+                          if(window.confirm("Tem certeza que deseja excluir este post?")) {
+                            deleteDocument(post.id);
+                          }
+                        }}
+                        title="Excluir post"
+                      >
+                        🗑️
+                      </button>
+                    )}
                   </div>
-                  <button className={styles.moreButton}>•••</button>
+                  <div className={styles.postContent}>
+                    <h4>{post.title}</h4>
+                    <p>{post.body}</p>
+                  </div>
+                  <div className={styles.postTags}>
+                    {post.tags && post.tags.map(tag => (
+                      <span key={tag} className={styles.tag}>#{tag}</span>
+                    ))}
+                  </div>
+                  <div className={styles.postActions}>
+                    <button className={styles.actionButton}>
+                      ❤️ 0
+                    </button>
+                    <button className={styles.actionButton}>
+                      💬 0
+                    </button>
+                    <button className={styles.actionButton}>
+                      🔗 Compartilhar
+                    </button>
+                  </div>
                 </div>
-                <div className={styles.postContent}>
-                  <p>{post.content}</p>
-                </div>
-                <div className={styles.postActions}>
-                  <button className={styles.actionButton}>
-                    ❤️ {post.likes}
-                  </button>
-                  <button className={styles.actionButton}>
-                    💬 {post.comments}
-                  </button>
-                  <button className={styles.actionButton}>
-                    🔗 Compartilhar
-                  </button>
-                </div>
-              </div>
-            ))}
+              ))
+            }
           </div>
         </main>
 
@@ -130,9 +172,15 @@ const Comunidade = () => {
             <h2>Meu Perfil</h2>
             <div className={styles.profilePreview}>
               <div className={styles.profileAvatar}>👤</div>
-              <h3>Usuário</h3>
-              <p>Complete seu perfil para conectar-se melhor</p>
-              <button className={styles.editProfileButton}>Editar Perfil</button>
+              <h3>{user ? user.email || "Usuário" : "Visitante"}</h3>
+              <p>{user ? "Complete seu perfil para conectar-se melhor" : "Faça login para participar da comunidade"}</p>
+              {user ? (
+                <button className={styles.editProfileButton}>Editar Perfil</button>
+              ) : (
+                <Link to="/login">
+                  <button className={styles.editProfileButton}>Fazer Login</button>
+                </Link>
+              )}
             </div>
           </div>
 
@@ -144,11 +192,6 @@ const Comunidade = () => {
                   <div className={styles.groupInfo}>
                     <h3>{group.name}</h3>
                     <p>{group.members} membros • {group.posts} posts</p>
-                  
-                    <div className={styles.groupInfo}>
-                      <h3>{group.name}</h3>
-                      <p>{group.members} membros • {group.posts} posts</p>
-                    </div>
                   </div>
                 </div>
               ))}
