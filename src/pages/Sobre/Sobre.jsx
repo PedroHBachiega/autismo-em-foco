@@ -16,7 +16,7 @@ const Sobre = () => {
           <p>Nosso objetivo é proporcionar recursos de qualidade, promover a inclusão e contribuir para uma sociedade mais consciente e acolhedora.</p>
         </div>
         <div className={styles.missionImage}>
-          {/* Imagem ilustrativa */}
+          <img src="/src/assets/grupo-apoio.jpg" alt="Mãos dadas em círculo" className={styles.imgApoio}/>
         </div>
       </section>
 
@@ -46,19 +46,25 @@ const Sobre = () => {
         <h2>Nossa Equipe</h2>
         <div className={styles.teamMembers}>
           <div className={styles.teamMember}>
-            <div className={styles.memberPhoto}></div>
+            <div className={styles.memberPhoto}>
+              <img src="/src/assets/neuropsicologa.jpg" alt="Neuropsicóloga" className={styles.membrosEquipe} />
+            </div>
             <h3>Dra. Ana Silva</h3>
             <p>Neuropsicóloga</p>
             <p>Especialista em TEA</p>
           </div>
           <div className={styles.teamMember}>
-            <div className={styles.memberPhoto}></div>
+            <div className={styles.memberPhoto}>
+              <img src="/src/assets/neuropediatra.jpg" alt="Neuropediatra" className={styles.membrosEquipe}/>
+            </div>
             <h3>Dr. Carlos Mendes</h3>
             <p>Neuropediatra</p>
             <p>Pesquisador em Neurodesenvolvimento</p>
           </div>
           <div className={styles.teamMember}>
-            <div className={styles.memberPhoto}></div>
+            <div className={styles.memberPhoto}>
+              <img src="/src/assets/terapeutaOcupacional.jpg" alt="Terapeuta Ocupacional" className={styles.membrosEquipe} />
+            </div>
             <h3>Patrícia Oliveira</h3>
             <p>Terapeuta Ocupacional</p>
             <p>Especialista em Integração Sensorial</p>
