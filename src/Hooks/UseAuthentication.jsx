@@ -54,14 +54,14 @@ export function useAuthentication() {
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (u) => {
       setUser(u);
-      const publicPaths = ["/login", "/register"];
+      const publicPaths = ["/login", "/register", "/sobreautismo", "/leisedireitos", "/eventos", "/tratamentos", "/sobre"];
       if (!u && !publicPaths.includes(pathname)) {
         navigate("/", { replace: true });
       }
       // opcional: se user logado e estiver em /login ou /register, manda pro home
-      if (u && publicPaths.includes(pathname)) {
-        navigate("/", { replace: true });
-      }
+      // if (u && publicPaths.includes(pathname)) {
+      // navigate("/", { replace: true });
+      // }
     });
     return () => unsub();
   }, [navigate, pathname]);

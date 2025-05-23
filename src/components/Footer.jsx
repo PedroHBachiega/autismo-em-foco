@@ -6,10 +6,10 @@ const Footer = () => {
   return (
     <footer className={styles.footer}>
       <div className={styles.navLinks}>
-        <Link to="/Sobre" className={styles.navLink}>Sobre Nós</Link>
+        <Link to="/sobre" className={styles.navLink}>Sobre Nós</Link>
         <Link to="/" className={styles.navLink}>Home</Link>
         <Link to="/Comunidade" className={styles.navLink}>Comunidade</Link>
-        <Link to="/SobreAutismo" className={styles.navLink}>O que é o autismo?</Link>
+        <Link to="/sobreautismo" className={styles.navLink}>O que é o autismo?</Link>
         <Link to="/Contato" className={styles.navLink}>Contato</Link>
       </div>
       
