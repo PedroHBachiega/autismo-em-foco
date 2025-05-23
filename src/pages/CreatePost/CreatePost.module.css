@@ -1,0 +1,56 @@
+.create_post {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .create_post h2 {
+    margin-bottom: 10px;
+    font-size: 2em;
+    text-align: center;
+  }
+  
+  .create_post p {
+    color: #777;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  
+  .create_post form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .create_post label {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .create_post label span {
+    font-weight: bold;
+  }
+  
+  .create_post input,
+  .create_post textarea {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-family: inherit;
+  }
+  
+  .create_post textarea {
+    min-height: 200px;
+    resize: vertical;
+  }
+  
+  .error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 10px;
+  }
