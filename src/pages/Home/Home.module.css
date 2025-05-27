@@ -11,7 +11,8 @@
   width: 100%;
   height: 300px;
   background-color: #2361ad;
-  background-image: url('/src/assets/puzzle-hand.jpg');
+  /* Remova a linha abaixo */
+  /* background-image: url('/src/assets/puzzle-hand.jpg'); */
   background-size: cover;
   background-position: center;
   margin-bottom: 30px;
