@@ -175,7 +175,9 @@ const Comunidade = () => {
               <h3>{user ? user.email || "Usuário" : "Visitante"}</h3>
               <p>{user ? "Complete seu perfil para conectar-se melhor" : "Faça login para participar da comunidade"}</p>
               {user ? (
-                <button className={styles.editProfileButton}>Editar Perfil</button>
+                <Link to="/profile">
+                  <button className={styles.editProfileButton}>Editar Perfil</button>
+                </Link>
               ) : (
                 <Link to="/login">
                   <button className={styles.editProfileButton}>Fazer Login</button>
