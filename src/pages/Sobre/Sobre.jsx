@@ -1,9 +1,5 @@
 import React from 'react'
 import styles from './Sobre.module.css'
-import grupoApoioImage from '../../assets/grupo-apoio.jpg'
-import neuropsicologaImage from '../../assets/neuropsicologa.jpg'
-import neuropediatraImage from '../../assets/neuropediatra.jpg'
-import terapeutaOcupacionalImage from '../../assets/terapeutaOcupacional.jpg'
 
 const Sobre = () => {
   return (
@@ -20,7 +16,7 @@ const Sobre = () => {
           <p>Nosso objetivo é proporcionar recursos de qualidade, promover a inclusão e contribuir para uma sociedade mais consciente e acolhedora.</p>
         </div>
         <div className={styles.missionImage}>
-          <img src={grupoApoioImage} alt="Mãos dadas em círculo" className={styles.imgApoio}/>
+          <img src="/src/assets/grupo-apoio.jpg" alt="Mãos dadas em círculo" className={styles.imgApoio}/>
         </div>
       </section>
 
@@ -51,27 +47,52 @@ const Sobre = () => {
         <div className={styles.teamMembers}>
           <div className={styles.teamMember}>
             <div className={styles.memberPhoto}>
-              <img src={neuropsicologaImage} alt="Neuropsicóloga" className={styles.membrosEquipe} />
+              <img src="/src/assets/pedrosouza.png" alt="Pedro H. A. Souza" className={styles.membrosEquipe} />
             </div>
-            <h3>Dra. Ana Silva</h3>
-            <p>Neuropsicóloga</p>
-            <p>Especialista em TEA</p>
+            <h3>Pedro H. A. Souza</h3>
+              <p>Estudante da Fatec Matão-Luiz Marchesan</p>
           </div>
           <div className={styles.teamMember}>
             <div className={styles.memberPhoto}>
-              <img src={neuropediatraImage} alt="Neuropediatra" className={styles.membrosEquipe}/>
+              <img src="/src/assets/igor.png" alt="Igor Ferreira da Silva" className={styles.membrosEquipe}/>
             </div>
-            <h3>Dr. Carlos Mendes</h3>
-            <p>Neuropediatra</p>
-            <p>Pesquisador em Neurodesenvolvimento</p>
+            <h3>Igor Ferreira da Silva</h3>
+              <p>Estudante da Fatec Matão-Luiz Marchesan</p>
           </div>
           <div className={styles.teamMember}>
             <div className={styles.memberPhoto}>
-              <img src={terapeutaOcupacionalImage} alt="Terapeuta Ocupacional" className={styles.membrosEquipe} />
+              <img src="/src/assets/matheus.png" alt="Matheus T. Benedito" className={styles.membrosEquipe} />
             </div>
-            <h3>Patrícia Oliveira</h3>
-            <p>Terapeuta Ocupacional</p>
-            <p>Especialista em Integração Sensorial</p>
+            <h3>Matheus T. Benedito</h3>
+              <p>Estudante da Fatec Matão-Luiz Marchesan</p>
+          </div>
+                <div className={styles.teamMember}>
+            <div className={styles.memberPhoto}>
+              <img src="/src/assets/geysa.png" alt="Geysa Ribeiro Toppan" className={styles.membrosEquipe}/>
+            </div>
+            <h3>Geysa Ribeiro Toppan</h3>
+              <p>Estudante da Fatec Matão-Luiz Marchesan</p>
+          </div>
+          <div className={styles.teamMember}>
+            <div className={styles.memberPhoto}>
+              <img src="/src/assets/pedrobachiega.png" alt="Pedro H. Bachiega" className={styles.membrosEquipe} />
+            </div>
+            <h3>Pedro H. Bachiega</h3>
+              <p>Estudante da Fatec Matão-Luiz Marchesan</p>
+          </div>
+                <div className={styles.teamMember}>
+            <div className={styles.memberPhoto}>
+              <img src="/src/assets/pedroscabelo.png" alt="Neuropediatra" className={styles.membrosEquipe}/>
+            </div>
+            <h3>Pedro H. Scabelo</h3>
+              <p>Estudante da Fatec Matão-Luiz Marchesan</p>
+          </div>
+          <div className={styles.teamMember}>
+            <div className={styles.memberPhoto}>
+              <img src="/src/assets/vitor.png" alt="Terapeuta Ocupacional" className={styles.membrosEquipe} />
+            </div>
+            <h3>Vitor H .B. Z. Silva</h3>
+              <p>Estudante da Fatec Matão-Luiz Marchesan</p>
           </div>
         </div>
       </section>
