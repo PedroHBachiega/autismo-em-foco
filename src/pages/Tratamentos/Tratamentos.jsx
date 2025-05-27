@@ -1,5 +1,9 @@
 import React from 'react'
 import styles from './Tratamentos.module.css'
+import abaImage from '../../assets/aba.jpg'
+import fonoaudiologiaImage from '../../assets/fonoaudiologia.jpg'
+import mulherAutistaImage from '../../assets/mulher-autista.jpg'
+import psicoterapiaImage from '../../assets/psicoterapia.jpg'
 
 const Tratamentos = () => {
   return (
@@ -19,7 +23,7 @@ const Tratamentos = () => {
           <h2>ABA (Análise do Comportamento Aplicada)</h2>
           <div className={styles.therapyContent}>
             <div className={styles.therapyImage}>
-              <img src="/src/assets/aba.jpg" alt="Método ABA" className={styles.imagemTerapias}/>
+              <img src={abaImage} alt="Método ABA" className={styles.imagemTerapias}/>
             </div>
             <div className={styles.therapyInfo}>
               <p>A ABA é uma abordagem baseada em evidências científicas que utiliza técnicas de modificação do comportamento para desenvolver habilidades importantes e reduzir comportamentos inadequados.</p>
@@ -38,7 +42,7 @@ const Tratamentos = () => {
           <h2>Fonoaudiologia</h2>
           <div className={styles.therapyContent}>
             <div className={styles.therapyImage}>
-              <img src="/src/assets/fonoaudiologia.jpg" alt="Fonoaudióloga" className={styles.imagemTerapias} />
+              <img src={fonoaudiologiaImage} alt="Fonoaudióloga" className={styles.imagemTerapias} />
             </div>
             <div className={styles.therapyInfo}>
               <p>A terapia fonoaudiológica trabalha o desenvolvimento da comunicação, linguagem e habilidades sociais, fundamentais para pessoas com TEA.</p>
@@ -57,7 +61,7 @@ const Tratamentos = () => {
           <h2>Terapia Ocupacional</h2>
           <div className={styles.therapyContent}>
             <div className={styles.therapyImage}>
-              <img src="/src/assets/mulher-autista.jpg" alt="Mulher autista" className={styles.imagemTerapias}/>
+              <img src={mulherAutistaImage} alt="Mulher autista" className={styles.imagemTerapias}/>
             </div>
             <div className={styles.therapyInfo}>
               <p>A Terapia Ocupacional auxilia no desenvolvimento de habilidades para a vida diária e na regulação sensorial, frequentemente alterada em pessoas com TEA.</p>
@@ -76,7 +80,7 @@ const Tratamentos = () => {
           <h2>Psicoterapia</h2>
           <div className={styles.therapyContent}>
             <div className={styles.therapyImage}>
-              <img src="/src/assets/psicoterapia.jpg" alt="Psicóloga" className={styles.imagemTerapias}/>
+              <img src={psicoterapiaImage} alt="Psicóloga" className={styles.imagemTerapias}/>
             </div>
             <div className={styles.therapyInfo}>
               <p>A psicoterapia, especialmente a Terapia Cognitivo-Comportamental adaptada, pode ajudar pessoas com TEA a lidar com ansiedade, depressão e desenvolver habilidades sociais.</p>

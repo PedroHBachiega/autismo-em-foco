@@ -1,12 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styles from './Home.module.css'
+import puzzleHandImage from '../../assets/puzzle-hand.jpg'
 
 const Home = () => {
   return (
     <div className={styles.container}>
       {/* Banner principal */}
-      <section className={styles.heroBanner}>
+      <section 
+        className={styles.heroBanner}
+        style={{ backgroundImage: `url(${puzzleHandImage})` }}
+      >
         <div className={styles.heroContent}>
           <div className={styles.heroTextBox}>
             <h2>Compreender Para Incluir</h2>
