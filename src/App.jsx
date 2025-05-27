@@ -20,6 +20,7 @@ import Eventos from './pages/Eventos/Eventos';
 import Agendamento from './pages/Agendamento/Agendamento';
 import CreatePost from './pages/CreatePost/CreatePost';
 import Post from './pages/Post/Post';
+import Profile from './pages/Profile/Profile'; // Importar a nova página de perfil
 
 // PrivateRoute para checar autenticação antes de renderizar certos componentes
 function PrivateRoute({ children }) {
@@ -124,6 +125,18 @@ export default function App() {
           <Layout>
             <PrivateRoute>
               <CreatePost />
+            </PrivateRoute>
+          </Layout>
+        }
+      />
+
+      {/* Nova rota para o perfil do usuário (privada) */}
+      <Route
+        path="/profile"
+        element={
+          <Layout>
+            <PrivateRoute>
+              <Profile />
             </PrivateRoute>
           </Layout>
         }

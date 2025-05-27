@@ -18,11 +18,16 @@ const Navbar = () => {
         <Link to="/agendamento" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Agendamento</Link>
         <Link to="/comunidade" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Comunidade</Link>
       </div>
-      <div>
+      <div className="flex items-center gap-4">
         {!user ? (
           <Link to="/login" className="bg-[#5c9ded] text-white rounded-lg px-5 py-1 font-bold text-base hover:bg-[#2361ad] hover:border hover:border-white transition-colors">Login</Link>
         ) : (
-          <button onClick={logout} className="bg-red-500 text-white rounded-lg px-5 py-1 font-bold text-base hover:bg-red-700 hover:border hover:border-white transition-colors">Logout</button>
+          <>
+            <Link to="/profile" className="text-white font-bold text-base hover:text-blue-200 transition-colors">
+              Perfil
+            </Link>
+            <button onClick={logout} className="bg-red-500 text-white rounded-lg px-5 py-1 font-bold text-base hover:bg-red-700 hover:border hover:border-white transition-colors">Logout</button>
+          </>
         )}
       </div>
     </nav>
