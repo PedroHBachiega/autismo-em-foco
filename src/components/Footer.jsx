@@ -1,6 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Footer.module.css';
+// Importar os ícones
+import facebookIcon from '../assets/facebook.png';
+import githubIcon from '../assets/github.png';
+import instagramIcon from '../assets/instagram.png';
 
 const Footer = () => {
   return (
@@ -20,13 +24,13 @@ const Footer = () => {
       
       <div className={styles.socialLinks}>
         <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className={styles.socialIcon}>
-          <img src="/src/assets/facebook.png" alt="Facebook" />
+          <img src={facebookIcon} alt="Facebook" />
         </a>
         <a href="https://github.com" target="_blank" rel="noopener noreferrer" className={styles.socialIcon}>
-          <img src="/src/assets/github.png" alt="GitHub" />
+          <img src={githubIcon} alt="GitHub" />
         </a>
         <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className={styles.socialIcon}>
-          <img src="/src/assets/instagram.png" alt="Instagram" />
+          <img src={instagramIcon} alt="Instagram" />
         </a>
       </div>
       
