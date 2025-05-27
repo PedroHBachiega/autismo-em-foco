@@ -82,14 +82,14 @@ const Sobre = () => {
           </div>
                 <div className={styles.teamMember}>
             <div className={styles.memberPhoto}>
-              <img src="/src/assets/pedroscabelo.png" alt="Neuropediatra" className={styles.membrosEquipe}/>
+              <img src="/src/assets/pedroscabelo.png" alt="Pedro H. Scabelo" className={styles.membrosEquipe}/>
             </div>
             <h3>Pedro H. Scabelo</h3>
               <p>Estudante da Fatec Matão-Luiz Marchesan</p>
           </div>
           <div className={styles.teamMember}>
             <div className={styles.memberPhoto}>
-              <img src="/src/assets/vitor.png" alt="Terapeuta Ocupacional" className={styles.membrosEquipe} />
+              <img src="/src/assets/vitor.png" alt="Vitor H .B. Z. Silva" className={styles.membrosEquipe} />
             </div>
             <h3>Vitor H .B. Z. Silva</h3>
               <p>Estudante da Fatec Matão-Luiz Marchesan</p>
