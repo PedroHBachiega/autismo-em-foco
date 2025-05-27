@@ -3,7 +3,7 @@ import styles from './Comunidade.module.css'
 import { Link } from 'react-router-dom'
 import { db } from '../../firebase/config'
 import { useAuthValue } from '../../context/AuthContext'
-import { useDeleteDocument } from '../../hooks/useDeleteDocument'
+import { useDeleteDocument } from '../../Hooks/useDeleteDocument'
 import { collection, getDocs, query, orderBy } from 'firebase/firestore'
 
 const Comunidade = () => {
