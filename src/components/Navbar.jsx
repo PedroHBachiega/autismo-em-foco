@@ -1,13 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuthentication } from '../Hooks/UseAuthentication';
+// Importar a logotipo
+import logotipoImage from '../assets/logotipo.png';
 
 const Navbar = () => {
   const { user, logout } = useAuthentication();
   return (
     <nav className="flex items-center justify-between bg-[#2361ad] px-8 py-2 h-14">
-      <div className="flex items-center font-bold text-white text-2xl font-[\'Arial Rounded MT Bold\']">
-        <img src="/src/assets/logotipo.png" alt="logotipo"  className="mx-auto w-28 h-auto" />
+      <div className="flex items-center font-bold text-white text-2xl font-[\"Arial Rounded MT Bold\"]">
+        <img src={logotipoImage} alt="logotipo" className="mx-auto w-28 h-auto" />
       </div>
       <div className="flex gap-4">
         <Link to="/" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Home</Link>
