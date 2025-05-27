@@ -1,6 +1,15 @@
 import React from 'react'
 import styles from './Sobre.module.css'
 
+import grupoApoioImg from '../../assets/grupo-apoio.jpg';
+import pedroSouzaImg from '../../assets/pedrosouza.png';
+import igorImg from '../../assets/igor.png';
+import matheusImg from '../../assets/matheus.png';
+import geysaImg from '../../assets/geysa.png';
+import pedroBachiegaImg from '../../assets/pedrobachiega.png';
+import pedroScabeloImg from '../../assets/pedroscabelo.png';
+import vitorImg from '../../assets/vitor.png';
+
 const Sobre = () => {
   return (
     <div className={styles.sobreContainer}>
@@ -16,7 +25,7 @@ const Sobre = () => {
           <p>Nosso objetivo é proporcionar recursos de qualidade, promover a inclusão e contribuir para uma sociedade mais consciente e acolhedora.</p>
         </div>
         <div className={styles.missionImage}>
-          <img src="/src/assets/grupo-apoio.jpg" alt="Mãos dadas em círculo" className={styles.imgApoio}/>
+          <img src={grupoApoioImg} alt="Mãos dadas em círculo" className={styles.imgApoio}/>
         </div>
       </section>
 
@@ -47,49 +56,49 @@ const Sobre = () => {
         <div className={styles.teamMembers}>
           <div className={styles.teamMember}>
             <div className={styles.memberPhoto}>
-              <img src="/src/assets/pedrosouza.png" alt="Pedro H. A. Souza" className={styles.membrosEquipe} />
+              <img src={pedroSouzaImg} alt="Pedro H. A. Souza" className={styles.membrosEquipe} />
             </div>
             <h3>Pedro H. A. Souza</h3>
               <p>Estudante da Fatec Matão-Luiz Marchesan</p>
           </div>
           <div className={styles.teamMember}>
             <div className={styles.memberPhoto}>
-              <img src="/src/assets/igor.png" alt="Igor Ferreira da Silva" className={styles.membrosEquipe}/>
+              <img src={igorImg} alt="Igor Ferreira da Silva" className={styles.membrosEquipe}/>
             </div>
             <h3>Igor Ferreira da Silva</h3>
               <p>Estudante da Fatec Matão-Luiz Marchesan</p>
           </div>
           <div className={styles.teamMember}>
             <div className={styles.memberPhoto}>
-              <img src="/src/assets/matheus.png" alt="Matheus T. Benedito" className={styles.membrosEquipe} />
+              <img src={matheusImg} alt="Matheus T. Benedito" className={styles.membrosEquipe} />
             </div>
             <h3>Matheus T. Benedito</h3>
               <p>Estudante da Fatec Matão-Luiz Marchesan</p>
           </div>
                 <div className={styles.teamMember}>
             <div className={styles.memberPhoto}>
-              <img src="/src/assets/geysa.png" alt="Geysa Ribeiro Toppan" className={styles.membrosEquipe}/>
+              <img src={geysaImg} alt="Geysa Ribeiro Toppan" className={styles.membrosEquipe}/>
             </div>
             <h3>Geysa Ribeiro Toppan</h3>
               <p>Estudante da Fatec Matão-Luiz Marchesan</p>
           </div>
           <div className={styles.teamMember}>
             <div className={styles.memberPhoto}>
-              <img src="/src/assets/pedrobachiega.png" alt="Pedro H. Bachiega" className={styles.membrosEquipe} />
+              <img src={pedroBachiegaImg}alt="Pedro H. Bachiega" className={styles.membrosEquipe} />
             </div>
             <h3>Pedro H. Bachiega</h3>
               <p>Estudante da Fatec Matão-Luiz Marchesan</p>
           </div>
                 <div className={styles.teamMember}>
             <div className={styles.memberPhoto}>
-              <img src="/src/assets/pedroscabelo.png" alt="Pedro H. Scabelo" className={styles.membrosEquipe}/>
+              <img src={pedroScabeloImg} alt="Pedro H. Scabelo" className={styles.membrosEquipe}/>
             </div>
             <h3>Pedro H. Scabelo</h3>
               <p>Estudante da Fatec Matão-Luiz Marchesan</p>
           </div>
           <div className={styles.teamMember}>
             <div className={styles.memberPhoto}>
-              <img src="/src/assets/vitor.png" alt="Vitor H .B. Z. Silva" className={styles.membrosEquipe} />
+              <img src={vitorImg } alt="Vitor H .B. Z. Silva" className={styles.membrosEquipe} />
             </div>
             <h3>Vitor H .B. Z. Silva</h3>
               <p>Estudante da Fatec Matão-Luiz Marchesan</p>
