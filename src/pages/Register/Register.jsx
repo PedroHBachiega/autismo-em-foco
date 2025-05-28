@@ -93,14 +93,16 @@ function Register() {
                 />
               </div>
               {error && <p className="text-red-500 text-sm text-center mt-2">{error}</p>}
-              <button 
-                className="mt-2 w-full p-2.5 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700 disabled:bg-blue-300 disabled:cursor-not-allowed" 
-                type="submit" 
+              <button
+                className="mt-2 w-full p-2.5 text-white rounded-md text-sm font-medium hover:brightness-110 disabled:bg-blue-300 disabled:cursor-not-allowed"
+                style={{ backgroundColor: '#2e5eaa' }}
+                type="submit"
                 disabled={loading}
               >
-                {loading ? "Criando conta..." : "Cadastrar"}
+                {loading ? "Entrando..." : "Entrar"}
               </button>
-              <GoogleButton 
+
+              <GoogleButton
                 onClick={handleGoogleRegister}
                 loading={loading}
                 text="Cadastrar com Google"
