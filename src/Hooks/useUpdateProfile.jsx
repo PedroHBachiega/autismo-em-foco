@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { db, auth } from '../firebase/config';
-import { doc, updateDoc } from 'firebase/firestore';
+import { doc, updateDoc, setDoc, getDoc } from 'firebase/firestore';
 import { updateProfile } from 'firebase/auth';
 
 export const useUpdateProfile = () => {
@@ -36,9 +36,21 @@ export const useUpdateProfile = () => {
         });
       }
 
-      // Atualiza os dados no Firestore
+      // Verifica se o documento do usuário existe
       const userDocRef = doc(db, 'users', user.uid);
-      await updateDoc(userDocRef, userData);
+      const docSnap = await getDoc(userDocRef);
+      
+      // Se o documento não existir, cria um novo
+      if (!docSnap.exists()) {
+        await setDoc(userDocRef, {
+          ...userData,
+          email: user.email,
+          createdAt: new Date()
+        });
+      } else {
+        // Se existir, atualiza o documento
+        await updateDoc(userDocRef, userData);
+      }
 
       checkCancelBeforeDispatch(() => {
         setSuccess(true);
