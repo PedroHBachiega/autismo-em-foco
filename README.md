@@ -4,7 +4,8 @@
 
 📸 Demonstração
 
-![{131D730E-973B-433E-B3A5-58A61ECDF235}](https://github.com/user-attachments/assets/f3b07004-08d9-4280-973a-9e4174b21b6d)
+![{08C1F458-CD5E-49B7-B360-D92BB92565C6}](https://github.com/user-attachments/assets/9a9b3fe2-c83a-4762-a70c-f0f6345a2f80)
+
 
 
 👥 Integrantes
@@ -68,6 +69,7 @@ Ficou interessado? Quer colaborar? Manda uma mensagem 🚀
 
 
 🌍 English Version
+
 📖 About the Project
 Autismo em Foco is an informative and collaborative platform about Autism Spectrum Disorder (ASD). Our goal is to provide reliable, updated, and accessible content about autism, as well as to offer a safe space for support, experience sharing, and cause strengthening.
 
