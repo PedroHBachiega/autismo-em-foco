@@ -169,11 +169,56 @@
 
 /* Responsividade */
 @media (max-width: 768px) {
+  .heroBanner {
+    height: 250px; /* Altura reduzida para mobile */
+  }
+  
   .heroTextBox {
-    max-width: 80%;
+    max-width: 90%;
+    padding: 15px;
+  }
+  
+  .heroTextBox h2 {
+    font-size: 0.8rem;
+  }
+  
+  .heroTextBox h1 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .heroButton {
+    padding: 6px 16px;
+    font-size: 0.85rem;
   }
   
   .infoCards {
     grid-template-columns: 1fr;
+  }
+}
+
+/* Adicione estilos para telas muito pequenas */
+@media (max-width: 480px) {
+  .heroBanner {
+    height: 220px;
+  }
+  
+  .heroTextBox {
+    max-width: 95%;
+    padding: 12px;
+  }
+  
+  .heroTextBox h2 {
+    font-size: 0.75rem;
+  }
+  
+  .heroTextBox h1 {
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+  }
+  
+  .heroButton {
+    padding: 5px 14px;
+    font-size: 0.8rem;
   }
 }
