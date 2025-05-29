@@ -59,7 +59,9 @@ npm install
 # Configure as variáveis de ambiente do Firebase
 
 # Inicie o servidor de desenvolvimento
+
 npm run dev
+
 📌 Observações
 Este projeto é parte de um trabalho interdisciplinar da Fatec Matão, com o objetivo de promover informação, inclusão e apoio à comunidade autista e seus familiares.
 
@@ -74,6 +76,7 @@ Ficou interessado? Quer colaborar? Manda uma mensagem 🚀
 Autismo em Foco is an informative and collaborative platform about Autism Spectrum Disorder (ASD). Our goal is to provide reliable, updated, and accessible content about autism, as well as to offer a safe space for support, experience sharing, and cause strengthening.
 
 🎯 Features
+
 📚 Autism Information: Educational content, laws, rights, treatments, and events.
 
 🗣️ Community: A space for families and friends to share experiences and advice.
@@ -107,5 +110,6 @@ npm install
 
 # Start the development server
 npm run dev
+
 📌 Note
 This project is part of an interdisciplinary work from Fatec Matão, aimed at promoting information, inclusion, and support for the autistic community and their families.
