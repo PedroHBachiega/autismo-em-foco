@@ -6,6 +6,9 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 // Context & Auth (somente para consumir o contexto, não para prover)
 import { useAuthValue } from './context/AuthContext';
 
+// Adicione esta importação junto com as outras importações de páginas
+import RecuperarSenha from './pages/RecuperarSenha/RecuperarSenha';
+
 // Layout & Pages
 import Layout from './Layout';
 import Home from './pages/Home/Home';
@@ -151,9 +154,19 @@ export default function App() {
           </Layout>
         }
       />
+      
 
       {/* Catch-all: qualquer rota não mapeada redireciona para "/" */}
       <Route path="*" element={<Navigate to="/" replace />} />
+      // Adicione esta rota junto com as outras rotas públicas
+      <Route
+        path="/recuperar-senha"
+        element={
+          <Layout>
+            <RecuperarSenha />
+          </Layout>
+        }
+      />
     </Routes>
   );
 }
