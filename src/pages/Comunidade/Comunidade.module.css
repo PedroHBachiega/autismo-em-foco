@@ -393,3 +393,66 @@
     font-size: 2rem;
   }
 }
+
+
+.liked {
+  color: #ff4757;
+  font-weight: bold;
+}
+
+.commentsSection {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.comment {
+  padding: 8px 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.comment:last-child {
+  border-bottom: none;
+}
+
+.commentHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+  font-size: 0.9em;
+}
+
+.commentForm {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.commentForm textarea {
+  padding: 8px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  resize: vertical;
+  margin-bottom: 8px;
+}
+
+.commentButton {
+  align-self: flex-end;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.commentButton:hover {
+  background-color: #45a049;
+}
+
+.commentButton:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}

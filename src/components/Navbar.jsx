@@ -3,13 +3,18 @@ import { Link } from 'react-router-dom';
 import { useAuthentication } from '../Hooks/UseAuthentication';
 // Importar a logotipo
 import logotipoImage from '../assets/logotipo.png';
+import MobileNavbar from './MobileNavbar';
 
 const Navbar = () => {
   const { user, logout } = useAuthentication();
-  return (
+  
+  // Componente para desktop
+  const DesktopNavbar = () => (
     <nav className="flex items-center justify-between bg-[#2361ad] px-8 py-2 h-14">
       <div className="flex items-center font-bold text-white text-2xl font-['Arial Rounded MT Bold']">
-        <img src={logotipoImage} alt="logotipo" className="mx-auto w-28 h-auto" />
+        <Link to="/">
+          <img src={logotipoImage} alt="logotipo" className="mx-auto w-28 h-auto" />
+        </Link>
       </div>
       <div className="flex gap-4">
         <Link to="/" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Home</Link>
@@ -33,6 +38,18 @@ const Navbar = () => {
         )}
       </div>
     </nav>
+  );
+
+  return (
+    <>
+      {/* Mostrar navbar mobile em telas pequenas e navbar desktop em telas maiores */}
+      <div className="block md:hidden">
+        <MobileNavbar />
+      </div>
+      <div className="hidden md:block">
+        <DesktopNavbar />
+      </div>
+    </>
   );
 };
 
