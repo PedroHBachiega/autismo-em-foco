@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { db } from '../../firebase/config'
 import { useAuthValue } from '../../context/AuthContext'
 import { useDeleteDocument } from '../../Hooks/useDeleteDocument'
+import { useUpdateDocument } from '../../Hooks/useUpdateDocument'
 import { collection, getDocs, query, orderBy } from 'firebase/firestore'
 
 const Comunidade = () => {
@@ -12,8 +13,11 @@ const Comunidade = () => {
   const [fetchedPosts, setFetchedPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [fetchError, setFetchError] = useState(null);
+  const [commentText, setCommentText] = useState("");
+  const [activeCommentPost, setActiveCommentPost] = useState(null);
 
   const { deleteDocument } = useDeleteDocument("posts");
+  const { toggleLike, addComment, loading: updateLoading } = useUpdateDocument("posts");
 
   useEffect(() => {
     let isMounted = true;
@@ -54,7 +58,43 @@ const Comunidade = () => {
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [updateLoading]); // Recarregar quando houver atualizações
+
+  // Função para lidar com likes
+  const handleLike = async (postId) => {
+    if (!user) {
+      alert("Você precisa estar logado para curtir posts");
+      return;
+    }
+    await toggleLike(postId, uid);
+  };
+
+  // Função para mostrar/esconder o formulário de comentário
+  const toggleCommentForm = (postId) => {
+    if (activeCommentPost === postId) {
+      setActiveCommentPost(null);
+    } else {
+      setActiveCommentPost(postId);
+      setCommentText("");
+    }
+  };
+
+  // Função para enviar comentário
+  const handleAddComment = async (postId) => {
+    if (!user) {
+      alert("Você precisa estar logado para comentar");
+      return;
+    }
+    
+    if (!commentText.trim()) {
+      alert("O comentário não pode estar vazio");
+      return;
+    }
+    
+    await addComment(postId, uid, user.displayName || user.email, commentText);
+    setCommentText("");
+    setActiveCommentPost(null);
+  };
 
   // Dados simulados para os grupos da comunidade
   const groups = [
@@ -151,16 +191,55 @@ const Comunidade = () => {
                     ))}
                   </div>
                   <div className={styles.postActions}>
-                    <button className={styles.actionButton}>
-                      ❤️ 0
+                    <button 
+                      className={`${styles.actionButton} ${post.likes?.includes(uid) ? styles.liked : ""}`}
+                      onClick={() => handleLike(post.id)}
+                      disabled={updateLoading}
+                    >
+                      ❤️ {post.likes?.length || 0}
                     </button>
-                    <button className={styles.actionButton}>
-                      💬 0
-                    </button>
-                    <button className={styles.actionButton}>
-                      🔗 Compartilhar
+                    <button 
+                      className={styles.actionButton}
+                      onClick={() => toggleCommentForm(post.id)}
+                    >
+                      💬 {post.comments?.length || 0}
                     </button>
                   </div>
+                  
+                  {/* Exibir comentários existentes */}
+                  {post.comments && post.comments.length > 0 && (
+                    <div className={styles.commentsSection}>
+                      <h5>Comentários:</h5>
+                      {post.comments.map((comment, index) => (
+                        <div key={index} className={styles.comment}>
+                          <div className={styles.commentHeader}>
+                            <strong>{comment.userName}</strong>
+                            <span>{comment.createdAt?.toDate().toLocaleDateString('pt-BR')}</span>
+                          </div>
+                          <p>{comment.text}</p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  
+                  {/* Formulário de comentário */}
+                  {activeCommentPost === post.id && (
+                    <div className={styles.commentForm}>
+                      <textarea
+                        value={commentText}
+                        onChange={(e) => setCommentText(e.target.value)}
+                        placeholder="Escreva seu comentário..."
+                        rows="3"
+                      />
+                      <button 
+                        onClick={() => handleAddComment(post.id)}
+                        disabled={updateLoading}
+                        className={styles.commentButton}
+                      >
+                        Enviar
+                      </button>
+                    </div>
+                  )}
                 </div>
               ))
             }

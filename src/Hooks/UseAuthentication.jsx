@@ -4,7 +4,8 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   onAuthStateChanged,
-  GoogleAuthProvider
+  GoogleAuthProvider,
+  sendPasswordResetEmail
 } from "firebase/auth";
 import { auth } from "../firebase/config";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -50,11 +51,33 @@ export function useAuthentication() {
     navigate("/Login", { replace: true });
   };
 
-  // 4) Observa estado de auth e faz guard de rota
+  // 4) Redefinição de senha
+  const resetPassword = async (email) => {
+    setLoading(true);
+    setError(null);
+    try {
+      await sendPasswordResetEmail(auth, email);
+      return true;
+    } catch (err) {
+      console.error(err);
+      if (err.code === "auth/user-not-found") {
+        setError("Email não encontrado.");
+      } else if (err.code === "auth/invalid-email") {
+        setError("Email inválido.");
+      } else {
+        setError("Ocorreu um erro ao enviar o email de redefinição.");
+      }
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // 5) Observa estado de auth e faz guard de rota
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (u) => {
       setUser(u);
-      const publicPaths = ["/login", "/register", "/sobreautismo", "/leisedireitos", "/eventos", "/tratamentos", "/sobre"];
+      const publicPaths = ["/login", "/register", "/sobreautismo", "/leisedireitos", "/eventos", "/tratamentos", "/sobre", "/recuperar-senha"];
       if (!u && !publicPaths.includes(pathname)) {
         navigate("/", { replace: true });
       }
@@ -72,6 +95,7 @@ export function useAuthentication() {
     error,
     login,
     loginWithGoogle,
-    logout
+    logout,
+    resetPassword
   };
 }

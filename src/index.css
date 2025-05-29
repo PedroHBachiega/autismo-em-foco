@@ -1,1 +1,15 @@
 @import "tailwindcss";
+
+/* Prevenir scroll horizontal */
+html, body {
+  overflow-x: hidden;
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  touch-action: pan-y;
+}
+
+#root {
+  overflow-x: hidden;
+  width: 100%;
+}
