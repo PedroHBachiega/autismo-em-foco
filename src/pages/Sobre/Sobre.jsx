@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './Sobre.module.css'
 
 import grupoApoioImg from '../../assets/grupo-apoio.jpg';
@@ -11,6 +11,51 @@ import pedroScabeloImg from '../../assets/pedroscabelo.png';
 import vitorImg from '../../assets/vitor.png';
 
 const Sobre = () => {
+  const [missao, setMissao] = useState([]);
+  const [valores, setValores] = useState([]);
+  const [equipe, setEquipe] = useState([]);
+
+  useEffect(() => {
+    const dadosMissao = [
+      "O Autismo em Foco nasceu da necessidade de criar um espaço de apoio, informação e conexão para famílias e pessoas com Transtorno do Espectro Autista (TEA). Nosso objetivo é proporcionar recursos de qualidade, promover a inclusão e contribuir para uma sociedade mais consciente e acolhedora."
+    ];
+
+    const dadosValores = [
+      { 
+        titulo: 'Respeito',
+        texto: 'Valorizamos a neurodiversidade e respeitamos as características individuais de cada pessoa.'
+      },
+      {
+        titulo: 'Inclusão',
+        texto: 'Trabalhamos para promover uma sociedade inclusiva, onde todos possam participar plenamente.'
+      },
+      {
+        titulo: 'Informação',
+        texto: 'Compartilhamos conhecimento baseado em evidências científicas e experiências reais.'
+      },
+      {
+        titulo: 'Comunidade',
+        texto: 'Acreditamos no poder da conexão e do apoio mútuo entre famílias e profissionais.'
+      }
+    ];
+
+
+    const dadosEquipe = [
+      {nome: 'Pedro H. A. Souza', imagem: pedroSouzaImg},
+      {nome: 'Igor Ferreira da Silva', imagem: igorImg},
+      {nome: 'Matheus Tamine Benedito', imagem: matheusImg},
+      {nome: 'Geysa Ribeiro Toppan', imagem: geysaImg},
+      {nome: 'Pedro H. Bachiega', imagem: pedroBachiegaImg},
+      {nome: 'Pedro H. Scabelo', imagem: pedroScabeloImg},
+      {nome: 'Vitor H. B. Z. Silva', imagem: vitorImg},
+    
+    ];
+
+    setMissao(dadosMissao);
+    setValores(dadosValores);
+    setEquipe(dadosEquipe);
+  }, []);
+
   return (
     <div className={styles.sobreContainer}>
       <section className={styles.header}>
@@ -21,9 +66,11 @@ const Sobre = () => {
       <section className={styles.mission}>
         <div className={styles.missionContent}>
           <h2>Nossa Missão</h2>
-          <p>O Autismo em Foco nasceu da necessidade de criar um espaço de apoio, informação e conexão para famílias e pessoas com Transtorno do Espectro Autista (TEA).</p>
-          <p>Nosso objetivo é proporcionar recursos de qualidade, promover a inclusão e contribuir para uma sociedade mais consciente e acolhedora.</p>
+          {missao.map((item,index) => (
+              <p key={index}>{item}</p>
+          )) }
         </div>
+
         <div className={styles.missionImage}>
           <img src={grupoApoioImg} alt="Mãos dadas em círculo" className={styles.imgApoio}/>
         </div>
@@ -32,79 +79,29 @@ const Sobre = () => {
       <section className={styles.values}>
         <h2>Nossos Valores</h2>
         <div className={styles.valuesList}>
-          <div className={styles.valueItem}>
-            <h3>Respeito</h3>
-            <p>Valorizamos a neurodiversidade e respeitamos as características individuais de cada pessoa.</p>
+          {valores.map((valor,index) => (
+          <div className={styles.valueItem} key={index}>
+            <h3>{valor.titulo}</h3>
+            <p>{valor.texto}</p>
           </div>
-          <div className={styles.valueItem}>
-            <h3>Inclusão</h3>
-            <p>Trabalhamos para promover uma sociedade inclusiva, onde todos possam participar plenamente.</p>
+          ))} 
           </div>
-          <div className={styles.valueItem}>
-            <h3>Informação</h3>
-            <p>Compartilhamos conhecimento baseado em evidências científicas e experiências reais.</p>
-          </div>
-          <div className={styles.valueItem}>
-            <h3>Comunidade</h3>
-            <p>Acreditamos no poder da conexão e do apoio mútuo entre famílias e profissionais.</p>
-          </div>
-        </div>
-      </section>
+          </section>
 
       <section className={styles.team}>
         <h2>Nossa Equipe</h2>
         <div className={styles.teamMembers}>
-          <div className={styles.teamMember}>
+          {equipe.map((membro, index) => (
+          <div className={styles.teamMember} key={index}>
             <div className={styles.memberPhoto}>
-              <img src={pedroSouzaImg} alt="Pedro H. A. Souza" className={styles.membrosEquipe} />
+              <img src={membro.imagem} alt={membro.nome} className={styles.membrosEquipe} />
             </div>
-            <h3>Pedro H. A. Souza</h3>
+            <h3>{membro.nome}</h3>
               <p>Estudante da Fatec Matão-Luiz Marchesan</p>
           </div>
-          <div className={styles.teamMember}>
-            <div className={styles.memberPhoto}>
-              <img src={igorImg} alt="Igor Ferreira da Silva" className={styles.membrosEquipe}/>
-            </div>
-            <h3>Igor Ferreira da Silva</h3>
-              <p>Estudante da Fatec Matão-Luiz Marchesan</p>
+          ))}
           </div>
-          <div className={styles.teamMember}>
-            <div className={styles.memberPhoto}>
-              <img src={matheusImg} alt="Matheus T. Benedito" className={styles.membrosEquipe} />
-            </div>
-            <h3>Matheus T. Benedito</h3>
-              <p>Estudante da Fatec Matão-Luiz Marchesan</p>
-          </div>
-                <div className={styles.teamMember}>
-            <div className={styles.memberPhoto}>
-              <img src={geysaImg} alt="Geysa Ribeiro Toppan" className={styles.membrosEquipe}/>
-            </div>
-            <h3>Geysa Ribeiro Toppan</h3>
-              <p>Estudante da Fatec Matão-Luiz Marchesan</p>
-          </div>
-          <div className={styles.teamMember}>
-            <div className={styles.memberPhoto}>
-              <img src={pedroBachiegaImg}alt="Pedro H. Bachiega" className={styles.membrosEquipe} />
-            </div>
-            <h3>Pedro H. Bachiega</h3>
-              <p>Estudante da Fatec Matão-Luiz Marchesan</p>
-          </div>
-                <div className={styles.teamMember}>
-            <div className={styles.memberPhoto}>
-              <img src={pedroScabeloImg} alt="Pedro H. Scabelo" className={styles.membrosEquipe}/>
-            </div>
-            <h3>Pedro H. Scabelo</h3>
-              <p>Estudante da Fatec Matão-Luiz Marchesan</p>
-          </div>
-          <div className={styles.teamMember}>
-            <div className={styles.memberPhoto}>
-              <img src={vitorImg } alt="Vitor H .B. Z. Silva" className={styles.membrosEquipe} />
-            </div>
-            <h3>Vitor H .B. Z. Silva</h3>
-              <p>Estudante da Fatec Matão-Luiz Marchesan</p>
-          </div>
-        </div>
-      </section>
+          </section>
 
       <section className={styles.contact}>
         <h2>Entre em Contato</h2>
@@ -129,7 +126,7 @@ const Sobre = () => {
         </div>
       </section>
     </div>
-  )
-}
+  );
+};
 
 export default Sobre

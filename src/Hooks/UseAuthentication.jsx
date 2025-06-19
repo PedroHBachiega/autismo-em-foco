@@ -27,6 +27,7 @@ export function useAuthentication() {
       await signInWithEmailAndPassword(auth, email, password);
       navigate("/", { replace: true });
     } catch (err) {
+      console.error(err); 
       setError("Email ou senha inválidos.");
     }
     setLoading(false);
@@ -40,6 +41,7 @@ export function useAuthentication() {
       await signInWithPopup(auth, googleProvider);
       navigate("/", { replace: true });
     } catch (err) {
+      console.error(err); // <-- Adicionado
       setError("Falha no login Google.");
     }
     setLoading(false);
@@ -81,10 +83,7 @@ export function useAuthentication() {
       if (!u && !publicPaths.includes(pathname)) {
         navigate("/", { replace: true });
       }
-      // opcional: se user logado e estiver em /login ou /register, manda pro home
-      // if (u && publicPaths.includes(pathname)) {
-      // navigate("/", { replace: true });
-      // }
+
     });
     return () => unsub();
   }, [navigate, pathname]);
