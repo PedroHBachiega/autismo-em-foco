@@ -67,7 +67,7 @@ const Comunidade = () => {
       return;
     }
     await toggleLike(postId, uid);
-  };
+    };
 
   // Função para mostrar/esconder o formulário de comentário
   const toggleCommentForm = (postId) => {
@@ -147,7 +147,12 @@ const Comunidade = () => {
           </div>
 
           <div className={styles.postsList}>
-            {isLoading && <p className={styles.loadingMessage}>Carregando posts...</p>}
+            {isLoading && (
+              <div className={styles.loadingSpinner}>
+                <div className={styles.spinner}></div> <br />
+                <p className={styles.loadingMessage}>Carregando posts...</p>
+              </div>
+            )}
             {fetchError && <p className={styles.errorMessage}>{fetchError}</p>}
             
             {!isLoading && !fetchError && fetchedPosts.length === 0 && (
