@@ -9,7 +9,7 @@ import styles from './Profile.module.css';
 const Profile = () => {
   const { user } = useAuthValue();
   const navigate = useNavigate();
-  const [userData, setUserData] = useState(null);
+  const [setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
     displayName: '',
