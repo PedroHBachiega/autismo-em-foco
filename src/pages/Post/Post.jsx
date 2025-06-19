@@ -37,20 +37,20 @@ const Post = () => {
     }, [id])
 
     return (
-        <div className={styles.post_container}>
+        <div className="post-container">
             {loading && <p>Carregando post...</p>}
-            {error && <p className={styles.error}>{error}</p>}
+            {error && <p className="error">{error}</p>}
             {post && (
                 <>
                     <h1>{post.title}</h1>
-                    <div className={styles.post_author}>
+                    <div className="post-author">
                         <p>por {post.createdBy}</p>
                     </div>
-                    <div className={styles.post_content}>
+                    <div className="post-content">
                         <p>{post.body}</p>
                     </div>
                     {post.tags && (
-                        <div className={styles.tags}>
+                        <div className="tags">
                             {post.tags.map((tag) => (
                                 <span key={tag}>#{tag}</span>
                             ))}
