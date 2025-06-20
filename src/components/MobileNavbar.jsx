@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuthentication } from '../Hooks/UseAuthentication';
+import { useAuthValue } from '../context/AuthContext';
 import logotipoImage from '../assets/logotipo.png';
 
 const MobileNavbar = () => {
   const { user, logout } = useAuthentication();
+  const { userProfile } = useAuthValue();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const isAdmin = userProfile?.userType === 'admin';
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -25,12 +29,10 @@ const MobileNavbar = () => {
           aria-label="Menu"
         >
           {isMenuOpen ? (
-            // Ícone X quando o menu está aberto
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           ) : (
-            // Ícone de hambúrguer quando o menu está fechado
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
             </svg>
@@ -38,61 +40,29 @@ const MobileNavbar = () => {
         </button>
       </div>
 
-      {/* Menu dropdown */}
       {isMenuOpen && (
         <div className="absolute top-full left-0 right-0 bg-[#2361ad] shadow-lg z-50 transition-all duration-300 ease-in-out">
           <div className="flex flex-col py-2 px-4 space-y-3">
-            <Link 
-              to="/" 
-              className="text-white font-bold text-base hover:text-blue-200 transition-colors py-2"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Home
-            </Link>
-            <Link 
-              to="/sobreautismo" 
-              className="text-white font-bold text-base hover:text-blue-200 transition-colors py-2"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              O que é o autismo?
-            </Link>
-            <Link 
-              to="/leisedireitos" 
-              className="text-white font-bold text-base hover:text-blue-200 transition-colors py-2"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Leis e direitos
-            </Link>
-            <Link 
-              to="/eventos" 
-              className="text-white font-bold text-base hover:text-blue-200 transition-colors py-2"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Eventos
-            </Link>
-            <Link 
-              to="/tratamentos" 
-              className="text-white font-bold text-base hover:text-blue-200 transition-colors py-2"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Tratamento
-            </Link>
-            <Link 
-              to="/agendamento" 
-              className="text-white font-bold text-base hover:text-blue-200 transition-colors py-2"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Agendamento
-            </Link>
-            <Link 
-              to="/comunidade" 
-              className="text-white font-bold text-base hover:text-blue-200 transition-colors py-2"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Comunidade
-            </Link>
-            
-            {/* Botões de autenticação */}
+            {/* Links baseados no tipo de usuário */}
+            {isAdmin ? (
+              <>
+                <Link to="/" onClick={() => setIsMenuOpen(false)} className="text-white font-bold text-base hover:text-blue-200 transition-colors py-2">Home</Link>
+                <Link to="/comunidade" onClick={() => setIsMenuOpen(false)} className="text-white font-bold text-base hover:text-blue-200 transition-colors py-2">Comunidade</Link>
+                <Link to="/admin" onClick={() => setIsMenuOpen(false)} className="text-white font-bold text-base hover:text-blue-200 transition-colors py-2">Painel Admin</Link>
+              </>
+            ) : (
+              <>
+                <Link to="/" onClick={() => setIsMenuOpen(false)} className="text-white font-bold text-base hover:text-blue-200 transition-colors py-2">Home</Link>
+                <Link to="/sobreautismo" onClick={() => setIsMenuOpen(false)} className="text-white font-bold text-base hover:text-blue-200 transition-colors py-2">O que é o autismo?</Link>
+                <Link to="/leisedireitos" onClick={() => setIsMenuOpen(false)} className="text-white font-bold text-base hover:text-blue-200 transition-colors py-2">Leis e direitos</Link>
+                <Link to="/eventos" onClick={() => setIsMenuOpen(false)} className="text-white font-bold text-base hover:text-blue-200 transition-colors py-2">Eventos</Link>
+                <Link to="/tratamentos" onClick={() => setIsMenuOpen(false)} className="text-white font-bold text-base hover:text-blue-200 transition-colors py-2">Tratamento</Link>
+                <Link to="/agendamento" onClick={() => setIsMenuOpen(false)} className="text-white font-bold text-base hover:text-blue-200 transition-colors py-2">Agendamento</Link>
+                <Link to="/comunidade" onClick={() => setIsMenuOpen(false)} className="text-white font-bold text-base hover:text-blue-200 transition-colors py-2">Comunidade</Link>
+              </>
+            )}
+
+            {/* Login/Logout */}
             <div className="pt-2 border-t border-blue-400">
               {!user ? (
                 <Link 

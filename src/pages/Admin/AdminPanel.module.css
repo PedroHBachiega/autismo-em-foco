@@ -1,0 +1,90 @@
+.adminPanel {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .adminPanel h1 {
+    font-size: 2rem;
+    color: #2e5eaa;
+    margin-bottom: 20px;
+  }
+  
+  .usersSection {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+  }
+  
+  .usersSection h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .usersTable {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .usersTable th,
+  .usersTable td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .usersTable th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .usersTable tr:hover {
+    background-color: #f8f9fa;
+  }
+  
+  .typeSelect {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    background-color: white;
+    cursor: pointer;
+  }
+  
+  .typeSelect:focus {
+    outline: none;
+    border-color: #2e5eaa;
+    box-shadow: 0 0 0 2px rgba(46, 94, 170, 0.2);
+  }
+  
+  .loading {
+    text-align: center;
+    padding: 40px;
+    font-size: 1.2rem;
+    color: #666;
+  }
+  
+  .error {
+    text-align: center;
+    padding: 20px;
+    background-color: #fff1f0;
+    border: 1px solid #ffccc7;
+    border-radius: 8px;
+    color: #cf1322;
+    margin: 20px 0;
+  }
+  
+  .profileBadge {
+    display: inline-block;
+    padding: 4px 10px;
+    background-color: #2e5eaa;
+    color: white;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    margin-left: 10px;
+  }

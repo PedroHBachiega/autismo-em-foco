@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { auth, db } from "../../firebase/config";
 import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { setDoc, doc } from "firebase/firestore";
+// Adicione esta importação no topo do arquivo, junto com as outras importações
+import { setDoc, doc, getDoc } from "firebase/firestore";
 import { useNavigate, Link } from "react-router-dom";
 import GoogleButton from "../../components/GoogleButton";
 
@@ -10,6 +11,7 @@ function Register() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [userType, setUserType] = useState("usuario"); // Novo estado para tipo de usuário
 
   const navigate = useNavigate();
 
@@ -28,8 +30,10 @@ function Register() {
       await setDoc(doc(db, "users", user.uid), {
         email: user.email,
         createdAt: new Date(),
+        userType: userType, // Adicionando o tipo de usuário
+        isProfileComplete: false,
       });
-      navigate("/home");
+      navigate("/");
     } catch (err) {
       console.error("Erro ao criar conta:", err);
       setError("Erro ao criar conta: " + err.message);
@@ -45,11 +49,22 @@ function Register() {
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      await setDoc(doc(db, "users", user.uid), {
-        email: user.email,
-        createdAt: new Date(),
-      });
-      navigate("/home");
+      
+      // Verificar se o usuário já existe
+      const userDocRef = doc(db, "users", user.uid);
+      const userDoc = await getDoc(userDocRef);
+      
+      if (!userDoc.exists()) {
+        // Se não existir, criar com o tipo selecionado
+        await setDoc(userDocRef, {
+          email: user.email,
+          createdAt: new Date(),
+          userType: userType, // Adicionando o tipo de usuário
+          isProfileComplete: false,
+        });
+      }
+      
+      navigate("/");
     } catch (err) {
       console.error("Erro no login com Google:", err);
       setError("Erro ao autenticar com Google: " + err.message);
@@ -58,7 +73,7 @@ function Register() {
   };
 
   return (
-    <div className="min-h-screen  p-12 sm:p-6 flex justify-center items-start font-sans">
+    <div className="min-h-screen p-12 sm:p-6 flex justify-center items-start font-sans">
       <div className="w-full max-w-lg">
         <div className="flex justify-between items-center mb-8"></div>
         <div className="bg-white rounded-xl shadow-lg overflow-hidden animate-fadeIn border border-gray-200">
@@ -92,6 +107,21 @@ function Register() {
                   required
                 />
               </div>
+              
+              {/* Seleção de tipo de usuário */}
+              <div className="flex flex-col gap-2">
+                <label htmlFor="userType" className="text-sm font-medium text-gray-700">Tipo de Conta</label>
+                <select
+                  id="userType"
+                  value={userType}
+                  onChange={(e) => setUserType(e.target.value)}
+                  className="w-full p-2.5 border border-gray-300 rounded-md text-sm text-gray-900 bg-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+                >
+                  <option value="usuario">Usuário</option>
+                  <option value="profissional">Profissional</option>
+                </select>
+              </div>
+              
               {error && <p className="text-red-500 text-sm text-center mt-2">{error}</p>}
               <button
                 className="mt-2 w-full p-2.5 text-white rounded-md text-sm font-medium hover:brightness-110 disabled:bg-blue-300 disabled:cursor-not-allowed"

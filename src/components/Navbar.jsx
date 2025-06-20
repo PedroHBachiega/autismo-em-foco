@@ -1,14 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuthentication } from '../Hooks/UseAuthentication';
-// Importar a logotipo
+import { useAuthValue } from '../context/AuthContext'; // ⬅️ Pega o userProfile aqui
 import logotipoImage from '../assets/logotipo.png';
 import MobileNavbar from './MobileNavbar';
 
 const Navbar = () => {
   const { user, logout } = useAuthentication();
-  
-  // Componente para desktop
+  const { userProfile } = useAuthValue(); // ⬅️ userType está aqui
+
+  const isAdmin = userProfile?.userType === 'admin';
+
   const DesktopNavbar = () => (
     <nav className="flex items-center justify-between bg-[#2361ad] px-8 py-2 h-14">
       <div className="flex items-center font-bold text-white text-2xl font-['Arial Rounded MT Bold']">
@@ -16,15 +18,27 @@ const Navbar = () => {
           <img src={logotipoImage} alt="logotipo" className="mx-auto w-28 h-auto" />
         </Link>
       </div>
+
       <div className="flex gap-4">
-        <Link to="/" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Home</Link>
-        <Link to="/sobreautismo" className="text-white font-bold text-base hover:text-blue-200 transition-colors">O que é o autismo?</Link>
-        <Link to="/leisedireitos" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Leis e direitos</Link>
-        <Link to="/eventos" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Eventos</Link>
-        <Link to="/tratamentos" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Tratamento</Link>
-        <Link to="/agendamento" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Agendamento</Link>
-        <Link to="/comunidade" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Comunidade</Link>
+        {isAdmin ? (
+          <>
+            <Link to="/" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Home</Link>
+            <Link to="/comunidade" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Comunidade</Link>
+            <Link to="/admin" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Painel Admin</Link>
+          </>
+        ) : (
+          <>
+            <Link to="/" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Home</Link>
+            <Link to="/sobreautismo" className="text-white font-bold text-base hover:text-blue-200 transition-colors">O que é o autismo?</Link>
+            <Link to="/leisedireitos" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Leis e direitos</Link>
+            <Link to="/eventos" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Eventos</Link>
+            <Link to="/tratamentos" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Tratamento</Link>
+            <Link to="/agendamento" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Agendamento</Link>
+            <Link to="/comunidade" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Comunidade</Link>
+          </>
+        )}
       </div>
+
       <div className="flex items-center gap-4">
         {!user ? (
           <Link to="/login" className="bg-[#5c9ded] text-white rounded-lg px-5 py-1 font-bold text-base hover:bg-[#2361ad] hover:border hover:border-white transition-colors">Login</Link>
@@ -42,7 +56,6 @@ const Navbar = () => {
 
   return (
     <>
-      {/* Mostrar navbar mobile em telas pequenas e navbar desktop em telas maiores */}
       <div className="block md:hidden">
         <MobileNavbar />
       </div>

@@ -7,16 +7,21 @@ import { useUpdateProfile } from '../../Hooks/useUpdateProfile';
 import styles from './Profile.module.css';
 
 const Profile = () => {
-  const { user } = useAuthValue();
+  const { user, userProfile } = useAuthValue();
   const navigate = useNavigate();
-  const [setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
     displayName: '',
     bio: '',
     telefone: '',
     cidade: '',
-    estado: ''
+    estado: '',
+    // Campos específicos para profissionais
+    especialidade: '',
+    registroProfissional: '',
+    experienciaAutismo: '',
+    atendimentoOnline: false,
+    atendimentoPresencial: false
   });
   const [isEditing, setIsEditing] = useState(false);
   const { updateUserProfile, loading: updateLoading, error: updateError, success } = useUpdateProfile();
@@ -38,13 +43,18 @@ const Profile = () => {
           
           if (userDoc.exists()) {
             const data = userDoc.data();
-            setUserData(data);
             setFormData({
               displayName: user.displayName || '',
               bio: data.bio || '',
               telefone: data.telefone || '',
               cidade: data.cidade || '',
-              estado: data.estado || ''
+              estado: data.estado || '',
+              // Campos específicos para profissionais
+              especialidade: data.especialidade || '',
+              registroProfissional: data.registroProfissional || '',
+              experienciaAutismo: data.experienciaAutismo || '',
+              atendimentoOnline: data.atendimentoOnline || false,
+              atendimentoPresencial: data.atendimentoPresencial || false
             });
           }
         } catch (error) {
@@ -56,19 +66,23 @@ const Profile = () => {
     };
 
     fetchUserData();
-  }, [user, success, setUserData]);
+  }, [user, success]);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: type === 'checkbox' ? checked : value
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await updateUserProfile(formData);
+    const updatedData = {
+      ...formData,
+      isProfileComplete: true
+    };
+    await updateUserProfile(updatedData);
     if (success) {
       setIsEditing(false);
     }
@@ -89,6 +103,12 @@ const Profile = () => {
           {user?.displayName ? user.displayName[0].toUpperCase() : user?.email[0].toUpperCase()}
         </div>
         <h1>{user?.displayName || 'Perfil do Usuário'}</h1>
+        {userProfile?.userType === 'profissional' && (
+          <span className={styles.profileBadge}>Profissional</span>
+        )}
+        {userProfile?.userType === 'admin' && (
+          <span className={styles.profileBadge}>Administrador</span>
+        )}
       </div>
 
       {!isEditing ? (
@@ -101,6 +121,19 @@ const Profile = () => {
             <p><strong>Telefone:</strong> {formData.telefone || 'Não informado'}</p>
             <p><strong>Cidade:</strong> {formData.cidade || 'Não informada'}</p>
             <p><strong>Estado:</strong> {formData.estado || 'Não informado'}</p>
+            
+            {/* Informações específicas para profissionais */}
+            {userProfile?.userType === 'profissional' && (
+              <div className={styles.professionalInfo}>
+                <h3>Informações Profissionais</h3>
+                <p><strong>Especialidade:</strong> {formData.especialidade || 'Não informada'}</p>
+                <p><strong>Registro Profissional:</strong> {formData.registroProfissional || 'Não informado'}</p>
+                <p><strong>Experiência com Autismo:</strong> {formData.experienciaAutismo || 'Não informada'}</p>
+                <p><strong>Atendimento Online:</strong> {formData.atendimentoOnline ? 'Sim' : 'Não'}</p>
+                <p><strong>Atendimento Presencial:</strong> {formData.atendimentoPresencial ? 'Sim' : 'Não'}</p>
+              </div>
+            )}
+            
             <button 
               className={styles.editButton}
               onClick={() => setIsEditing(true)}
@@ -168,6 +201,69 @@ const Profile = () => {
                 placeholder="Seu estado"
               />
             </div>
+            
+            {/* Campos específicos para profissionais */}
+            {userProfile?.userType === 'profissional' && (
+              <>
+                <h3 className={styles.formSectionTitle}>Informações Profissionais</h3>
+                <div className={styles.formGroup}>
+                  <label htmlFor="especialidade">Especialidade</label>
+                  <input
+                    type="text"
+                    id="especialidade"
+                    name="especialidade"
+                    value={formData.especialidade}
+                    onChange={handleChange}
+                    placeholder="Sua especialidade"
+                  />
+                </div>
+                <div className={styles.formGroup}>
+                  <label htmlFor="registroProfissional">Registro Profissional</label>
+                  <input
+                    type="text"
+                    id="registroProfissional"
+                    name="registroProfissional"
+                    value={formData.registroProfissional}
+                    onChange={handleChange}
+                    placeholder="Seu registro profissional"
+                  />
+                </div>
+                <div className={styles.formGroup}>
+                  <label htmlFor="experienciaAutismo">Experiência com Autismo</label>
+                  <textarea
+                    id="experienciaAutismo"
+                    name="experienciaAutismo"
+                    value={formData.experienciaAutismo}
+                    onChange={handleChange}
+                    placeholder="Descreva sua experiência com autismo"
+                    rows="4"
+                  ></textarea>
+                </div>
+                <div className={styles.checkboxGroup}>
+                  <div className={styles.checkboxItem}>
+                    <input
+                      type="checkbox"
+                      id="atendimentoOnline"
+                      name="atendimentoOnline"
+                      checked={formData.atendimentoOnline}
+                      onChange={handleChange}
+                    />
+                    <label htmlFor="atendimentoOnline">Atendimento Online</label>
+                  </div>
+                  <div className={styles.checkboxItem}>
+                    <input
+                      type="checkbox"
+                      id="atendimentoPresencial"
+                      name="atendimentoPresencial"
+                      checked={formData.atendimentoPresencial}
+                      onChange={handleChange}
+                    />
+                    <label htmlFor="atendimentoPresencial">Atendimento Presencial</label>
+                  </div>
+                </div>
+              </>
+            )}
+            
             {updateError && <p className={styles.error}>{updateError}</p>}
             <div className={styles.formButtons}>
               <button 
