@@ -1,12 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuthentication } from '../Hooks/UseAuthentication';
+
 import { useAuthValue } from '../context/AuthContext'; // ⬅️ Pega o userProfile aqui
+
 import logotipoImage from '../assets/logotipo.png';
 import MobileNavbar from './MobileNavbar';
 
 const Navbar = () => {
   const { user, logout } = useAuthentication();
+
   const { userProfile } = useAuthValue(); // ⬅️ userType está aqui
 
   const isAdmin = userProfile?.userType === 'admin';
@@ -20,6 +23,7 @@ const Navbar = () => {
       </div>
 
       <div className="flex gap-4">
+
         {isAdmin ? (
           <>
             <Link to="/" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Home</Link>
@@ -38,7 +42,6 @@ const Navbar = () => {
           </>
         )}
       </div>
-
       <div className="flex items-center gap-4">
         {!user ? (
           <Link to="/login" className="bg-[#5c9ded] text-white rounded-lg px-5 py-1 font-bold text-base hover:bg-[#2361ad] hover:border hover:border-white transition-colors">Login</Link>
@@ -56,6 +59,7 @@ const Navbar = () => {
 
   return (
     <>
+
       <div className="block md:hidden">
         <MobileNavbar />
       </div>
@@ -66,4 +70,6 @@ const Navbar = () => {
   );
 };
 
+
 export default Navbar;
+

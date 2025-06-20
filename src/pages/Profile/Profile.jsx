@@ -7,14 +7,17 @@ import { useUpdateProfile } from '../../Hooks/useUpdateProfile';
 import styles from './Profile.module.css';
 
 const Profile = () => {
+
   const { user, userProfile } = useAuthValue();
   const navigate = useNavigate();
+
   const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
     displayName: '',
     bio: '',
     telefone: '',
     cidade: '',
+
     estado: '',
     // Campos específicos para profissionais
     especialidade: '',
@@ -22,6 +25,7 @@ const Profile = () => {
     experienciaAutismo: '',
     atendimentoOnline: false,
     atendimentoPresencial: false
+
   });
   const [isEditing, setIsEditing] = useState(false);
   const { updateUserProfile, loading: updateLoading, error: updateError, success } = useUpdateProfile();
@@ -43,11 +47,13 @@ const Profile = () => {
           
           if (userDoc.exists()) {
             const data = userDoc.data();
+
             setFormData({
               displayName: user.displayName || '',
               bio: data.bio || '',
               telefone: data.telefone || '',
               cidade: data.cidade || '',
+
               estado: data.estado || '',
               // Campos específicos para profissionais
               especialidade: data.especialidade || '',
@@ -55,6 +61,7 @@ const Profile = () => {
               experienciaAutismo: data.experienciaAutismo || '',
               atendimentoOnline: data.atendimentoOnline || false,
               atendimentoPresencial: data.atendimentoPresencial || false
+
             });
           }
         } catch (error) {
@@ -66,6 +73,7 @@ const Profile = () => {
     };
 
     fetchUserData();
+
   }, [user, success]);
 
   const handleChange = (e) => {
@@ -73,16 +81,19 @@ const Profile = () => {
     setFormData(prev => ({
       ...prev,
       [name]: type === 'checkbox' ? checked : value
+
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const updatedData = {
       ...formData,
       isProfileComplete: true
     };
     await updateUserProfile(updatedData);
+
     if (success) {
       setIsEditing(false);
     }
@@ -103,12 +114,14 @@ const Profile = () => {
           {user?.displayName ? user.displayName[0].toUpperCase() : user?.email[0].toUpperCase()}
         </div>
         <h1>{user?.displayName || 'Perfil do Usuário'}</h1>
+
         {userProfile?.userType === 'profissional' && (
           <span className={styles.profileBadge}>Profissional</span>
         )}
         {userProfile?.userType === 'admin' && (
           <span className={styles.profileBadge}>Administrador</span>
         )}
+
       </div>
 
       {!isEditing ? (
@@ -121,6 +134,7 @@ const Profile = () => {
             <p><strong>Telefone:</strong> {formData.telefone || 'Não informado'}</p>
             <p><strong>Cidade:</strong> {formData.cidade || 'Não informada'}</p>
             <p><strong>Estado:</strong> {formData.estado || 'Não informado'}</p>
+
             
             {/* Informações específicas para profissionais */}
             {userProfile?.userType === 'profissional' && (
@@ -133,7 +147,7 @@ const Profile = () => {
                 <p><strong>Atendimento Presencial:</strong> {formData.atendimentoPresencial ? 'Sim' : 'Não'}</p>
               </div>
             )}
-            
+
             <button 
               className={styles.editButton}
               onClick={() => setIsEditing(true)}
@@ -201,6 +215,7 @@ const Profile = () => {
                 placeholder="Seu estado"
               />
             </div>
+
             
             {/* Campos específicos para profissionais */}
             {userProfile?.userType === 'profissional' && (
@@ -263,7 +278,7 @@ const Profile = () => {
                 </div>
               </>
             )}
-            
+
             {updateError && <p className={styles.error}>{updateError}</p>}
             <div className={styles.formButtons}>
               <button 

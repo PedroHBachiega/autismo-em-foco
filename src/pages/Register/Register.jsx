@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { auth, db } from "../../firebase/config";
 import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+
 // Adicione esta importação no topo do arquivo, junto com as outras importações
 import { setDoc, doc, getDoc } from "firebase/firestore";
+
 import { useNavigate, Link } from "react-router-dom";
 import GoogleButton from "../../components/GoogleButton";
 
@@ -12,7 +14,6 @@ function Register() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [userType, setUserType] = useState("usuario"); // Novo estado para tipo de usuário
-
   const navigate = useNavigate();
 
   // Registro com Email e Senha
@@ -30,10 +31,12 @@ function Register() {
       await setDoc(doc(db, "users", user.uid), {
         email: user.email,
         createdAt: new Date(),
+
         userType: userType, // Adicionando o tipo de usuário
         isProfileComplete: false,
       });
       navigate("/");
+
     } catch (err) {
       console.error("Erro ao criar conta:", err);
       setError("Erro ao criar conta: " + err.message);
@@ -49,6 +52,7 @@ function Register() {
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
+
       
       // Verificar se o usuário já existe
       const userDocRef = doc(db, "users", user.uid);
@@ -65,6 +69,7 @@ function Register() {
       }
       
       navigate("/");
+
     } catch (err) {
       console.error("Erro no login com Google:", err);
       setError("Erro ao autenticar com Google: " + err.message);
@@ -73,7 +78,9 @@ function Register() {
   };
 
   return (
+
     <div className="min-h-screen p-12 sm:p-6 flex justify-center items-start font-sans">
+
       <div className="w-full max-w-lg">
         <div className="flex justify-between items-center mb-8"></div>
         <div className="bg-white rounded-xl shadow-lg overflow-hidden animate-fadeIn border border-gray-200">
@@ -151,4 +158,6 @@ function Register() {
   );
 }
 
+
 export default Register;
+

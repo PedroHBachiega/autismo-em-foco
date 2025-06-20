@@ -1,4 +1,4 @@
-// src/context/AuthContext.jsx
+
 import React, { createContext, useContext } from 'react'
 import { useAuthentication } from '../hooks/useAuthentication'
 
@@ -13,6 +13,7 @@ export function AuthProvider({ children }) {
         <p className="text-lg">Carregando sessão…</p>
       </div>
     )
+
   }
 
   return (
@@ -24,4 +25,5 @@ export function AuthProvider({ children }) {
 
 export function useAuthValue() {
   return useContext(AuthContext)
+
 }
