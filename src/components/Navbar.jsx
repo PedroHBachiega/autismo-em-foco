@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useAuthentication } from '../Hooks/UseAuthentication';
+import { useAuthentication } from '../hooks/useAuthentication';
 import { useAuthValue } from '../context/AuthContext'; // ⬅️ Pega o userProfile aqui
 import logotipoImage from '../assets/logotipo.png';
 import MobileNavbar from './MobileNavbar';
@@ -34,6 +34,7 @@ const Navbar = () => {
             <Link to="/eventos" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Eventos</Link>
             <Link to="/tratamentos" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Tratamento</Link>
             <Link to="/agendamento" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Agendamento</Link>
+            <Link to="/meus-agendamentos" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Meus agendamentos</Link>
             <Link to="/comunidade" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Comunidade</Link>
           </>
         )}

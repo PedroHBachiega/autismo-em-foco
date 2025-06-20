@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useAuthentication } from '../Hooks/UseAuthentication';
+import { useAuthentication } from '../hooks/useAuthentication';
 import { useAuthValue } from '../context/AuthContext';
 import logotipoImage from '../assets/logotipo.png';
 
@@ -58,6 +58,7 @@ const MobileNavbar = () => {
                 <Link to="/eventos" onClick={() => setIsMenuOpen(false)} className="text-white font-bold text-base hover:text-blue-200 transition-colors py-2">Eventos</Link>
                 <Link to="/tratamentos" onClick={() => setIsMenuOpen(false)} className="text-white font-bold text-base hover:text-blue-200 transition-colors py-2">Tratamento</Link>
                 <Link to="/agendamento" onClick={() => setIsMenuOpen(false)} className="text-white font-bold text-base hover:text-blue-200 transition-colors py-2">Agendamento</Link>
+                <Link to="/meus-agendamentos" onClick={() => setIsMenuOpen(false)} className="text-white font-bold text-base hover:text-blue-200 transition-colors py-2">Meus agendamentos</Link>
                 <Link to="/comunidade" onClick={() => setIsMenuOpen(false)} className="text-white font-bold text-base hover:text-blue-200 transition-colors py-2">Comunidade</Link>
               </>
             )}

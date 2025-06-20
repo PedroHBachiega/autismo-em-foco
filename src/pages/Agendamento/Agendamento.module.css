@@ -217,6 +217,126 @@
   background-color: #1d4b8f;
 }
 
+.scheduleFormSection {
+  margin-bottom: 60px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 30px;
+}
+
+.scheduleFormSection h2 {
+  text-align: center;
+  font-size: 1.8rem;
+  color: #2e5eaa;
+  margin-bottom: 25px;
+}
+
+.scheduleFormContainer {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.scheduleForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.formActions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.cancelButton {
+  background-color: #f1f1f1;
+  color: #333;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.cancelButton:hover {
+  background-color: #e0e0e0;
+}
+
+.confirmButton {
+  background-color: #2e5eaa;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.confirmButton:hover {
+  background-color: #1d4b8f;
+}
+
+.confirmButton:disabled {
+  background-color: #a0a0a0;
+  cursor: not-allowed;
+}
+
+.successMessage {
+  text-align: center;
+  padding: 20px;
+}
+
+.successMessage h3 {
+  color: #28a745;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+}
+
+.successMessage p {
+  margin-bottom: 15px;
+  color: #555;
+}
+
+.primaryButton {
+  background-color: #2e5eaa;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 20px;
+}
+
+.primaryButton:hover {
+  background-color: #1d4b8f;
+}
+
+.errorMessage {
+  color: #dc3545;
+  font-weight: 500;
+  padding: 10px;
+  background-color: #f8d7da;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.infoMessage {
+  color: #0c5460;
+  font-weight: 500;
+  padding: 10px;
+  background-color: #d1ecf1;
+  border-radius: 5px;
+  text-align: center;
+}
+
 @media (max-width: 768px) {
   .header {
     padding: 40px 15px;
@@ -233,5 +353,20 @@
   
   .resultsGrid {
     grid-template-columns: 1fr;
+  }
+  
+  .scheduleFormContainer {
+    padding: 20px;
+  }
+  
+  .formActions {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .cancelButton,
+  .confirmButton,
+  .primaryButton {
+    width: 100%;
   }
 }

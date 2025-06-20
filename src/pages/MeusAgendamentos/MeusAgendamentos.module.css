@@ -1,0 +1,350 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.header {
+  text-align: center;
+  padding: 60px 20px;
+  background-color: #f0f7ff;
+  border-radius: 10px;
+  margin-bottom: 40px;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  color: #2e5eaa;
+  margin-bottom: 15px;
+}
+
+.header p {
+  font-size: 1.1rem;
+  color: #555;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.notLoggedIn {
+  text-align: center;
+  padding: 40px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  margin-bottom: 40px;
+}
+
+.notLoggedIn h2 {
+  font-size: 1.8rem;
+  color: #2e5eaa;
+  margin-bottom: 15px;
+}
+
+.notLoggedIn p {
+  color: #555;
+  margin-bottom: 25px;
+}
+
+.loginButton {
+  display: inline-block;
+  background-color: #2e5eaa;
+  color: white;
+  padding: 12px 30px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.loginButton:hover {
+  background-color: #1d4b8f;
+}
+
+.agendamentosContainer {
+  margin-bottom: 60px;
+}
+
+.loading {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #555;
+  padding: 40px;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 40px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+}
+
+.emptyState h2 {
+  font-size: 1.8rem;
+  color: #2e5eaa;
+  margin-bottom: 15px;
+}
+
+.emptyState p {
+  color: #555;
+  margin-bottom: 25px;
+}
+
+.scheduleButton {
+  display: inline-block;
+  background-color: #2e5eaa;
+  color: white;
+  padding: 12px 30px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.scheduleButton:hover {
+  background-color: #1d4b8f;
+}
+
+.agendamentosSection {
+  margin-bottom: 40px;
+}
+
+.agendamentosSection h2 {
+  font-size: 1.8rem;
+  color: #2e5eaa;
+  margin-bottom: 25px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e6f2ff;
+}
+
+.agendamentosGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 30px;
+}
+
+.agendamentoCard {
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.agendamentoCard:hover {
+  transform: translateY(-5px);
+}
+
+.cardHeader {
+  padding: 15px;
+  background-color: #f0f7ff;
+  border-bottom: 1px solid #e6f2ff;
+}
+
+.statusBadge {
+  display: inline-block;
+  background-color: #28a745;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.canceledBadge {
+  background-color: #dc3545;
+}
+
+.completedBadge {
+  background-color: #6c757d;
+}
+
+.cardBody {
+  padding: 20px;
+}
+
+.cardBody h3 {
+  font-size: 1.3rem;
+  color: #2e5eaa;
+  margin-bottom: 10px;
+}
+
+.especialidade {
+  display: inline-block;
+  background-color: #e6f2ff;
+  color: #2e5eaa;
+  padding: 5px 10px;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  margin-bottom: 15px;
+}
+
+.agendamentoInfo {
+  margin-bottom: 15px;
+}
+
+.agendamentoInfo p {
+  color: #555;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.agendamentoInfo p span:first-child {
+  font-size: 1.2rem;
+}
+
+.cardFooter {
+  padding: 15px 20px;
+  border-top: 1px solid #e6f2ff;
+  display: flex;
+  justify-content: center;
+}
+
+.cancelButton {
+  width: 100%;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.cancelButton:hover {
+  background-color: #c82333;
+}
+
+.rescheduleButton {
+  display: block;
+  width: 100%;
+  background-color: #2e5eaa;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-align: center;
+  text-decoration: none;
+}
+
+.rescheduleButton:hover {
+  background-color: #1d4b8f;
+}
+
+.canceledCard {
+  opacity: 0.8;
+}
+
+.completedCard {
+  opacity: 0.8;
+}
+
+.successMessage {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* Modal Styles */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background-color: white;
+  border-radius: 10px;
+  padding: 30px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.modal h3 {
+  font-size: 1.5rem;
+  color: #2e5eaa;
+  margin-bottom: 15px;
+}
+
+.modal p {
+  color: #555;
+  margin-bottom: 25px;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modalCancelButton {
+  background-color: #f1f1f1;
+  color: #333;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.modalCancelButton:hover {
+  background-color: #e0e0e0;
+}
+
+.modalConfirmButton {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.modalConfirmButton:hover {
+  background-color: #c82333;
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 40px 15px;
+  }
+  
+  .header h1 {
+    font-size: 2rem;
+  }
+  
+  .agendamentosGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .modalActions {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .modalCancelButton,
+  .modalConfirmButton {
+    width: 100%;
+  }
+}
