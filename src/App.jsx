@@ -18,6 +18,7 @@ import Comunidade from './pages/Comunidade/Comunidade';
 import CreatePost from './pages/CreatePost/CreatePost';
 import Post from './pages/Post/Post';
 import Agendamento from './pages/Agendamento/Agendamento';
+import MeusAgendamentos from './pages/MeusAgendamentos/MeusAgendamentos';
 import AdminPanel from './pages/Admin/AdminPanel';
 
 // Componente de proteção de rota
@@ -64,7 +65,11 @@ function App() {
             <Agendamento />
           </ProtectedRoute>
         } />
-        
+        <Route path="meus-agendamentos" element={
+          <ProtectedRoute>
+            <MeusAgendamentos />
+          </ProtectedRoute>
+        } />
         {/* Rotas protegidas para administradores */}
         <Route path="admin" element={
           <ProtectedRoute allowedRoles={['admin']}>

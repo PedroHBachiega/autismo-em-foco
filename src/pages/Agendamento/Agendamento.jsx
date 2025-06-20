@@ -1,11 +1,25 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './Agendamento.module.css'
+import { useAuthValue } from '../../context/AuthContext'
+import { useInsertDocument } from '../../Hooks/useInsertDocument'
+import { useFetchDocuments } from '../../Hooks/useFetchDocuments'
 
 const Agendamento = () => {
   const [especialidade, setEspecialidade] = useState('');
   const [cidade, setCidade] = useState('');
   const [bairro, setBairro] = useState('');
   const [showResults, setShowResults] = useState(false);
+  const [selectedProfessional, setSelectedProfessional] = useState(null);
+  const [showScheduleForm, setShowScheduleForm] = useState(false);
+  const [selectedDate, setSelectedDate] = useState('');
+  const [selectedTime, setSelectedTime] = useState('');
+  const [availableTimes, setAvailableTimes] = useState([]);
+  const [message, setMessage] = useState('');
+  const [scheduleSuccess, setScheduleSuccess] = useState(false);
+  
+  const { user } = useAuthValue();
+  const { insertDocument, response } = useInsertDocument('agendamentos');
+  const { documents: existingAppointments } = useFetchDocuments('agendamentos');
 
   // Dados simulados de profissionais
   const profissionais = [
@@ -17,7 +31,8 @@ const Agendamento = () => {
       cidade: "São Paulo",
       telefone: "(11) 3456-7890",
       avaliacao: 4.9,
-      imagem: "https://placehold.co/600x400/2361ad/FFF?text=Profissional"
+      imagem: "https://placehold.co/600x400/2361ad/FFF?text=Profissional",
+      horarios: ["09:00", "10:00", "11:00", "14:00", "15:00", "16:00"]
     },
     {
       id: 2,
@@ -27,7 +42,8 @@ const Agendamento = () => {
       cidade: "São Paulo",
       telefone: "(11) 2345-6789",
       avaliacao: 4.8,
-      imagem: "https://placehold.co/600x400/2361ad/FFF?text=Profissional"
+      imagem: "https://placehold.co/600x400/2361ad/FFF?text=Profissional",
+      horarios: ["08:00", "09:00", "10:00", "13:00", "14:00", "15:00"]
     },
     {
       id: 3,
@@ -37,7 +53,8 @@ const Agendamento = () => {
       cidade: "São Paulo",
       telefone: "(11) 3333-4444",
       avaliacao: 4.7,
-      imagem: "https://placehold.co/600x400/2361ad/FFF?text=Clínica"
+      imagem: "https://placehold.co/600x400/2361ad/FFF?text=Clínica",
+      horarios: ["08:00", "09:00", "10:00", "11:00", "13:00", "14:00", "15:00", "16:00", "17:00"]
     }
   ];
 
@@ -45,6 +62,86 @@ const Agendamento = () => {
     e.preventDefault();
     setShowResults(true);
     // Aqui seria implementada a lógica de busca real
+  };
+
+  const handleScheduleClick = (profissional) => {
+    setSelectedProfessional(profissional);
+    setShowScheduleForm(true);
+    setSelectedDate('');
+    setSelectedTime('');
+    setAvailableTimes([]);
+    setMessage('');
+    setScheduleSuccess(false);
+  };
+
+  const getMinDate = () => {
+    const today = new Date();
+    return today.toISOString().split('T')[0];
+  };
+
+  const getMaxDate = () => {
+    const futureDate = new Date();
+    futureDate.setMonth(futureDate.getMonth() + 3);
+    return futureDate.toISOString().split('T')[0];
+  };
+
+  useEffect(() => {
+    if (selectedDate && selectedProfessional) {
+      const booked = existingAppointments?.filter(app => 
+        app.profissionalId === selectedProfessional.id && 
+        app.data === selectedDate
+      ).map(app => app.horario) || [];
+      
+      const available = selectedProfessional.horarios.filter(h => !booked.includes(h));
+      setAvailableTimes(available);
+      setMessage(available.length === 0 ? 'Não há horários disponíveis para esta data.' : '');
+    }
+  }, [selectedDate, selectedProfessional, existingAppointments]);
+
+  const isWeekend = (date) => [0, 6].includes(new Date(date).getDay());
+
+  const handleDateChange = (e) => {
+    const date = e.target.value;
+    setSelectedDate(date);
+    setSelectedTime('');
+    
+    if (isWeekend(date)) {
+      setMessage('Não há atendimentos nos finais de semana.');
+      setAvailableTimes([]);
+    } else {
+      setMessage('');
+    }
+  };
+
+  const handleScheduleSubmit = (e) => {
+    e.preventDefault();
+    
+    if (!user) {
+      setMessage('Você precisa estar logado para agendar uma consulta.');
+      return;
+    }
+    
+    if (!selectedDate || !selectedTime) {
+      setMessage('Por favor, selecione uma data e horário.');
+      return;
+    }
+    
+    const agendamento = {
+      uid: user.uid,
+      userName: user.displayName || user.email,
+      userEmail: user.email,
+      profissionalId: selectedProfessional.id,
+      profissionalNome: selectedProfessional.nome,
+      especialidade: selectedProfessional.especialidade,
+      data: selectedDate,
+      horario: selectedTime,
+      status: 'agendado',
+      createdAt: new Date()
+    };
+    
+    insertDocument(agendamento);
+    setScheduleSuccess(true);
+    setMessage('Consulta agendada com sucesso!');
   };
 
   return (
@@ -120,10 +217,88 @@ const Agendamento = () => {
                     <p><span>📞</span> <span>{profissional.telefone}</span></p>
                     <p><span>⭐</span> <span>{profissional.avaliacao} (avaliação)</span></p>
                   </div>
-                  <button className={styles.scheduleButton}>Agendar Consulta</button>
+                  <button 
+                    className={styles.scheduleButton}
+                    onClick={() => handleScheduleClick(profissional)}
+                  >
+                    Agendar Consulta
+                  </button>
                 </div>
               </div>
             ))}
+          </div>
+        </section>
+      )}
+
+      {showScheduleForm && selectedProfessional && (
+        <section className={styles.scheduleFormSection}>
+          <h2>Agendar Consulta com {selectedProfessional.nome}</h2>
+          <div className={styles.scheduleFormContainer}>
+            {scheduleSuccess ? (
+              <div className={styles.successMessage}>
+                <h3>Agendamento realizado com sucesso!</h3>
+                <p>Você agendou uma consulta com {selectedProfessional.nome} para o dia {selectedDate} às {selectedTime}.</p>
+                <p>Você pode visualizar seus agendamentos na página "Meus Agendamentos".</p>
+                <button 
+                  className={styles.primaryButton}
+                  onClick={() => setShowScheduleForm(false)}
+                >
+                  Voltar para a busca
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleScheduleSubmit} className={styles.scheduleForm}>
+                <div className={styles.formGroup}>
+                  <label htmlFor="date">Data da Consulta</label>
+                  <input 
+                    type="date" 
+                    id="date" 
+                    value={selectedDate}
+                    onChange={handleDateChange}
+                    min={getMinDate()}
+                    max={getMaxDate()}
+                    required
+                  />
+                </div>
+                
+                {selectedDate && !isWeekend(selectedDate) && (
+                  <div className={styles.formGroup}>
+                    <label htmlFor="time">Horário da Consulta</label>
+                    <select 
+                      id="time" 
+                      value={selectedTime}
+                      onChange={(e) => setSelectedTime(e.target.value)}
+                      required
+                      disabled={availableTimes.length === 0}
+                    >
+                      <option value="">Selecione um horário</option>
+                      {availableTimes.map((time) => (
+                        <option key={time} value={time}>{time}</option>
+                      ))}
+                    </select>
+                  </div>
+                )}
+                
+                {message && <p className={response.error ? styles.errorMessage : styles.infoMessage}>{message}</p>}
+                
+                <div className={styles.formActions}>
+                  <button 
+                    type="button" 
+                    className={styles.cancelButton}
+                    onClick={() => setShowScheduleForm(false)}
+                  >
+                    Cancelar
+                  </button>
+                  <button 
+                    type="submit" 
+                    className={styles.confirmButton}
+                    disabled={!selectedDate || !selectedTime || response.loading}
+                  >
+                    {response.loading ? 'Agendando...' : 'Confirmar Agendamento'}
+                  </button>
+                </div>
+              </form>
+            )}
           </div>
         </section>
       )}
