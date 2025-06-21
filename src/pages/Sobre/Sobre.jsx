@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styles from './Sobre.module.css'
+import Faq from '../../components/Faq/Faq';
 
 import grupoApoioImg from '../../assets/grupo-apoio.jpg';
 import pedroSouzaImg from '../../assets/pedrosouza.png';
@@ -102,7 +103,7 @@ const Sobre = () => {
           ))}
           </div>
           </section>
-
+          <Faq />
       <section className={styles.contact}>
         <h2>Entre em Contato</h2>
         <p>Estamos à disposição para esclarecer dúvidas e receber sugestões.</p>
@@ -125,6 +126,7 @@ const Sobre = () => {
           </div>
         </div>
       </section>
+          
     </div>
   );
 };

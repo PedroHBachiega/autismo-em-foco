@@ -1,0 +1,52 @@
+.faqContainer {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.faqTitulo {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: #2361ad;
+}
+
+.faqItem {
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 0.5rem;
+}
+
+.faqPergunta {
+    background: none;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: bold;
+    padding: 0.75rem;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    color: #333;
+}
+
+.faqIcon {
+    transition: transform 0.3s ease;
+}
+
+.aberta {
+    transform: rotate(180deg);
+}
+
+.faqResposta {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4 ease, padding 0.3s;
+    padding: 0 0.75rem;
+    color: #444;
+}
+
+.mostrar {
+    max-height: 300px;
+    padding: 0.75rem;
+}
