@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import styles from './Faq.module.css';
 import { FaChevronDown } from 'react-icons/fa';
 
+/*Perguntas Frequentes*/
+
 const faqData = [
     {
         pergunta: "O que é o Transtorno do Espectro Autista (TEA) ?",
