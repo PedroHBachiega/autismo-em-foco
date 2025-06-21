@@ -42,10 +42,22 @@ const PostCard = ({
           </button>
         )}
       </div>
+
       <div className={styles.postContent}>
         <h4>{post.title}</h4>
         <p>{post.body}</p>
       </div>
+
+      {post.imageUrl && (
+        <div className={styles.   postImageWrapper}>
+          <img 
+            src={post.imageUrl} 
+            alt="Imagem do post" 
+            className={styles.postImage}            
+            />
+         </div>
+      )}
+
       <div className={styles.postTags}>
         {post.tags && post.tags.map(tag => (
           <span key={tag} className={styles.tag}>#{tag}</span>
