@@ -14,7 +14,8 @@ const PostCard = ({
   activeCommentPost,
   commentText,
   setCommentText,
-  handleAddComment
+  handleAddComment,
+  handleEditComment={handleEditComment}
 }) => {
   return (
     <div className={styles.postCard}>
@@ -80,7 +81,12 @@ const PostCard = ({
       </div>
       
       {/* Exibir comentários existentes */}
-      <CommentList comments={post.comments} />
+      <CommentList 
+        comments={post.comments} 
+        uid={uid}
+        onEditComment={(comment, newText) => handleEditComment(post.id, comment, newText)}
+        updateLoading={updateLoading}
+      />
       
       {/* Formulário de comentário */}
       {activeCommentPost === post.id && (

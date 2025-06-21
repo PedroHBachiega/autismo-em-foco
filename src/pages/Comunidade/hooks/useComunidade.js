@@ -15,7 +15,7 @@ export const useComunidade = () => {
   const [activeCommentPost, setActiveCommentPost] = useState(null);
 
   const { deleteDocument } = useDeleteDocument("posts");
-  const { toggleLike, addComment, loading: updateLoading } = useUpdateDocument("posts");
+  const { toggleLike, addComment, editComment, loading: updateLoading } = useUpdateDocument("posts");
 
   useEffect(() => {
     let isMounted = true;
@@ -94,6 +94,11 @@ export const useComunidade = () => {
     setActiveCommentPost(null);
   };
 
+  // Função para editar comentário
+  const handleEditComment = async (postId, comment, newText) => {
+    await editComment(postId, uid, comment.createdAt, newText);
+  };
+
   // Dados simulados para os grupos da comunidade
   const groups = [
     {
@@ -136,6 +141,7 @@ export const useComunidade = () => {
     handleLike,
     toggleCommentForm,
     handleAddComment,
+    handleEditComment, // <-- Adicione esta linha
     groups
   };
 };

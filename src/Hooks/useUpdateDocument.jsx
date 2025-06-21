@@ -114,9 +114,47 @@ export const useUpdateDocument = (docCollection) => {
     }
   };
 
+  // Função para editar comentários
+  const editComment = async (postId, userId, originalCreatedAt, newText) => {
+    if (!userId) {
+      setError("Usuário não está autenticado");
+      return;
+    }
+    setLoading(true);
+    setError(null);
+    try {
+      const postRef = doc(db, docCollection, postId);
+      const postDoc = await getDoc(postRef);
+      if (!postDoc.exists()) {
+        throw new Error("Post não encontrado");
+      }
+      const postData = postDoc.data();
+      const comments = postData.comments || [];
+      // Substitui apenas o comentário do usuário autenticado e com o mesmo timestamp
+      const updatedComments = comments.map(comment => {
+        let commentTime = comment.createdAt;
+        let originalTime = originalCreatedAt;
+        if (commentTime?.seconds) commentTime = commentTime.seconds;
+        else if (commentTime instanceof Date) commentTime = commentTime.getTime();
+        if (originalTime?.seconds) originalTime = originalTime.seconds;
+        else if (originalTime instanceof Date) originalTime = originalTime.getTime();
+        if (comment.userId === userId && commentTime === originalTime) {
+          return { ...comment, text: newText };
+        }
+        return comment;
+      });
+      await updateDoc(postRef, { comments: updatedComments });
+      setSuccess(true);
+      setLoading(false);
+    } catch (error) {
+      setError(error.message);
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     return () => setCancelled(true);
   }, []);
 
-  return { updateDocument, toggleLike, addComment, loading, error, success };
+  return { updateDocument, toggleLike, addComment, editComment, loading, error, success };
 };

@@ -25,6 +25,7 @@ const Comunidade = () => {
     handleLike,
     toggleCommentForm,
     handleAddComment,
+    handleEditComment,
     groups
   } = useComunidade();
 
@@ -63,6 +64,7 @@ const Comunidade = () => {
                   commentText={commentText}
                   setCommentText={setCommentText}
                   handleAddComment={handleAddComment}
+                  handleEditComment={handleEditComment}
                 />
               ))
             }
