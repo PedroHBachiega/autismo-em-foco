@@ -6,13 +6,6 @@ const SobreAutismo = () => {
   return (
     <div className={styles.container}>
       <HeaderInfoTEA />
-      
-      <section className={styles.infoSection}>
-        <div className={styles.infoCard}>
-          <h2>Definição</h2>
-          <p>O Transtorno do Espectro Autista (TEA) é uma condição de neurodesenvolvimento que afeta a comunicação, interação social e pode incluir padrões repetitivos de comportamento, interesses ou atividades. O autismo é considerado um espectro porque se manifesta de maneiras muito diferentes em cada pessoa.</p>
-        </div>
-      </section>
 
       <section className={styles.characteristicsSection}>
         <h2>Principais Características</h2>
