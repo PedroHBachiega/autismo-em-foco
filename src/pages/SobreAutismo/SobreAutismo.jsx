@@ -1,14 +1,12 @@
 import React from 'react'
 import styles from './SobreAutismo.module.css'
+import HeaderInfoTEA from '../../components/HeaderInfoTEA/HeaderInfoTEA'
 
 const SobreAutismo = () => {
   return (
     <div className={styles.container}>
-      <header className={styles.header}>
-        <h1>O que é o Autismo?</h1>
-        <p>Entendendo o Transtorno do Espectro Autista (TEA)</p>
-      </header>
-
+      <HeaderInfoTEA />
+      
       <section className={styles.infoSection}>
         <div className={styles.infoCard}>
           <h2>Definição</h2>
