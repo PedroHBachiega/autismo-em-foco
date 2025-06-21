@@ -1,23 +1,23 @@
 import React from 'react'
 import styles from './SobreAutismo.module.css'
 import HeaderInfoTEA from '../../components/HeaderInfoTEA/HeaderInfoTEA'
+import ReadInstructions from '../../components/ReadInstructions/ReadInstructions'
 
 const SobreAutismo = () => {
   return (
     <div className={styles.container}>
       <HeaderInfoTEA />
       
-      <section className={styles.infoSection}>
-        <div className={styles.infoCard}>
-          <h2>Definição</h2>
-          <p>O Transtorno do Espectro Autista (TEA) é uma condição de neurodesenvolvimento que afeta a comunicação, interação social e pode incluir padrões repetitivos de comportamento, interesses ou atividades. O autismo é considerado um espectro porque se manifesta de maneiras muito diferentes em cada pessoa.</p>
-        </div>
-      </section>
+      {/* Adicionando o componente de leitura */}
+      <div className={styles.readInstructionsWrapper}>
+        <ReadInstructions contentSelector=".container" title="informações sobre autismo" />
+      </div>
 
       <section className={styles.characteristicsSection}>
         <h2>Principais Características</h2>
         <div className={styles.characteristicsGrid}>
-          <div className={styles.characteristicCard}>
+    
+           <div className={styles.characteristicCard}>
             <div className={styles.characteristicIcon}>🗣️</div>
             <h3>Comunicação</h3>
             <p>Dificuldades na comunicação verbal e não-verbal, que podem variar desde atraso na fala até dificuldades em manter conversas ou entender expressões faciais.</p>

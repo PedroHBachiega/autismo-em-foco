@@ -161,3 +161,10 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Adicione este estilo ao arquivo existente */
+.readInstructionsWrapper {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}

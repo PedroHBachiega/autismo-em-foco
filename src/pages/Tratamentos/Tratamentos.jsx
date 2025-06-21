@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './Tratamentos.module.css'
+import ReadInstructions from '../../components/ReadInstructions/ReadInstructions'
 import abaImage from '../../assets/aba.jpg'
 import fonoaudiologiaImage from '../../assets/fonoaudiologia.jpg'
 import mulherAutistaImage from '../../assets/mulher-autista.jpg'
@@ -11,6 +12,8 @@ const Tratamentos = () => {
       <section className={styles.header}>
         <h1>Tratamentos e Terapias</h1>
         <p>Conheça as principais abordagens terapêuticas para o TEA</p>
+        {/* Adicionando o componente de leitura */}
+        <ReadInstructions contentSelector=".tratamentosContainer" title="informações sobre tratamentos" />
       </section>
 
       <section className={styles.intro}>

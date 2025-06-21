@@ -2,6 +2,7 @@ import React from 'react';
 import styles from '../Comunidade.module.css';
 import CommentList from './CommentList';
 import CommentForm from './CommentForm';
+import ReadAloudButton from '../../../components/ReadAloudButton/ReadAloudButton';
 
 const PostCard = ({
   post,
@@ -16,6 +17,19 @@ const PostCard = ({
   setCommentText,
   handleAddComment
 }) => {
+  // Função para preparar o texto para leitura
+  const getReadableContent = () => {
+    let content = `Título: ${post.title}. `;
+    content += `Autor: ${post.createdBy || "Usuário"}. `;
+    content += `Conteúdo: ${post.body}`;
+    
+    if (post.tags && post.tags.length > 0) {
+      content += `. Tags: ${post.tags.join(", ")}`;
+    }
+    
+    return content;
+  };
+
   return (
     <div className={styles.postCard}>
       <div className={styles.postHeader}>
@@ -46,10 +60,13 @@ const PostCard = ({
       <div className={styles.postContent}>
         <h4>{post.title}</h4>
         <p>{post.body}</p>
+        
+        {/* Botão de leitura */}
+        <ReadAloudButton text={getReadableContent()} label="Ler postagem" />
       </div>
 
       {post.imageUrl && (
-        <div className={styles.   postImageWrapper}>
+        <div className={styles.postImageWrapper}>
           <img 
             src={post.imageUrl} 
             alt="Imagem do post" 

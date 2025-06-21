@@ -2,10 +2,12 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import styles from './Home.module.css'
 import puzzleHandImage from '../../assets/puzzle-hand.jpg'
+import ReadInstructions from '../../components/ReadInstructions/ReadInstructions'
 
 const Home = () => {
   return (
     <div className={styles.container}>
+      <ReadInstructions contentSelector=".container" title="esta página" />
       {/* Banner principal */}
       <section 
         className={styles.heroBanner}

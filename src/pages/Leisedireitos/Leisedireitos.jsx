@@ -1,9 +1,11 @@
 import React from 'react'
 import styles from './Leisedireitos.module.css'
+import ReadInstructions from '../../components/ReadInstructions/ReadInstructions'
 
 const Leisedireitos = () => {
   return (
     <div className={styles.container}>
+      <ReadInstructions contentSelector=".container" title="esta página" />
       <header className={styles.header}>
         <h1>Leis e Direitos</h1>
         <p>Conheça as principais leis e direitos das pessoas com Transtorno do Espectro Autista (TEA) no Brasil</p>

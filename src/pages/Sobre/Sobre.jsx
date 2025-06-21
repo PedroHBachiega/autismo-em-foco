@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styles from './Sobre.module.css'
+import ReadInstructions from '../../components/ReadInstructions/ReadInstructions'
 
 import grupoApoioImg from '../../assets/grupo-apoio.jpg';
 import pedroSouzaImg from '../../assets/pedrosouza.png';
@@ -61,6 +62,8 @@ const Sobre = () => {
       <section className={styles.header}>
         <h1>Sobre o Autismo em Foco</h1>
         <p>Conheça nossa missão e equipe</p>
+        {/* Adicionando o componente de leitura */}
+        <ReadInstructions contentSelector=".sobreContainer" title="esta página" />
       </section>
 
       <section className={styles.mission}>

@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './Eventos.module.css'
+import ReadInstructions from '../../components/ReadInstructions/ReadInstructions'
 
 const Eventos = () => {
   // Dados simulados de eventos
@@ -77,6 +78,7 @@ const Eventos = () => {
 
   return (
     <div className={styles.eventosContainer}>
+      <ReadInstructions contentSelector=".eventosContainer" title="esta página" />
       <header className={styles.eventosHeader}>
         <h1>Eventos e Atividades</h1>
         <p>Confira os próximos eventos, workshops e encontros relacionados ao TEA</p>
