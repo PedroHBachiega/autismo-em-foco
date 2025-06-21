@@ -194,3 +194,14 @@
     width: 100%;
   }
 }
+
+:global(.dark) .profileContainer {
+  background-color: #111827;
+  color: #e5e9f0;
+  border: 1px solid #222b3a;
+}
+
+:global(.dark) .infoCard {
+  background-color: #1a202c;
+}
+

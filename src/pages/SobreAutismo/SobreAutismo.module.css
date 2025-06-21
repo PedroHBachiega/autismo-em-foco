@@ -8,7 +8,7 @@
 .header {
   text-align: center;
   padding: 60px 20px;
-  background-color: #f0f7ff;
+  background-color: #e6f2ff;
   border-radius: 10px;
   margin-bottom: 40px;
 }
@@ -41,6 +41,11 @@
   font-size: 2rem;
   color: #2e5eaa;
   margin-bottom: 30px;
+}
+:global(.dark) .characteristicsSection h2,
+:global(.dark) .diagnosisSection h2,
+:global(.dark) .mythsSection h2 {
+  color: #3b96f0;
 }
 
 .infoCard {

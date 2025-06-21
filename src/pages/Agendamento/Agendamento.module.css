@@ -370,3 +370,7 @@
     width: 100%;
   }
 }
+
+:global(.dark) .searchSection h2 {
+  color: #3b96f0;
+}

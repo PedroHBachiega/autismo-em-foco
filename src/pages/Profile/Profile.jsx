@@ -115,12 +115,12 @@ const Profile = () => {
         <div className={styles.profileInfo}>
           <div className={styles.infoCard}>
             <h2>Informações Pessoais</h2>
-            <p><strong>Email:</strong> {user?.email}</p>
-            <p><strong>Nome:</strong> {formData.displayName || 'Não informado'}</p>
-            <p><strong>Bio:</strong> {formData.bio || 'Não informada'}</p>
-            <p><strong>Telefone:</strong> {formData.telefone || 'Não informado'}</p>
-            <p><strong>Cidade:</strong> {formData.cidade || 'Não informada'}</p>
-            <p><strong>Estado:</strong> {formData.estado || 'Não informado'}</p>
+            <p style={{ color: 'var(--text)'}}><strong>Email:</strong> {user?.email}</p>
+            <p style={{ color: 'var(--text)'}}><strong>Nome:</strong> {formData.displayName || 'Não informado'}</p>
+            <p style={{ color: 'var(--text)'}}><strong>Bio:</strong> {formData.bio || 'Não informada'}</p>
+            <p style={{ color: 'var(--text)'}}><strong>Telefone:</strong> {formData.telefone || 'Não informado'}</p>
+            <p style={{ color: 'var(--text)'}}><strong>Cidade:</strong> {formData.cidade || 'Não informada'}</p>
+            <p style={{ color: 'var(--text)'}}><strong>Estado:</strong> {formData.estado || 'Não informado'}</p>
             
             {/* Informações específicas para profissionais */}
             {userProfile?.userType === 'profissional' && (

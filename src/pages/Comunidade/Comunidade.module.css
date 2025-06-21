@@ -7,6 +7,27 @@
   min-height: 100vh;
 }
 
+:global(.dark) .container {
+  background-color: #111827;
+}
+
+.postCard, .createPost {
+  background-color: white;
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(46, 94, 170, 0.1);
+  margin-bottom: 25px;
+}
+
+:global(.dark) .postCard,
+:global(.dark) .createPost {
+  background-color: #111827;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+}
+
 .header {
   text-align: center;
   padding: 60px 20px;
@@ -15,6 +36,40 @@
   margin-bottom: 40px;
   box-shadow: 0 6px 20px rgba(46, 94, 170, 0.1);
   transition: all 0.3s ease;
+}
+
+:global(.dark) .header {
+  background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar > div {
+  background-color: white;
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+:global(.dark) .sidebar > div {
+  background-color: #111827;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.postContent h4 {
+  color: #2e5eaa;
+}
+
+:global(.dark) .postContent h4 {
+  color: #ffffff;
+}
+
+.postContent p {
+  color: #4a6fa5;
+}
+
+:global(.dark) .postContent p {
+  color: #e5e9f0;
 }
 
 .header:hover {
@@ -29,12 +84,20 @@
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
 }
 
+:global(.dark) .header h1 {
+  color: #81a1c1;
+}
+
 .header p {
   font-size: 1.2rem;
   color: #4a6fa5;
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.5;
+}
+
+:global(.dark) .header p {
+  color: #d8dee9;
 }
 
 .contentGrid {
@@ -217,12 +280,24 @@
   transition: all 0.3s;
 }
 
+:global(.dark) .filterButton {
+  background-color: #111827;
+  color: #e5e9f0;
+  border: 1px solid #333a47;
+}
+
 .filterButton:hover, .filterButton.active {
   background-color: #2e5eaa;
   color: white;
   border-color: #2e5eaa;
 }
 
+:global(.dark) .filterButton:hover,
+:global(.dark) .filterButton.active {
+  background-color: #2563eb;
+  color: #fff;
+  border-color: #2563eb;
+}
 .postsList {
   display: flex;
   flex-direction: column;
@@ -407,6 +482,10 @@
   border-radius: 8px;
 }
 
+:global(.dark) .commentsSection {
+  background-color: #111827;
+}
+
 .comment {
   padding: 8px 0;
   border-bottom: 1px solid #e9ecef;
@@ -424,9 +503,29 @@
 }
 
 .commentForm {
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
+  background-color: white;
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+:global(.dark) .commentForm {
+  background-color: #111827;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.filterContainer {
+  background-color: white;
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+:global(.dark) .filterContainer {
+  background-color: #111827;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .commentForm textarea {
@@ -495,4 +594,9 @@
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+:global(.dark) .emptyMessage {
+  background-color: #111827;
+  color: #e5e9f0;
 }

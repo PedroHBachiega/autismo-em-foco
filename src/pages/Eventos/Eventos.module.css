@@ -215,3 +215,7 @@
     justify-content: center;
   }
 }
+
+:global(.dark) .filtrosSection h2 {
+  color: #3b96f0;
+}

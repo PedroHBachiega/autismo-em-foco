@@ -6,21 +6,21 @@ import puzzleHandImage from '../../assets/puzzle-hand.jpg'
 const Home = () => {
   return (
     <div className={styles.container}>
-      {/* Banner principal */}
+     
       <section 
         className={styles.heroBanner}
         style={{ backgroundImage: `url(${puzzleHandImage})` }}
       >
         <div className={styles.heroContent}>
           <div className={styles.heroTextBox}>
-            <h2>Compreender Para Incluir</h2>
-            <h1>Autismo em Foco</h1>
+            <h2 style={{ color: 'var(--text)'}}>Compreender Para Incluir</h2>
+            <h1 style={{ color: 'var(--text)'}}>Autismo em Foco</h1>
             <Link to="/sobre" className={styles.heroButton}>Saiba mais</Link>
           </div>
         </div>
       </section>
 
-      {/* Cards informativos */}
+      
       <section className={styles.infoCards}>
         <div className={styles.card}>
           <div className={styles.cardIcon}>

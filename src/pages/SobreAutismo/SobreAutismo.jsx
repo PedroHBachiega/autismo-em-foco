@@ -39,8 +39,8 @@ const SobreAutismo = () => {
 
       <section className={styles.diagnosisSection}>
         <h2>Diagnóstico</h2>
-        <p>O diagnóstico do TEA é clínico, realizado por profissionais especializados como neurologistas, psiquiatras e neuropsicólogos. Geralmente envolve observação comportamental, entrevistas com familiares e aplicação de instrumentos específicos de avaliação.</p>
-        <p>Os sinais podem aparecer nos primeiros anos de vida, mas em alguns casos, especialmente quando os sintomas são mais sutis, o diagnóstico pode ocorrer mais tarde.</p>
+        <p style={{ color: 'var(--text)'}}>O diagnóstico do TEA é clínico, realizado por profissionais especializados como neurologistas, psiquiatras e neuropsicólogos. Geralmente envolve observação comportamental, entrevistas com familiares e aplicação de instrumentos específicos de avaliação.</p>
+        <p style={{ color: 'var(--text)'}}>Os sinais podem aparecer nos primeiros anos de vida, mas em alguns casos, especialmente quando os sintomas são mais sutis, o diagnóstico pode ocorrer mais tarde.</p>
         <div className={styles.warningBox}>
           <h3>Sinais de Alerta</h3>
           <ul>

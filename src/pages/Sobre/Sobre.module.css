@@ -218,3 +218,15 @@
     width: 100%;
   }
 }
+
+:global(.dark) .sobreContainer h1 {
+  color: #3b96f0;
+}
+
+:global(.dark) .values h2 {
+  color: #3b96f0;
+}
+
+:global(.dark) .team h2 {
+  color: #3b96f0;
+}

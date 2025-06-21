@@ -222,3 +222,99 @@
     font-size: 0.8rem;
   }
 }
+
+:global(.dark) .heroTextBox {
+  background-color: #111827;
+}
+
+.card {
+  background-color: white;
+  border-radius: 8px;
+  padding: 25px 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border: 1px solid #e0e0e0;
+}
+
+.cardIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+}
+
+.card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.card p {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+.cardButton {
+  display: inline-block;
+  background-color: #2361ad;
+  color: white;
+  padding: 8px 20px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.cardButton:hover {
+  background-color: #1a4a8f;
+}
+
+/* Seção da comunidade */
+.communitySection {
+  background-color: #6b8fd4;
+  padding: 30px;
+  margin-bottom: 30px;
+  color: white;
+  text-align: center;
+  border-radius: 0;
+}
+
+.communityIcon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+  font-size: 2rem;
+}
+
+.communitySection h2 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: white;
+}
+
+.communitySection p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 15px;
+  text-align: left;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.cardIcon span {
+  color: #333;
+}
+:global(.dark) .cardIcon span {
+  color: #333333;
+}

@@ -10,12 +10,12 @@ const Tratamentos = () => {
     <div className={styles.tratamentosContainer}>
       <section className={styles.header}>
         <h1>Tratamentos e Terapias</h1>
-        <p>Conheça as principais abordagens terapêuticas para o TEA</p>
+        <p style={{ color: 'var(--text)'}}>Conheça as principais abordagens terapêuticas para o TEA</p>
       </section>
 
       <section className={styles.intro}>
-        <p>O tratamento para o Transtorno do Espectro Autista (TEA) é multidisciplinar e deve ser personalizado para atender às necessidades específicas de cada pessoa. Quanto mais cedo for iniciado, melhores são os resultados.</p>
-        <p>Abaixo, apresentamos algumas das principais abordagens terapêuticas utilizadas no tratamento do TEA:</p>
+        <p style={{ color: 'var(--text)'}}>O tratamento para o Transtorno do Espectro Autista (TEA) é multidisciplinar e deve ser personalizado para atender às necessidades específicas de cada pessoa. Quanto mais cedo for iniciado, melhores são os resultados.</p>
+        <p style={{ color: 'var(--text)'}}>Abaixo, apresentamos algumas das principais abordagens terapêuticas utilizadas no tratamento do TEA:</p>
       </section>
 
       <section className={styles.therapies}>

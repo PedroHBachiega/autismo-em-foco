@@ -60,7 +60,7 @@ const Sobre = () => {
     <div className={styles.sobreContainer}>
       <section className={styles.header}>
         <h1>Sobre o Autismo em Foco</h1>
-        <p>Conheça nossa missão e equipe</p>
+        <p style={{ color: 'var(--text)'}}>Conheça nossa missão e equipe</p>
       </section>
 
       <section className={styles.mission}>
