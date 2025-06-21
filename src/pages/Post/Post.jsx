@@ -46,6 +46,21 @@ const Post = () => {
                     <div className="post-author">
                         <p>por {post.createdBy}</p>
                     </div>
+                    
+                    {post.imageUrl && (
+                        <div className="post-image" style={{ margin: '1rem 0', textAlign: 'center' }}>
+                            <img 
+                            src={post.imageUrl} 
+                            alt="Imagem do post"
+                            style={{
+                                maxWidth: '100%',
+                                borderRadius: '12px',
+                                boxShadow: '0 0 10px rgba(0,0,0,0.1)'
+                            }} 
+                            />
+                        </div>
+                    )}
+                    
                     <div className="post-content">
                         <p>{post.body}</p>
                     </div>

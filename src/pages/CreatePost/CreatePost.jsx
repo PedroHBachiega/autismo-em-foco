@@ -3,9 +3,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthValue } from '../../context/AuthContext';
-import { db } from '../../firebase/config';
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
 import styles from './CreatePost.module.css';
+import { db, storage } from '../../firebase/config';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
+import { v4 as uuidv4 } from 'uuid'; 
 
 const CreatePost = () => {
 
@@ -18,12 +20,28 @@ const CreatePost = () => {
   const [formError, setFormError] = useState('');
   const [loading, setLoading] = useState(false);
 
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
+
   // Se não houver usuário autenticado, direciona para a página de login
   useEffect(() => {
     if (user === null) {
       navigate('/login');
     }
   }, [user, navigate]);
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setImageFile(file);
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => setImagePreview(reader.result);
+      reader.readAsDataURL(file);
+    } else {
+      setImagePreview(null);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,11 +62,21 @@ const CreatePost = () => {
       .filter((tagItem) => tagItem.length > 0);
 
     try {
+      
+      let imageUrl= '';
+
+      if (imageFile) {
+        const imageRef = ref(storage, `posts/${uuidv4()}-${imageFile.name}`);
+        const uploadSnap = await uploadBytes(imageRef, imageFile);
+        imageUrl = await getDownloadURL(uploadSnap.ref);
+      }
+      
       // Cria novo documento em "posts"
       await addDoc(collection(db, 'posts'), {
         title: title.trim(),
         body: body.trim(),
         tags: tagsArray,
+        imageUrl,
         uid: user.uid,
         createdBy: user.displayName || user.email,
         createdAt: Timestamp.now(),
@@ -106,6 +134,27 @@ const CreatePost = () => {
             required
           />
         </label>
+
+        <label>
+          <span>Imagem (opcional):</span>
+          <input 
+          type="file"
+          accept="image/*"
+          onChange={handleImageChange}
+          disabled={loading} 
+          />
+        </label>
+
+        {imagePreview && (
+          <div className={styles.image_preview}>
+            <p>Prévia da imagem:</p>
+            <img 
+            src={imagePreview}
+            alt="Preview"
+            style={{ maxWidth: '300px', borderRadius: '8px' }}
+            />
+          </div>
+        )}
 
         {!loading && (
           <button type="submit" className={styles.btn}>
