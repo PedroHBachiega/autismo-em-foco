@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'; // Adicionar useEffect
 import { db } from '../../../firebase/config';
 import { useAuthValue } from '../../../context/AuthContext';
 import { useDeleteDocument } from '../../../Hooks/useDeleteDocument';
 import { useUpdateDocument } from '../../../Hooks/useUpdateDocument';
-import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
+import { collection, getDocs, query, orderBy } from 'firebase/firestore';
+import { useGamification } from '../../../Hooks/useGamification';
 
 export const useComunidade = () => {
   const { user } = useAuthValue();
@@ -16,51 +17,45 @@ export const useComunidade = () => {
 
   const { deleteDocument } = useDeleteDocument("posts");
   const { toggleLike, addComment, editComment, loading: updateLoading } = useUpdateDocument("posts");
+  const { trackAction } = useGamification();
 
+  // Adicionar useEffect para buscar os posts
   useEffect(() => {
-    const postsRef = collection(db, "posts");
-    const q = query(postsRef, orderBy("createdAt", "desc"));
-
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const posts = [];
-      querySnapshot.forEach((doc) => {
-        posts.push({
-          id: doc.id,
-          ...doc.data()
+    const fetchPosts = async () => {
+      try {
+        setIsLoading(true);
+        setFetchError(null);
+        
+        const postsRef = collection(db, 'posts');
+        const q = query(postsRef, orderBy('createdAt', 'desc'));
+        const querySnapshot = await getDocs(q);
+        
+        const posts = [];
+        querySnapshot.forEach((doc) => {
+          posts.push({ id: doc.id, ...doc.data() });
         });
-      });
-      setFetchedPosts(posts);
-      setFetchError(null);
-      setIsLoading(false);
-    }, (error) => {
-      console.error("Error fetching posts:", error);
-      setFetchError("Erro ao carregar os posts");
-      setIsLoading(false);
-    });
+        
+        setFetchedPosts(posts);
+      } catch (error) {
+        console.error('Erro ao buscar posts:', error);
+        setFetchError('Erro ao carregar os posts. Tente novamente.');
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-    return () => unsubscribe();
-  }, [updateLoading]);
-
-  // Função para lidar com likes
+    fetchPosts();
+  }, []); // Array de dependências vazio para executar apenas uma vez
+  
   const handleLike = async (postId) => {
     if (!user) {
       alert("Você precisa estar logado para curtir posts");
       return;
     }
     await toggleLike(postId, uid);
+    await trackAction('LIKE');
   };
-
-  // Função para mostrar/esconder o formulário de comentário
-  const toggleCommentForm = (postId) => {
-    if (activeCommentPost === postId) {
-      setActiveCommentPost(null);
-    } else {
-      setActiveCommentPost(postId);
-      setCommentText("");
-    }
-  };
-
-  // Função para enviar comentário
+  
   const handleAddComment = async (postId) => {
     if (!user) {
       alert("Você precisa estar logado para comentar");
@@ -73,8 +68,19 @@ export const useComunidade = () => {
     }
     
     await addComment(postId, uid, user.displayName || user.email, commentText);
+    await trackAction('COMMENT');
     setCommentText("");
     setActiveCommentPost(null);
+  };
+
+  // Função para mostrar/esconder o formulário de comentário
+  const toggleCommentForm = (postId) => {
+    if (activeCommentPost === postId) {
+      setActiveCommentPost(null);
+    } else {
+      setActiveCommentPost(postId);
+      setCommentText("");
+    }
   };
 
   // Função para editar comentário
@@ -124,7 +130,7 @@ export const useComunidade = () => {
     handleLike,
     toggleCommentForm,
     handleAddComment,
-    handleEditComment, // <-- Adicione esta linha
+    handleEditComment,
     groups
   };
 };
