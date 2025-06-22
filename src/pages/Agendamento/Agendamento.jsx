@@ -17,7 +17,7 @@ const Agendamento = () => {
   const [availableTimes, setAvailableTimes] = useState([]);
   const [message, setMessage] = useState('');
   const [scheduleSuccess, setScheduleSuccess] = useState(false);
-  
+
   const { user } = useAuthValue();
   const { insertDocument, response } = useInsertDocument('agendamentos');
   const { documents: existingAppointments } = useFetchDocuments('agendamentos');
@@ -89,11 +89,11 @@ const Agendamento = () => {
 
   useEffect(() => {
     if (selectedDate && selectedProfessional) {
-      const booked = existingAppointments?.filter(app => 
-        app.profissionalId === selectedProfessional.id && 
+      const booked = existingAppointments?.filter(app =>
+        app.profissionalId === selectedProfessional.id &&
         app.data === selectedDate
       ).map(app => app.horario) || [];
-      
+
       const available = selectedProfessional.horarios.filter(h => !booked.includes(h));
       setAvailableTimes(available);
       setMessage(available.length === 0 ? 'Não há horários disponíveis para esta data.' : '');
@@ -106,7 +106,7 @@ const Agendamento = () => {
     const date = e.target.value;
     setSelectedDate(date);
     setSelectedTime('');
-    
+
     if (isWeekend(date)) {
       setMessage('Não há atendimentos nos finais de semana.');
       setAvailableTimes([]);
@@ -117,12 +117,12 @@ const Agendamento = () => {
 
   const handleScheduleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!selectedDate || !selectedTime) {
       setMessage('Por favor, selecione data e horário.');
       return;
     }
-    
+
     const agendamento = {
       profissionalId: selectedProfessional.id,
       profissionalNome: selectedProfessional.nome,
@@ -130,19 +130,20 @@ const Agendamento = () => {
       data: selectedDate,
       horario: selectedTime,
       status: 'agendado',
-      userId: user.uid,
+      uid: user.uid,
       userName: user.displayName || user.email,
+      userEmail: user.email,
       createdAt: new Date()
     };
-    
+
     await insertDocument(agendamento);
-    
+
     // Rastrear evento de agendamento
     trackAppointmentScheduled(
       selectedProfessional.especialidade,
       selectedProfessional.id
     );
-    
+
     setScheduleSuccess(true);
     setMessage('Agendamento realizado com sucesso!');
   };
@@ -159,9 +160,9 @@ const Agendamento = () => {
         <form className={styles.searchForm} onSubmit={handleSearch}>
           <div className={styles.formGroup}>
             <label htmlFor="especialidade">Especialidade</label>
-            <select 
-              id="especialidade" 
-              value={especialidade} 
+            <select
+              id="especialidade"
+              value={especialidade}
               onChange={(e) => setEspecialidade(e.target.value)}
             >
               <option value="">Selecione uma especialidade</option>
@@ -173,31 +174,31 @@ const Agendamento = () => {
               <option value="clinica">Clínica Especializada</option>
             </select>
           </div>
-          
+
           <div className={styles.formRow}>
             <div className={styles.formGroup}>
               <label htmlFor="cidade">Cidade</label>
-              <input 
-                type="text" 
-                id="cidade" 
+              <input
+                type="text"
+                id="cidade"
                 placeholder="Digite sua cidade"
                 value={cidade}
                 onChange={(e) => setCidade(e.target.value)}
               />
             </div>
-            
+
             <div className={styles.formGroup}>
               <label htmlFor="bairro">Bairro (opcional)</label>
-              <input 
-                type="text" 
-                id="bairro" 
+              <input
+                type="text"
+                id="bairro"
                 placeholder="Digite seu bairro"
                 value={bairro}
                 onChange={(e) => setBairro(e.target.value)}
               />
             </div>
           </div>
-          
+
           <button type="submit" className={styles.searchButton}>Buscar</button>
         </form>
       </section>
@@ -209,7 +210,7 @@ const Agendamento = () => {
             {profissionais.map(profissional => (
               <div key={profissional.id} className={styles.resultCard}>
                 <div className={styles.resultImage}>
-                  <img src={profissional.imagem} alt={profissional.nome} style={{width: '100%', height: '100%', objectFit: 'cover'}} />
+                  <img src={profissional.imagem} alt={profissional.nome} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
                 <div className={styles.resultContent}>
                   <h3>{profissional.nome}</h3>
@@ -220,7 +221,7 @@ const Agendamento = () => {
                     <p><span>📞</span> <span>{profissional.telefone}</span></p>
                     <p><span>⭐</span> <span>{profissional.avaliacao} (avaliação)</span></p>
                   </div>
-                  <button 
+                  <button
                     className={styles.scheduleButton}
                     onClick={() => handleScheduleClick(profissional)}
                   >
@@ -242,7 +243,7 @@ const Agendamento = () => {
                 <h3>Agendamento realizado com sucesso!</h3>
                 <p>Você agendou uma consulta com {selectedProfessional.nome} para o dia {selectedDate} às {selectedTime}.</p>
                 <p>Você pode visualizar seus agendamentos na página "Meus Agendamentos".</p>
-                <button 
+                <button
                   className={styles.primaryButton}
                   onClick={() => setShowScheduleForm(false)}
                 >
@@ -253,9 +254,9 @@ const Agendamento = () => {
               <form onSubmit={handleScheduleSubmit} className={styles.scheduleForm}>
                 <div className={styles.formGroup}>
                   <label htmlFor="date">Data da Consulta</label>
-                  <input 
-                    type="date" 
-                    id="date" 
+                  <input
+                    type="date"
+                    id="date"
                     value={selectedDate}
                     onChange={handleDateChange}
                     min={getMinDate()}
@@ -263,12 +264,12 @@ const Agendamento = () => {
                     required
                   />
                 </div>
-                
+
                 {selectedDate && !isWeekend(selectedDate) && (
                   <div className={styles.formGroup}>
                     <label htmlFor="time">Horário da Consulta</label>
-                    <select 
-                      id="time" 
+                    <select
+                      id="time"
                       value={selectedTime}
                       onChange={(e) => setSelectedTime(e.target.value)}
                       required
@@ -281,19 +282,19 @@ const Agendamento = () => {
                     </select>
                   </div>
                 )}
-                
+
                 {message && <p className={response.error ? styles.errorMessage : styles.infoMessage}>{message}</p>}
-                
+
                 <div className={styles.formActions}>
-                  <button 
-                    type="button" 
+                  <button
+                    type="button"
                     className={styles.cancelButton}
                     onClick={() => setShowScheduleForm(false)}
                   >
                     Cancelar
                   </button>
-                  <button 
-                    type="submit" 
+                  <button
+                    type="submit"
                     className={styles.confirmButton}
                     disabled={!selectedDate || !selectedTime || response.loading}
                   >
