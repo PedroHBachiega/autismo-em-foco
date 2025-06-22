@@ -1,11 +1,11 @@
 .footer {
-  background-color: #0d47a1;
-  color: white;
-  padding: 20px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
+    background-color: #2361ad; /* Match with Navbar color */
+    color: white;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 }
 
 .navLinks {
@@ -68,7 +68,7 @@
 
 .copyright {
   font-size: 0.8rem;
-  opacity: 0.8;
+  opacity: 1; /* Improved contrast */
 }
 
 @media (max-width: 768px) {

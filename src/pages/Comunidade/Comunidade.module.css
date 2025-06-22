@@ -8,30 +8,22 @@
 }
 
 .header {
-  text-align: center;
+  background-color: #f0f7ff; /* Cor de fundo unificada */
+  border-radius: 10px;
   padding: 60px 20px;
-  background: linear-gradient(135deg, #e0f0ff 0%, #d6e9ff 100%);
-  border-radius: 15px;
+  text-align: center;
   margin-bottom: 40px;
-  box-shadow: 0 6px 20px rgba(46, 94, 170, 0.1);
-  transition: all 0.3s ease;
-}
-
-.header:hover {
-  box-shadow: 0 8px 25px rgba(46, 94, 170, 0.15);
 }
 
 .header h1 {
+  color: #1a3d7c; /* Cor do título unificada */
   font-size: 2.8rem;
-  color: #2e5eaa;
   margin-bottom: 15px;
-  font-weight: 700;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .header p {
   font-size: 1.2rem;
-  color: #4a6fa5;
+  color: #555555;
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.5;
@@ -158,10 +150,6 @@
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 10px rgba(46, 94, 170, 0.2);
 }
 
 .postButton:hover {
@@ -208,8 +196,8 @@
 }
 
 .filterButton {
-  background-color: #f0f7ff;
-  border: 1px solid #ddd;
+  background-color: #d0e1f9; /* Improved contrast */
+  border: 1px solid #ccc; /* Improved contrast */
   padding: 8px 15px;
   border-radius: 20px;
   font-size: 0.9rem;
@@ -252,7 +240,7 @@
 .authorAvatar {
   width: 40px;
   height: 40px;
-  background-color: #f0f7ff;
+  background-color: #f0f7ff; /* Altere para combinar com outras páginas */
   border-radius: 50%;
   display: flex;
   align-items: center;

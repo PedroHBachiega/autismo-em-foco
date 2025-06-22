@@ -2,6 +2,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+  font-family: 'Roboto', sans-serif;
 }
 
 .header {
@@ -12,7 +13,7 @@
 
 .header h1 {
   font-size: 2.5rem;
-  color: #2361ad;
+  color: #1a3d7c; /* Improved contrast */
   margin-bottom: 15px;
 }
 
@@ -49,7 +50,7 @@
 
 .therapyCard h2 {
   font-size: 1.8rem;
-  color: #2361ad;
+  color: #1a3d7c;
   margin-bottom: 20px;
   padding-bottom: 15px;
   border-bottom: 1px solid #e0e0e0;
@@ -86,7 +87,7 @@
 
 .therapyInfo h3 {
   font-size: 1.3rem;
-  color: #2361ad;
+  color: #1a3d7c;
   margin-bottom: 15px;
 }
 
@@ -110,7 +111,7 @@
 
 .findProfessional h2 {
   font-size: 2rem;
-  color: #2361ad;
+  color: #1a3d7c;
   margin-bottom: 15px;
 }
 

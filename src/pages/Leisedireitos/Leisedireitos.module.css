@@ -15,7 +15,7 @@
 
 .header h1 {
   font-size: 2.5rem;
-  color: #2e5eaa;
+  color: #1a3d7c;
   margin-bottom: 15px;
 }
 
@@ -36,7 +36,7 @@
 
 .mainLaw h2 {
   font-size: 1.8rem;
-  color: #2e5eaa;
+  color: #1a3d7c;
   margin-bottom: 20px;
 }
 
@@ -54,7 +54,7 @@
 .lawsSection h2 {
   text-align: center;
   font-size: 2rem;
-  color: #2e5eaa;
+  color: #1a3d7c;
   margin-bottom: 30px;
 }
 
@@ -78,7 +78,7 @@
 
 .lawCard h3 {
   font-size: 1.3rem;
-  color: #2e5eaa;
+  color: #1a3d7c;
   margin-bottom: 15px;
   padding-bottom: 10px;
   border-bottom: 1px solid #e0e0e0;
@@ -92,7 +92,7 @@
 
 .lawCard a {
   display: inline-block;
-  color: #2e5eaa;
+  color: #1a3d7c;
   font-weight: 500;
   text-decoration: none;
 }
@@ -108,7 +108,7 @@
 .rightsSection h2 {
   text-align: center;
   font-size: 2rem;
-  color: #2e5eaa;
+  color: #1a3d7c;
   margin-bottom: 30px;
 }
 
@@ -133,7 +133,7 @@
 
 .rightItem h3 {
   font-size: 1.3rem;
-  color: #2e5eaa;
+  color: #1a3d7c;
   margin-bottom: 10px;
 }
 
@@ -151,7 +151,7 @@
 
 .helpSection h2 {
   font-size: 1.8rem;
-  color: #2e5eaa;
+  color: #1a3d7c;
   margin-bottom: 15px;
 }
 
@@ -175,6 +175,14 @@
 
 .contactButton:hover {
   background-color: #1d4b8f;
+}
+
+.header p {
+  color: #333; /* Improved contrast */
+}
+
+.mainLaw p {
+  color: #222; /* Improved contrast */
 }
 
 @media (max-width: 768px) {

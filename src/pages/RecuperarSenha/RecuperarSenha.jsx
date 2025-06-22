@@ -24,11 +24,7 @@ function RecuperarSenha() {
             <h2 className="text-2xl font-bold text-center text-gray-900 mb-2">
               {enviado ? "Email enviado!" : "Recuperar senha"}
             </h2>
-            <p className="text-center text-gray-500 text-sm">
-              {enviado 
-                ? "Verifique sua caixa de entrada para redefinir sua senha" 
-                : "Informe seu email para receber um link de redefinição de senha"}
-            </p>
+            <p className="text-center text-gray-600 text-sm">Informe seu email para receber um link de redefinição de senha</p>
           </div>
           <div className="py-4 px-10">
             {!enviado ? (

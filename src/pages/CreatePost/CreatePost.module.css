@@ -11,7 +11,7 @@
   }
   
   .create_post p {
-    color: #777;
+    color: #555; /* Improved contrast */
     margin-bottom: 30px;
     text-align: center;
   }
@@ -46,8 +46,7 @@
   }
   
   .error {
-    color: #721c24;
-    background-color: #f8d7da;
+    background-color: #f5b7b1; /* Improved contrast */
     border: 1px solid #f5c6cb;
     padding: 10px;
     border-radius: 5px;
@@ -55,17 +54,18 @@
     margin-top: 10px;
   }
 
-  .btn {
-    background-color: #2e5eaa;
+  .button .btn {
+    background-color: #1a3d7c;
     border-radius: 12px;
     color: white;
-    padding: 5px;
-    
-    
-    
+    padding: 5px;  
     
   }
   .image_preview {
     margin-top: 1rem;
     text-align: center;
+  }
+
+  .button:hover, .btn:hover {
+    background-color: #1a3d7c;
   }

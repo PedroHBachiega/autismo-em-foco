@@ -30,7 +30,7 @@
 }
 
 .profileHeader h1 {
-  color: #2361ad;
+  color: #1a3d7c;
   font-size: 2rem;
   margin: 0;
 }
@@ -49,16 +49,18 @@
 }
 
 .infoCard h2 {
-  color: #2361ad;
+  color: #1a3d7c;
   margin-top: 0;
   margin-bottom: 20px;
   font-size: 1.5rem;
 }
 
 .infoCard p {
-  margin: 10px 0;
-  font-size: 1.1rem;
-  color: #333;
+  color: #222; /* Improved contrast */
+}
+
+.loadingContainer {
+  color: #444; /* Improved contrast */
 }
 
 .editButton {
@@ -84,7 +86,7 @@
 }
 
 .profileForm h2 {
-  color: #2361ad;
+  color: #1a3d7c;
   margin-top: 0;
   margin-bottom: 20px;
   font-size: 1.5rem;

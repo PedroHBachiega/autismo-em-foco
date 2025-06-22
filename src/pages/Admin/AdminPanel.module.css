@@ -6,7 +6,7 @@
   
   .adminPanel h1 {
     font-size: 2rem;
-    color: #2e5eaa;
+    color: #1a3d7c; /* Improved contrast */
     margin-bottom: 20px;
   }
   
@@ -72,17 +72,17 @@
   .error {
     text-align: center;
     padding: 20px;
-    background-color: #fff1f0;
+    background-color: #ffebee;
     border: 1px solid #ffccc7;
     border-radius: 8px;
-    color: #cf1322;
+    color: #b71c1c; /* Improved contrast */
     margin: 20px 0;
   }
   
   .profileBadge {
     display: inline-block;
     padding: 4px 10px;
-    background-color: #2e5eaa;
+    background-color: #1a3d7c; /* Improved contrast */
     color: white;
     border-radius: 20px;
     font-size: 0.8rem;
@@ -98,7 +98,7 @@
 }
 
 .quickActions h2 {
-  color: #2e5eaa;
+  color: #1a3d7c; /* Improved contrast */
   margin-bottom: 20px;
   font-size: 1.4rem;
 }
@@ -114,7 +114,7 @@
   align-items: center;
   gap: 8px;
   padding: 12px 20px;
-  background-color: #2e5eaa;
+  background-color: #1a3d7c; /* Improved contrast */
   color: white;
   text-decoration: none;
   border-radius: 6px;
