@@ -1,27 +1,41 @@
-// src/context/AuthContext.jsx
-import React, { createContext, useContext } from 'react'
-import { useAuthentication } from '../hooks/useAuthentication'
+import { createContext, useContext, useReducer } from "react";
 
-export const AuthContext = createContext()
+const AuthContext = createContext();
 
-export function AuthProvider({ children }) {
-  const { loading, ...auth } = useAuthentication()
+const initialState = {
+  user: null,
+  profile: null,
+  loading: true,
+  actionLoading: false,
+  error: null,
+};
 
-  if (loading) {
-    return (
-      <div className="flex h-screen items-center justify-center">
-        <p className="text-lg">Carregando sessão…</p>
-      </div>
-    )
+function authReducer(state, action) {
+  switch (action.type) {
+    case "SET_USER":
+      return { ...state, user: action.payload };
+    case "SET_PROFILE":
+      return { ...state, profile: action.payload };
+    case "SET_LOADING":
+      return { ...state, loading: action.payload };
+    case "SET_ACTION_LOADING":
+      return { ...state, actionLoading: action.payload };
+    case "SET_ERROR":
+      return { ...state, error: action.payload };
+    default:
+      return state;
   }
-
-  return (
-    <AuthContext.Provider value={auth}>
-      {children}
-    </AuthContext.Provider>
-  )
 }
 
-export function useAuthValue() {
-  return useContext(AuthContext)
+export function AuthProvider({ children }) {
+  const [state, dispatch] = useReducer(authReducer, initialState);
+  return (
+    <AuthContext.Provider value={{ state, dispatch }}>
+      {children}
+    </AuthContext.Provider>
+  );
+}
+
+export function useAuth() {
+  return useContext(AuthContext);
 }

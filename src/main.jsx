@@ -11,9 +11,7 @@ import { AuthProvider } from './context/AuthContext';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    {/* 1) BrowserRouter define todo o contexto de rota */}
     <BrowserRouter>
-      {/* 2) AuthProvider fica dentro do Router, pois precisa de useNavigate/useLocation */}
       <AuthProvider>
         <App />
       </AuthProvider>
