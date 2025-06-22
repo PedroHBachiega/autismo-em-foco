@@ -8,8 +8,9 @@ import {
   sendPasswordResetEmail
 } from "firebase/auth";
 import { auth, db } from "../firebase/config";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { useNavigate, useLocation } from "react-router-dom";
+
 
 export function useAuthentication() {
   // Estados de usuário e perfil
@@ -78,24 +79,58 @@ export function useAuthentication() {
     try {
       const cred = await signInWithEmailAndPassword(auth, email, password);
       await fetchUserProfile(cred.user.uid);
-      navigate("/", { replace: true });
-    } catch {
-      setError("Email ou senha inválidos.");
-    } finally {
-      setActionLoading(false);
+      const profile = await fetchUserProfile(cred.user.uid)
+      
+      if (!profile) {
+        await setDoc(doc(db, "users", cred.user.uid), {
+          uid: cred.user.uid,
+          email: cred.user.email,
+          displayName: cred.user.displayName || "",
+          cidade: "",
+          estado: "",
+          telefone: "",
+          bio: "",
+          createdAt: new Date()
+        });  
     }
-  };
+        await fetchUserProfile(cred.user.uid);
 
+        navigate("/", { replace: true });
+      } catch {
+        setError("Email ou senha inválidos.");
+      } finally {
+        setActionLoading(false);
+        }
+      }
+    
   // 2) Login com Google
   const loginWithGoogle = async () => {
     setActionLoading(true);
     setError(null);
     try {
       const result = await signInWithPopup(auth, googleProvider);
-      await fetchUserProfile(result.user.uid);
-      navigate("/", { replace: true });
+      const googleUser = result.user;
+
+      const profile = await fetchUserProfile(googleUser.uid);
+
+      if (!profile) {
+        await setDoc(doc(db, "users", googleUser.uid), {
+          uid: googleUser.uid,
+          email: googleUser.email,
+          displayName: googleUser.displayName || "",
+          cidade: "",
+          estado: "",
+          telefone: "",
+          bio: "",
+          createdAt: new Date()
+        });  
+      }
+      
+      await fetchUserProfile(googleUser.uid);
+
+      navigate("/", { replace: true })
     } catch {
-      setError("Falha no login com Google.");
+      setError("Falha no login com Google.")
     } finally {
       setActionLoading(false);
     }
