@@ -1,41 +1,31 @@
-import { createContext, useContext, useReducer } from "react";
+/* eslint-disable react-refresh/only-export-components */
+import { createContext, useContext } from "react";
+import { useAuthentication } from "../hooks/useAuthentication";
 
-const AuthContext = createContext();
-
-const initialState = {
-  user: null,
-  profile: null,
-  loading: true,
-  actionLoading: false,
-  error: null,
-};
-
-function authReducer(state, action) {
-  switch (action.type) {
-    case "SET_USER":
-      return { ...state, user: action.payload };
-    case "SET_PROFILE":
-      return { ...state, profile: action.payload };
-    case "SET_LOADING":
-      return { ...state, loading: action.payload };
-    case "SET_ACTION_LOADING":
-      return { ...state, actionLoading: action.payload };
-    case "SET_ERROR":
-      return { ...state, error: action.payload };
-    default:
-      return state;
-  }
-}
+export const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [state, dispatch] = useReducer(authReducer, initialState);
+  const auth = useAuthentication();
+
+  if (auth.loading) {
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <p className="text-lg">Carregando sessão…</p>
+      </div>
+    );
+  }
+
   return (
-    <AuthContext.Provider value={{ state, dispatch }}>
+    <AuthContext.Provider value={auth}>
       {children}
     </AuthContext.Provider>
   );
 }
 
-export function useAuth() {
-  return useContext(AuthContext);
+export function useAuthValue() {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuthValue deve ser usado dentro de <AuthProvider>");
+  }
+  return context;
 }

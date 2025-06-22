@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import GoogleButton from '../../components/GoogleButton';
-import { useAuthValue } from '../../context/AuthContext';
+import { useAuthentication } from '../../hooks/useAuthentication';
 import { useGTM } from '../../context/GTMContext';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
-  const { login, loginWithGoogle, error, loading } = useAuthValue();
+  const { login, loginWithGoogle, error, loading } = useAuthentication();
   const { trackLogin } = useGTM();
 
   const handleSubmit = async (e) => {
@@ -22,18 +22,21 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen  p-12 sm:p-6 flex justify-center items-start font-sans">
+    <div className="min-h-screen p-12 sm:p-6 flex justify-center items-start font-sans">
       <div className="w-full max-w-lg">
-        <div className="flex justify-between items-center mb-8"></div>
         <div className="bg-white rounded-xl shadow-lg overflow-hidden animate-fadeIn border border-gray-200">
           <div className="pt-6 px-6 pb-2">
-            <h2 className="text-2xl font-bold text-center text-gray-900 mb-2">Bem-vindo de volta</h2>
+            <h2 className="text-2xl font-bold text-center text-gray-900 mb-2">
+              Bem-vindo de volta
+            </h2>
             <p className="text-center text-gray-500 text-sm">Acesse sua conta</p>
           </div>
           <div className="py-4 px-10">
             <form onSubmit={handleSubmit} className="flex flex-col gap-5">
               <div className="flex flex-col gap-2">
-                <label htmlFor="email" className="text-sm font-medium text-gray-700">Email</label>
+                <label htmlFor="email" className="text-sm font-medium text-gray-700">
+                  Email
+                </label>
                 <input
                   id="email"
                   type="email"
@@ -44,10 +47,15 @@ function Login() {
                   required
                 />
               </div>
+
               <div className="flex flex-col gap-2">
                 <div className="flex justify-between items-center">
-                  <label htmlFor="senha" className="text-sm font-medium text-gray-700">Senha</label>
-                  <Link to="/recuperar-senha" className="text-xs text-blue-600 hover:underline">Esqueceu a senha?</Link>
+                  <label htmlFor="senha" className="text-sm font-medium text-gray-700">
+                    Senha
+                  </label>
+                  <Link to="/recuperar-senha" className="text-xs text-blue-600 hover:underline">
+                    Esqueceu a senha?
+                  </Link>
                 </div>
                 <input
                   id="senha"
@@ -59,14 +67,18 @@ function Login() {
                   required
                 />
               </div>
-              {error && <p className="text-red-500 text-sm text-center mt-2">{error}</p>}
+
+              {error && (
+                <p className="text-red-500 text-sm text-center mt-2">{error}</p>
+              )}
+
               <button
-                className="mt-2 w-full p-2.5 text-white rounded-md text-sm font-medium hover:brightness-110 disabled:bg-blue-300 disabled:cursor-not-allowed"
-                style={{ backgroundColor: '#2e5eaa' }}
                 type="submit"
                 disabled={loading}
+                className="mt-2 w-full p-2.5 text-white rounded-md text-sm font-medium hover:brightness-110 disabled:bg-blue-300 disabled:cursor-not-allowed"
+                style={{ backgroundColor: '#2e5eaa' }}
               >
-                {loading ? "Entrando..." : "Entrar"}
+                {loading ? 'Entrando...' : 'Entrar'}
               </button>
 
               <GoogleButton
@@ -76,10 +88,13 @@ function Login() {
               />
             </form>
           </div>
+
           <div className="py-4 px-6 border-t border-gray-100">
             <p className="text-center text-sm text-gray-500">
               Não tem uma conta?{' '}
-              <Link to="/register" className="text-blue-600 font-medium hover:underline">Cadastre-se</Link>
+              <Link to="/register" className="text-blue-600 font-medium hover:underline">
+                Cadastre-se
+              </Link>
             </p>
           </div>
         </div>

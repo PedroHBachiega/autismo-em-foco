@@ -1,3 +1,6 @@
+/* eslint-env node */
+/* eslint-disable no-undef */
+
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 

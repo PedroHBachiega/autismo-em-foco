@@ -1,61 +1,42 @@
-import React, { createContext, useContext } from 'react';
+/* eslint-disable react-refresh/only-export-components */
+import { createContext, useContext } from "react";
 
-// Cria o contexto para o GTM
-export const GTMContext = createContext();
+export const GTMContext = createContext(null);
 
-// Provedor do contexto GTM
 export function GTMProvider({ children }) {
-  // Garante que o dataLayer existe
-  window.dataLayer = window.dataLayer || [];
+  if (typeof window !== "undefined") {
+    window.dataLayer = window.dataLayer || [];
+  }
 
-  // Função para enviar eventos para o GTM
   const pushEvent = (event) => {
-    if (window.dataLayer) {
+    if (typeof window !== "undefined" && window.dataLayer) {
       window.dataLayer.push(event);
-      console.log('GTM Event:', event); // Para debug
+      console.log("GTM Event:", event);
     }
   };
 
-  // Eventos específicos
-  const trackLogin = (method) => {
-    pushEvent({
-      event: 'login',
-      loginMethod: method // 'email' ou 'google'
-    });
-  };
+  const trackLogin = (method) =>
+    pushEvent({ event: "login", loginMethod: method });
 
-  const trackPostCreation = (postId, tags) => {
-    pushEvent({
-      event: 'post_created',
-      postId,
-      postTags: tags
-    });
-  };
+  const trackPostCreation = (postId, tags) =>
+    pushEvent({ event: "post_created", postId, postTags: tags });
 
-  const trackAppointmentScheduled = (especialidade, profissionalId) => {
+  const trackAppointmentScheduled = (especialidade, profissionalId) =>
     pushEvent({
-      event: 'appointment_scheduled',
+      event: "appointment_scheduled",
       especialidade,
-      profissionalId
+      profissionalId,
     });
-  };
-
-  // Valores e funções expostos pelo contexto
-  const value = {
-    pushEvent,
-    trackLogin,
-    trackPostCreation,
-    trackAppointmentScheduled
-  };
 
   return (
-    <GTMContext.Provider value={value}>
+    <GTMContext.Provider
+      value={{ pushEvent, trackLogin, trackPostCreation, trackAppointmentScheduled }}
+    >
       {children}
     </GTMContext.Provider>
   );
 }
 
-// Hook para usar o contexto GTM
 export function useGTM() {
   return useContext(GTMContext);
 }
