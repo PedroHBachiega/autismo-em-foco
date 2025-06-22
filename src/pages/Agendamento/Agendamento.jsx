@@ -23,6 +23,7 @@ const Agendamento = () => {
   const [loading, setLoading] = useState(false);
   const [profissionais, setProfissionais] = useState([]);
   const [error, setError] = useState(null);
+  
 
   const { user } = useAuthValue();
   const { insertDocument, response } = useInsertDocument('agendamentos');
