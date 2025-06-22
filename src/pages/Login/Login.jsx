@@ -2,15 +2,23 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import GoogleButton from '../../components/GoogleButton';
 import { useAuthValue } from '../../context/AuthContext';
+import { useGTM } from '../../context/GTMContext';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const { login, loginWithGoogle, error, loading } = useAuthValue();
+  const { trackLogin } = useGTM();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     await login(email, senha);
+    trackLogin('email');
+  };
+
+  const handleGoogleLogin = async () => {
+    await loginWithGoogle();
+    trackLogin('google');
   };
 
   return (
@@ -62,7 +70,7 @@ function Login() {
               </button>
 
               <GoogleButton
-                onClick={loginWithGoogle}
+                onClick={handleGoogleLogin}
                 loading={loading}
                 text="Entrar com Google"
               />

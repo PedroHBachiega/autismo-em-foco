@@ -3,16 +3,17 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthValue } from '../../context/AuthContext';
+import { useGTM } from '../../context/GTMContext';
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
 import styles from './CreatePost.module.css';
 import { db, storage } from '../../firebase/config';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
-import { v4 as uuidv4 } from 'uuid'; 
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { v4 as uuidv4 } from 'uuid';
 
 const CreatePost = () => {
-
   const navigate = useNavigate();
   const { user } = useAuthValue();
+  const { trackPostCreation } = useGTM();
 
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
@@ -62,17 +63,16 @@ const CreatePost = () => {
       .filter((tagItem) => tagItem.length > 0);
 
     try {
-      
-      let imageUrl= '';
+      let imageUrl = '';
 
       if (imageFile) {
         const imageRef = ref(storage, `posts/${uuidv4()}-${imageFile.name}`);
         const uploadSnap = await uploadBytes(imageRef, imageFile);
         imageUrl = await getDownloadURL(uploadSnap.ref);
       }
-      
+
       // Cria novo documento em "posts"
-      await addDoc(collection(db, 'posts'), {
+      const docRef = await addDoc(collection(db, 'posts'), {
         title: title.trim(),
         body: body.trim(),
         tags: tagsArray,
@@ -81,6 +81,9 @@ const CreatePost = () => {
         createdBy: user.displayName || user.email,
         createdAt: Timestamp.now(),
       });
+
+      // Rastrear evento de criação de post
+      trackPostCreation(docRef.id, tagsArray);
 
       // Redireciona para o dashboard após criar o post
       navigate('/comunidade');

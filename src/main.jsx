@@ -8,6 +8,7 @@ import './index.css';
 // Mantemos somente um BrowserRouter e um AuthProvider aqui
 import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
+import { GTMProvider } from './context/GTMContext';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -15,7 +16,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <BrowserRouter>
       {/* 2) AuthProvider fica dentro do Router, pois precisa de useNavigate/useLocation */}
       <AuthProvider>
-        <App />
+        {/* 3) GTMProvider para rastreamento de eventos */}
+        <GTMProvider>
+          <App />
+        </GTMProvider>
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>
