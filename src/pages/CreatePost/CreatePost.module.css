@@ -1,67 +1,193 @@
 .create_post {
     max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
+    margin: 2rem auto;
+    padding: 2.5rem;
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
   }
   
   .create_post h2 {
-    margin-bottom: 10px;
-    font-size: 2em;
+    margin-bottom: 0.75rem;
+    font-size: 2.25em;
     text-align: center;
+    color: #1d4ed8;
+    font-weight: 700;
   }
   
-  .create_post p {
-    color: #777;
-    margin-bottom: 30px;
+  .create_post .subtitle {
+    color: #4b5563;
+    margin-bottom: 2.5rem;
     text-align: center;
+    font-size: 1.5rem;
+    line-height: 1.6;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
   }
   
   .create_post form {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 1.75rem;
   }
   
   .create_post label {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 0.75rem;
   }
   
   .create_post label span {
-    font-weight: bold;
+    font-weight: 600;
+    color:#1f2937;
+    font-size: 1.1rem;
   }
   
-  .create_post input,
-  .create_post textarea {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+  .create_post input {
+    padding: 1rem 1.3rem;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
     font-family: inherit;
+    font-size: 1.05rem;
+    transition: all 0.25s ease;
+    background-color: #f9fafb;
+  }
+  .create_post textarea {
+    padding: 1rem 1.3rem;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 1.05rem;
+    transition: all 0.25s ease;
+    background-color: #f9fafb;
+    min-height: 220px;
+    resize: vertical;
+    line-height: 1.7;
   }
   
-  .create_post textarea {
-    min-height: 200px;
-    resize: vertical;
+  .create_post input:focus,
+  .create_post textarea:focus{
+    outline: none;
+    border-color: #1d4ed8;
+    box-shadow: 0 0 0 4px rgba(29, 78, 216, 0.15);
+    background-color: #fff;
+  }
+
+  .tags_label{
+    position: relative;
+  }
+  
+  .create_post label[for="tags"]::after {
+    content: "Exemplo: autismo, inclusão, educação";
+    display: block;
+    font-size: 0.9rem;
+    color: #6b7280;
+    margin-top: 0.5rem;
+    font-style: italic;
+    line-height: 1.5;
   }
   
   .error {
-    color: #721c24;
-    background-color: #f8d7da;
-    border: 1px solid #f5c6cb;
-    padding: 10px;
-    border-radius: 5px;
+    color: #b91c1c;
+    background-color: #fee2e2;
+    border: 1px solid #fecaca;
+    padding: 1rem;
+    border-radius: 10px;
     text-align: center;
-    margin-top: 10px;
+    margin-top: 1rem;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .form_actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
   }
 
   .btn {
-    background-color: #2e5eaa;
-    border-radius: 12px;
+    background-color: #1d4ed8;
+    border: none;
+    border-radius: 10px;
     color: white;
-    padding: 5px;
-    
-    
-    
-    
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap:0.75rem;
+    box-shadow: 0 4px 6px rgba(29, 78, 216, 0.2);
+  }
+
+  .btn:hover {
+    background-color: #1e40af;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(29, 78, 216, 0.2);
+  }
+
+  .btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px(29, 78, 216, 0.2);
+  }
+
+  .btn_loading {
+    background-color: #93c5fd;
+    cursor: not-allowed;
+  }
+
+  .spinner {
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .create_post {
+      padding: 1.75rem;
+      margin: 1.5rem;
+    }
+
+    .create_post h2 {
+      font-size: 2rem;
+    }
+
+    .btn {
+      max-width: 100%;
+      padding: 1.1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .create_post {
+      padding: 1.5rem;
+      margin: 1rem;
+      border-radius: 12px;
+    }
+
+    .create_post h2 {
+      font-size: 1.75rem;
+    }
+
+    .create_post .subtitle {
+      font-size: 1rem;
+    }
+
+    .input_field,
+    .textarea_field {
+      padding: 0.9rem 1.1rem;
+      font-size: 1rem;
+    }
   }

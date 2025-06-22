@@ -26,7 +26,8 @@
   color: #2e5eaa;
   margin-bottom: 15px;
   font-weight: 700;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.
+05);
 }
 
 .header p {
@@ -35,6 +36,101 @@
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.5;
+}
+
+.search_container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto 30px;
+}
+
+.search_wrapper {
+  display: flex;
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e7ff;
+}
+
+.search_input {
+  flex: 1;
+  padding: 14px 20px;
+  border: none;
+  font-size: 1rem;
+  outline: none;
+  background-color: #f8faff;
+  transition: all 0.3s ease;
+}
+
+.search_input:focus {
+  background-color: white;
+  box-shadow: 0 0 0 3px rgba(46, 94, 170, 0.1);
+}
+
+.search_input::placeholder {
+  color: #8da2c0;
+}
+
+.search_buttons {
+  display: flex;
+  gap: 10px;
+  padding: 0 15px;
+  align-items: center;
+  background-color: white;
+}
+
+.search_button,
+.clear_button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  font-size: 0.95rem;
+}
+
+.search_button {
+  background-color: #2e5eaa;
+  color: white;
+  box-shadow: 0 4px 10px rgba(46, 94, 170, 0.2);
+}
+
+.search_button:hover {
+  background-color: #1d4b8f;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(46, 94, 170, 0.3);
+}
+
+.clear_button {
+  background-color: #f0f7ff;
+  color: #4a6fa5;
+  border: 1px solid #d6e9ff;
+}
+
+.clear_button:hover {
+  background-color: #e0f0ff;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .search_wrapper {
+    flex-direction: column;
+  }
+
+
+.search_input {
+  width: 100%;
+  padding: 12px 15px;
+}
+
+.search_buttons {
+  width: 100%;
+  padding: 10px;
+  justify-content: center;
+}
 }
 
 .contentGrid {
@@ -76,7 +172,6 @@
   flex: 1;
   margin-right: 20px;
 }
-
 .postButton {
   background-color: #2e5eaa;
   color: white;
@@ -90,7 +185,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 10px rgba(46, 94, 170, 0.2);
+  box-shadow: 0 4px 10px rgba(46, 94, 170, 0.
+2);
   white-space: nowrap;
 }
 
@@ -137,10 +233,12 @@
   background-color: #f8faff;
 }
 
+
 .createPost textarea:focus {
   outline: none;
   border-color: #2e5eaa;
-  box-shadow: 0 0 0 3px rgba(46, 94, 170, 0.1);
+  box-shadow: 0 0 0 3px rgba(46, 94, 170, 0.
+1);
   background-color: #fff;
 }
 
@@ -148,32 +246,6 @@
   color: #8da2c0;
 }
 
-.postButton {
-  background-color: #2e5eaa;
-  color: white;
-  border: none;
-  padding: 12px 25px;
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 10px rgba(46, 94, 170, 0.2);
-}
-
-.postButton:hover {
-  background-color: #1d4b8f;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(46, 94, 170, 0.3);
-}
-
-.postButton:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 5px rgba(46, 94, 170, 0.2);
-}
 
 .postInput {
   width: 100%;
@@ -184,21 +256,6 @@
   resize: none;
   margin-bottom: 15px;
   font-family: inherit;
-}
-
-.postButton {
-  background-color: #2e5eaa;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.postButton:hover {
-  background-color: #1d4b8f;
 }
 
 .feedFilter {

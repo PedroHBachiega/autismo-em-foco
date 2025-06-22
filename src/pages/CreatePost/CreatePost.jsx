@@ -66,7 +66,7 @@ const CreatePost = () => {
   return (
     <div className={styles.create_post}>
       <h2>Criar Post</h2>
-      <p>Crie seu post e compartilhe seu conhecimento</p>
+      <p className={styles.subtitle}>Crie seu post e compartilhe seu conhecimento</p>
 
       <form onSubmit={handleSubmit}>
         <label>
@@ -79,6 +79,7 @@ const CreatePost = () => {
             onChange={(e) => setTitle(e.target.value)}
             disabled={loading}
             required
+            className={styles.input_field}
           />
         </label>
 
@@ -91,10 +92,11 @@ const CreatePost = () => {
             onChange={(e) => setBody(e.target.value)}
             disabled={loading}
             required
+            className={styles.textarea_field}
           ></textarea>
         </label>
 
-        <label>
+        <label html="tags" className={styles.tags_label}>
           <span>Tags:</span>
           <input
             type="text"
@@ -104,19 +106,22 @@ const CreatePost = () => {
             onChange={(e) => setTags(e.target.value)}
             disabled={loading}
             required
+            className={styles.input_field}
           />
         </label>
 
-        {!loading && (
+        <div className={styles.form_actions}>
+        {!loading ? (
           <button type="submit" className={styles.btn}>
-            Criar
+            Criar Post
           </button>
+        ) : (
+        <button type="button" className={`${styles.btn} ${styles.btn_loading}`} disabled>
+          <span className={styles.spinner}></span>
+          Aguarde...
+        </button>
         )}
-        {loading && (
-          <button type="button" className="btn" disabled>
-            Aguarde...
-          </button>
-        )}
+        </div>
 
         {formError && <p className={styles.error}>{formError}</p>}
       </form>
