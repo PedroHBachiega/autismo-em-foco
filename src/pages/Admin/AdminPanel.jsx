@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { db } from '../../firebase/config';
 import { collection, getDocs, doc, updateDoc } from 'firebase/firestore';
 import { useAuthValue } from '../../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import styles from './AdminPanel.module.css';
 
 const AdminPanel = () => {
@@ -72,6 +72,19 @@ const AdminPanel = () => {
   return (
     <div className={styles.adminPanel}>
       <h1>Painel de Administração</h1>
+      
+      {/* Seção de Ações Rápidas */}
+      <div className={styles.quickActions}>
+        <h2>Ações Rápidas</h2>
+        <div className={styles.actionButtons}>
+          <Link to="/cadastro-evento" className={styles.actionBtn}>
+            📅 Cadastrar Evento
+          </Link>
+          <Link to="/eventos" className={styles.actionBtn}>
+            👁️ Ver Eventos
+          </Link>
+        </div>
+      </div>
       
       <div className={styles.usersSection}>
         <h2>Gerenciar Usuários</h2>
