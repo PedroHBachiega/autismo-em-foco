@@ -12,9 +12,7 @@ import { GTMProvider } from './context/GTMContext';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    {/* 1) BrowserRouter define todo o contexto de rota */}
     <BrowserRouter>
-      {/* 2) AuthProvider fica dentro do Router, pois precisa de useNavigate/useLocation */}
       <AuthProvider>
         {/* 3) GTMProvider para rastreamento de eventos */}
         <GTMProvider>
