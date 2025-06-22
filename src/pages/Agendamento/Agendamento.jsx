@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import styles from './Agendamento.module.css'
-import { useAuthValue } from '../../context/AuthContext'
-import { useInsertDocument } from '../../Hooks/useInsertDocument'
-import { useFetchDocuments } from '../../Hooks/useFetchDocuments'
+import React, { useState, useEffect } from 'react';
+import styles from './Agendamento.module.css';
+import { useAuthValue } from '../../context/AuthContext';
+import { useInsertDocument } from '../../Hooks/useInsertDocument';
+import { useFetchDocuments } from '../../Hooks/useFetchDocuments';
+import { useGTM } from '../../context/GTMContext';
 
 const Agendamento = () => {
   const [especialidade, setEspecialidade] = useState('');
@@ -20,6 +21,7 @@ const Agendamento = () => {
   const { user } = useAuthValue();
   const { insertDocument, response } = useInsertDocument('agendamentos');
   const { documents: existingAppointments } = useFetchDocuments('agendamentos');
+  const { trackAppointmentScheduled } = useGTM();
 
   // Dados simulados de profissionais
   const profissionais = [
@@ -113,35 +115,36 @@ const Agendamento = () => {
     }
   };
 
-  const handleScheduleSubmit = (e) => {
+  const handleScheduleSubmit = async (e) => {
     e.preventDefault();
     
-    if (!user) {
-      setMessage('Você precisa estar logado para agendar uma consulta.');
-      return;
-    }
-    
     if (!selectedDate || !selectedTime) {
-      setMessage('Por favor, selecione uma data e horário.');
+      setMessage('Por favor, selecione data e horário.');
       return;
     }
     
     const agendamento = {
-      uid: user.uid,
-      userName: user.displayName || user.email,
-      userEmail: user.email,
       profissionalId: selectedProfessional.id,
       profissionalNome: selectedProfessional.nome,
       especialidade: selectedProfessional.especialidade,
       data: selectedDate,
       horario: selectedTime,
       status: 'agendado',
+      userId: user.uid,
+      userName: user.displayName || user.email,
       createdAt: new Date()
     };
     
-    insertDocument(agendamento);
+    await insertDocument(agendamento);
+    
+    // Rastrear evento de agendamento
+    trackAppointmentScheduled(
+      selectedProfessional.especialidade,
+      selectedProfessional.id
+    );
+    
     setScheduleSuccess(true);
-    setMessage('Consulta agendada com sucesso!');
+    setMessage('Agendamento realizado com sucesso!');
   };
 
   return (
