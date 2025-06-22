@@ -88,3 +88,52 @@
     font-size: 0.8rem;
     margin-left: 10px;
   }
+
+.quickActions {
+  margin-bottom: 40px;
+  padding: 25px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  border: 1px solid #e9ecef;
+}
+
+.quickActions h2 {
+  color: #2e5eaa;
+  margin-bottom: 20px;
+  font-size: 1.4rem;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.actionBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background-color: #2e5eaa;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.actionBtn:hover {
+  background-color: #1e3d73;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .actionButtons {
+    flex-direction: column;
+  }
+  
+  .actionBtn {
+    justify-content: center;
+  }
+}

@@ -198,6 +198,26 @@
   background-color: #1d4b8f;
 }
 
+.cadastrarEventoBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  padding: 12px 24px;
+  background-color: #28a745;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.cadastrarEventoBtn:hover {
+  background-color: #218838;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 @media (max-width: 768px) {
   .eventosHeader {
     padding: 40px 15px;
@@ -213,5 +233,82 @@
   
   .filtrosBotoes {
     justify-content: center;
+  }
+}
+
+/* Estilos para loading e error */
+.loading, .error {
+  text-align: center;
+  padding: 40px;
+  font-size: 1.1rem;
+}
+
+.error {
+  color: #d32f2f;
+  background-color: #ffebee;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+
+.loading {
+  color: #2e5eaa;
+}
+
+/* Estilos para eventos passados */
+.eventoPassado {
+  opacity: 0.7;
+  position: relative;
+}
+
+.eventoPassado .eventoImagem::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 10px 10px 0 0;
+}
+
+.eventoStatus {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #757575;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  z-index: 2;
+}
+
+/* Botão desabilitado */
+.inscricaoBtn:disabled {
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+  border: 1px solid #cccccc;
+}
+
+.inscricaoBtn:disabled:hover {
+  background-color: #cccccc;
+  transform: none;
+}
+
+/* Responsividade aprimorada */
+@media (max-width: 768px) {
+  .filtrosSection {
+    margin-bottom: 20px;
+  }
+  
+  .filtrosBotoes {
+    justify-content: center;
+  }
+  
+  .filtroBotao {
+    font-size: 0.9rem;
+    padding: 6px 12px;
   }
 }

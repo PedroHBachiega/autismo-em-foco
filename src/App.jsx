@@ -11,6 +11,7 @@ import Tratamentos from './pages/Tratamentos/Tratamentos';
 import Sobre from './pages/Sobre/Sobre';
 import Leisedireitos from './pages/Leisedireitos/Leisedireitos';
 import Eventos from './pages/Eventos/Eventos';
+import CadastroEvento from './pages/CadastroEvento/CadastroEvento';
 
 // Páginas protegidas
 import Profile from './pages/Profile/Profile';
@@ -76,6 +77,7 @@ function App() {
             <AdminPanel />
           </ProtectedRoute>
         } />
+        <Route path="/cadastro-evento" element={<CadastroEvento />} />
       </Route>
     </Routes>
   );
