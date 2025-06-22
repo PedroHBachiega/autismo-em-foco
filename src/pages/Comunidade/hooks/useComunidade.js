@@ -3,7 +3,7 @@ import { db } from '../../../firebase/config';
 import { useAuthValue } from '../../../context/AuthContext';
 import { useDeleteDocument } from '../../../Hooks/useDeleteDocument';
 import { useUpdateDocument } from '../../../Hooks/useUpdateDocument';
-import { collection, getDocs, query, orderBy } from 'firebase/firestore';
+import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
 
 export const useComunidade = () => {
   const { user } = useAuthValue();
@@ -18,45 +18,28 @@ export const useComunidade = () => {
   const { toggleLike, addComment, editComment, loading: updateLoading } = useUpdateDocument("posts");
 
   useEffect(() => {
-    let isMounted = true;
-    
-    const fetchPosts = async () => {
-      setIsLoading(true);
-      try {
-        const postsRef = collection(db, "posts");
-        const q = query(postsRef, orderBy("createdAt", "desc"));
-        const querySnapshot = await getDocs(q);
-        
-        const posts = [];
-        querySnapshot.forEach((doc) => {
-          posts.push({
-            id: doc.id,
-            ...doc.data()
-          });
-        });
-        
-        if (isMounted) {
-          console.log("Posts fetched:", posts.length);
-          setFetchedPosts(posts);
-          setFetchError(null);
-          setIsLoading(false);
-        }
-      } catch (error) {
-        console.error("Error fetching posts:", error);
-        if (isMounted) {
-          setFetchError("Erro ao carregar os posts");
-          setIsLoading(false);
-        }
-      }
-    };
+    const postsRef = collection(db, "posts");
+    const q = query(postsRef, orderBy("createdAt", "desc"));
 
-    fetchPosts();
-    
-    // Cleanup function to prevent state updates after unmount
-    return () => {
-      isMounted = false;
-    };
-  }, [updateLoading]); // Recarregar quando houver atualizações
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const posts = [];
+      querySnapshot.forEach((doc) => {
+        posts.push({
+          id: doc.id,
+          ...doc.data()
+        });
+      });
+      setFetchedPosts(posts);
+      setFetchError(null);
+      setIsLoading(false);
+    }, (error) => {
+      console.error("Error fetching posts:", error);
+      setFetchError("Erro ao carregar os posts");
+      setIsLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, [updateLoading]);
 
   // Função para lidar com likes
   const handleLike = async (postId) => {
