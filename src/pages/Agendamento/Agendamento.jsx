@@ -4,6 +4,9 @@ import { useAuthValue } from '../../context/AuthContext';
 import { useInsertDocument } from '../../Hooks/useInsertDocument';
 import { useFetchDocuments } from '../../Hooks/useFetchDocuments';
 import { useGTM } from '../../context/GTMContext';
+import { googleMapsApi, useGoogleMapsPlaces } from '../../services/googleMapsApi';
+// Remova ou comente a importação da cnesApi
+// import { cnesApi } from '../../services/cnesApi';
 
 const Agendamento = () => {
   const [especialidade, setEspecialidade] = useState('');
@@ -17,53 +20,58 @@ const Agendamento = () => {
   const [availableTimes, setAvailableTimes] = useState([]);
   const [message, setMessage] = useState('');
   const [scheduleSuccess, setScheduleSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [profissionais, setProfissionais] = useState([]);
+  const [error, setError] = useState(null);
 
   const { user } = useAuthValue();
   const { insertDocument, response } = useInsertDocument('agendamentos');
   const { documents: existingAppointments } = useFetchDocuments('agendamentos');
   const { trackAppointmentScheduled } = useGTM();
 
-  // Dados simulados de profissionais
-  const profissionais = [
-    {
-      id: 1,
-      nome: "Dra. Ana Silva",
-      especialidade: "Neuropsicóloga",
-      endereco: "Av. Paulista, 1000 - Bela Vista",
-      cidade: "São Paulo",
-      telefone: "(11) 3456-7890",
-      avaliacao: 4.9,
-      imagem: "https://placehold.co/600x400/2361ad/FFF?text=Profissional",
-      horarios: ["09:00", "10:00", "11:00", "14:00", "15:00", "16:00"]
-    },
-    {
-      id: 2,
-      nome: "Dr. Carlos Mendes",
-      especialidade: "Neuropediatra",
-      endereco: "Rua Augusta, 500 - Consolação",
-      cidade: "São Paulo",
-      telefone: "(11) 2345-6789",
-      avaliacao: 4.8,
-      imagem: "https://placehold.co/600x400/2361ad/FFF?text=Profissional",
-      horarios: ["08:00", "09:00", "10:00", "13:00", "14:00", "15:00"]
-    },
-    {
-      id: 3,
-      nome: "Centro Especializado TEA",
-      especialidade: "Clínica Multidisciplinar",
-      endereco: "Rua Oscar Freire, 200 - Jardins",
-      cidade: "São Paulo",
-      telefone: "(11) 3333-4444",
-      avaliacao: 4.7,
-      imagem: "https://placehold.co/600x400/2361ad/FFF?text=Clínica",
-      horarios: ["08:00", "09:00", "10:00", "11:00", "13:00", "14:00", "15:00", "16:00", "17:00"]
-    }
-  ];
+  // Adicione o hook para carregar o script do Google Maps
+  const { isLoaded, loadError, loadGoogleMapsScript } = useGoogleMapsPlaces();
+  
+  // Carregue o script do Google Maps quando o componente for montado
+  useEffect(() => {
+    loadGoogleMapsScript();
+  }, [loadGoogleMapsScript]);
 
-  const handleSearch = (e) => {
+  const handleSearch = async (e) => {
     e.preventDefault();
-    setShowResults(true);
-    // Aqui seria implementada a lógica de busca real
+    setLoading(true);
+    setError(null);
+    setShowResults(false);
+    
+    try {
+      // Usar a nova API do Google Maps Places
+      const filters = {
+        city: cidade,
+        specialty: especialidade
+      };
+      
+      const establishments = await googleMapsApi.getEstablishments(filters);
+      
+      if (establishments && establishments.length > 0) {
+        setProfissionais(establishments);
+      } else {
+        // Se a API não retornar dados, usar o fallback com dados simulados
+        const mockData = googleMapsApi.getMockEstablishments(cidade, especialidade);
+        setProfissionais(mockData);
+      }
+      
+      setShowResults(true);
+    } catch (err) {
+      console.error('Erro ao buscar estabelecimentos:', err);
+      setError('Não foi possível buscar os estabelecimentos. Usando dados simulados.');
+      
+      // Em caso de erro, usar dados simulados como fallback
+      const mockData = googleMapsApi.getMockEstablishments(cidade, especialidade);
+      setProfissionais(mockData);
+      setShowResults(true);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleScheduleClick = (profissional) => {
@@ -199,41 +207,58 @@ const Agendamento = () => {
             </div>
           </div>
 
-          <button type="submit" className={styles.searchButton}>Buscar</button>
+          <button 
+            type="submit" 
+            className={styles.searchButton}
+            disabled={loading}
+          >
+            {loading ? 'Buscando...' : 'Buscar'}
+          </button>
         </form>
       </section>
+
+      {error && (
+        <div className={styles.errorMessage}>
+          <p>{error}</p>
+        </div>
+      )}
 
       {showResults && (
         <section className={styles.resultsSection}>
           <h2>Resultados da Busca</h2>
-          <div className={styles.resultsGrid}>
-            {profissionais.map(profissional => (
-              <div key={profissional.id} className={styles.resultCard}>
-                <div className={styles.resultImage}>
-                  <img src={profissional.imagem} alt={profissional.nome} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                </div>
-                <div className={styles.resultContent}>
-                  <h3>{profissional.nome}</h3>
-                  <span className={styles.resultType}>{profissional.especialidade}</span>
-                  <div className={styles.resultInfo}>
-                    <p><span>📍</span> <span>{profissional.endereco}</span></p>
-                    <p><span>🏙️</span> <span>{profissional.cidade}</span></p>
-                    <p><span>📞</span> <span>{profissional.telefone}</span></p>
-                    <p><span>⭐</span> <span>{profissional.avaliacao} (avaliação)</span></p>
+          {profissionais.length === 0 ? (
+            <p className={styles.noResults}>Nenhum resultado encontrado para os critérios de busca.</p>
+          ) : (
+            <div className={styles.resultsGrid}>
+              {profissionais.map(profissional => (
+                <div key={profissional.id} className={styles.resultCard}>
+                  <div className={styles.resultImage}>
+                    <img src={profissional.imagem} alt={profissional.nome} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   </div>
-                  <button
-                    className={styles.scheduleButton}
-                    onClick={() => handleScheduleClick(profissional)}
-                  >
-                    Agendar Consulta
-                  </button>
+                  <div className={styles.resultContent}>
+                    <h3>{profissional.nome}</h3>
+                    <span className={styles.resultType}>{profissional.especialidade}</span>
+                    <div className={styles.resultInfo}>
+                      <p><span>📍</span> <span>{profissional.endereco}</span></p>
+                      <p><span>🏙️</span> <span>{profissional.cidade}</span></p>
+                      <p><span>📞</span> <span>{profissional.telefone}</span></p>
+                      <p><span>⭐</span> <span>{profissional.avaliacao} (avaliação)</span></p>
+                    </div>
+                    <button
+                      className={styles.scheduleButton}
+                      onClick={() => handleScheduleClick(profissional)}
+                    >
+                      Agendar Consulta
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </section>
       )}
 
+      {/* O restante do componente permanece o mesmo */}
       {showScheduleForm && selectedProfessional && (
         <section className={styles.scheduleFormSection}>
           <h2>Agendar Consulta com {selectedProfessional.nome}</h2>
@@ -242,6 +267,7 @@ const Agendamento = () => {
               <div className={styles.successMessage}>
                 <h3>Agendamento realizado com sucesso!</h3>
                 <p>Você agendou uma consulta com {selectedProfessional.nome} para o dia {selectedDate} às {selectedTime}.</p>
+                <p>Um PDF com os detalhes do agendamento foi enviado para o seu email: {user.email}</p>
                 <p>Você pode visualizar seus agendamentos na página "Meus Agendamentos".</p>
                 <button
                   className={styles.primaryButton}
