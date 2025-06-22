@@ -222,3 +222,11 @@
     font-size: 0.8rem;
   }
 }
+
+.heroTextBox h2, .heroTextBox h1 {
+  color: #222; /* Improved contrast */
+}
+
+.card p {
+  color: #444; /* Improved contrast */
+}

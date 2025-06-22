@@ -22,7 +22,7 @@ const Navbar = () => {
       <div className="flex gap-4">
         {isAdmin ? (
           <>
-            <Link to="/" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Home</Link>
+            <Link to="/" className="text-white font-bold text-base hover:text-blue-400 transition-colors">Home</Link>
             <Link to="/comunidade" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Comunidade</Link>
             <Link to="/admin" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Painel Admin</Link>
           </>

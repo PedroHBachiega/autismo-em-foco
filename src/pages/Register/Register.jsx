@@ -79,7 +79,7 @@ function Register() {
         <div className="bg-white rounded-xl shadow-lg overflow-hidden animate-fadeIn border border-gray-200">
           <div className="pt-6 px-6 pb-2">
             <h2 className="text-2xl font-bold text-center text-gray-900 mb-2">Crie sua conta</h2>
-            <p className="text-center text-gray-500 text-sm">Junte-se à plataforma do Autismo Em Foco!</p>
+            <p className="text-center text-gray-600 text-sm">Junte-se à plataforma do Autismo Em Foco!</p>
           </div>
           <div className="py-4 px-10">
             <form onSubmit={handleRegister} className="flex flex-col gap-5">

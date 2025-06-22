@@ -22,14 +22,14 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen p-12 sm:p-6 flex justify-center items-start font-sans">
+    <div className="min-h-screen p-12 sm:p-6 flex justify-center items-center font-sans">
       <div className="w-full max-w-lg">
         <div className="bg-white rounded-xl shadow-lg overflow-hidden animate-fadeIn border border-gray-200">
           <div className="pt-6 px-6 pb-2">
             <h2 className="text-2xl font-bold text-center text-gray-900 mb-2">
               Bem-vindo de volta
             </h2>
-            <p className="text-center text-gray-500 text-sm">Acesse sua conta</p>
+            <p className="text-center text-gray-600 text-sm">Acesse sua conta</p>
           </div>
           <div className="py-4 px-10">
             <form onSubmit={handleSubmit} className="flex flex-col gap-5">
