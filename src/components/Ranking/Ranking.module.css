@@ -1,0 +1,189 @@
+.ranking {
+  background: white;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #f3f4f6;
+}
+
+.header h3 {
+  margin: 0 0 0.5rem 0;
+  color: #1f2937;
+  font-size: 1.25rem;
+}
+
+.header p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.rankingList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.rankingItem {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 0.75rem;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s ease;
+}
+
+.rankingItem:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.topThree {
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  border-color: #f59e0b;
+}
+
+.position {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  margin-right: 1rem;
+  font-weight: 700;
+}
+
+.crown {
+  font-size: 2rem;
+}
+
+.medal {
+  font-size: 1.5rem;
+}
+
+.number {
+  font-size: 1.25rem;
+  color: #6b7280;
+}
+
+.userInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.userName {
+  font-weight: 600;
+  color: #1f2937;
+  font-size: 1rem;
+}
+
+.stats {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+}
+
+.points {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+}
+
+.pointsValue {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #3b82f6;
+}
+
+.pointsLabel {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.badges {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+}
+
+.badgeCount {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #f59e0b;
+}
+
+.badgeLabel {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.toggleButton {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.toggleButton:hover {
+  background: #2563eb;
+}
+
+.emptyRanking {
+  text-align: center;
+  padding: 2rem;
+  color: #6b7280;
+}
+
+.emptyRanking p {
+  margin: 0.5rem 0;
+}
+
+.loading {
+  text-align: center;
+  padding: 2rem;
+  color: #6b7280;
+}
+
+@media (max-width: 768px) {
+  .rankingItem {
+    padding: 0.75rem;
+  }
+  
+  .position {
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-right: 0.75rem;
+  }
+  
+  .crown {
+    font-size: 1.5rem;
+  }
+  
+  .medal {
+    font-size: 1.25rem;
+  }
+  
+  .userName {
+    font-size: 0.875rem;
+  }
+  
+  .pointsValue {
+    font-size: 1rem;
+  }
+}
