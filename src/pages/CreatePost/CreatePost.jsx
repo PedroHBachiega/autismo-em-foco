@@ -1,9 +1,8 @@
-// src/pages/Comunidade/CreatePost/CreatePost.jsx
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthValue } from '../../context/AuthContext';
 import { useGTM } from '../../context/GTMContext';
+import { useGamification } from '../../Hooks/useGamification'; // Adicionar esta linha
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
 import styles from './CreatePost.module.css';
 import { db, storage } from '../../firebase/config';
@@ -14,6 +13,7 @@ const CreatePost = () => {
   const navigate = useNavigate();
   const { user } = useAuthValue();
   const { trackPostCreation } = useGTM();
+  const { trackAction } = useGamification(); // Adicionar esta linha
 
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
@@ -84,7 +84,10 @@ const CreatePost = () => {
 
       // Rastrear evento de criação de post
       trackPostCreation(docRef.id, tagsArray);
-
+      
+      // Adicionar pontos de gamificação
+      await trackAction('CREATE_POST'); // Adicionar esta linha
+      
       // Redireciona para o dashboard após criar o post
       navigate('/comunidade');
     } catch (error) {
