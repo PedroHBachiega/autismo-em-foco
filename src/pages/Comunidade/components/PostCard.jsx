@@ -15,7 +15,8 @@ const PostCard = ({
   commentText,
   setCommentText,
   handleAddComment,
-  handleEditComment = handleEditComment
+  handleEditComment,
+  handleDeleteComment
 }) => {
   const { user } = useAuthValue();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -79,9 +80,10 @@ const PostCard = ({
       </div>
       
       {/* Exibir comentários existentes */}
-      <CommentList 
-        comments={post.comments} 
+      <CommentList
+        comments={post.comments}
         onEditComment={(comment, newText) => handleEditComment(post.id, comment, newText)}
+        onDeleteComment={comment => handleDeleteComment(post.id, comment)}
         updateLoading={updateLoading}
       />
       

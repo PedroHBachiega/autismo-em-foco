@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styles from '../Comunidade.module.css';
 import { useAuthValue } from '../../../context/AuthContext';
 
-const CommentList = ({ comments, onEditComment, updateLoading }) => {
+const CommentList = ({ comments, onEditComment, onDeleteComment, updateLoading }) => {
   const { user } = useAuthValue();
   const [editingIndex, setEditingIndex] = useState(null);
   const [editText, setEditText] = useState("");
@@ -48,6 +48,7 @@ const CommentList = ({ comments, onEditComment, updateLoading }) => {
               {user && user.uid === comment.userId && (
                 <div className={styles.commentEditActions}>
                   <button onClick={() => handleEditClick(index, comment.text)} className={styles.editButton}>Editar</button>
+                  <button onClick={() => onDeleteComment(comment)} className={styles.commentButton} style={{backgroundColor:'#d32f2f',marginLeft:'8px'}}>Excluir</button>
                 </div>
               )}
             </>

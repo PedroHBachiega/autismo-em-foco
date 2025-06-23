@@ -195,6 +195,7 @@ export default function Agendamento() {
               <option value="">Selecione</option>
               <option value="neuropediatra">Neuropediatra</option>
               <option value="neuropsicólogo">Neuropsicólogo</option>
+              <option value="psicopedagogo">Psicopedagogo</option>
               <option value="fonoaudiólogo">Fonoaudiólogo</option>
               <option value="terapeuta-ocupacional">Terapeuta Ocupacional</option>
               <option value="psicólogo">Psicólogo</option>

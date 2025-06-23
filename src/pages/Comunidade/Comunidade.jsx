@@ -27,12 +27,13 @@ const Comunidade = () => {
     commentText, 
     setCommentText, 
     activeCommentPost, 
-    deleteDocument, 
+    handleDeletePost, 
     updateLoading, 
     handleLike, 
     toggleCommentForm, 
     handleAddComment, 
     handleEditComment, 
+    handleDeleteComment, // <-- Adicione aqui
     groups 
   } = useComunidade(); 
 
@@ -83,7 +84,7 @@ const Comunidade = () => {
                   post={post} 
                   user={user} 
                   uid={uid} 
-                  deleteDocument={deleteDocument} 
+                  deleteDocument={handleDeletePost} 
                   handleLike={handleLike} 
                   updateLoading={updateLoading} 
                   toggleCommentForm={toggleCommentForm} 
@@ -92,6 +93,7 @@ const Comunidade = () => {
                   setCommentText={setCommentText} 
                   handleAddComment={handleAddComment} 
                   handleEditComment={handleEditComment} 
+                  handleDeleteComment={handleDeleteComment} 
                 /> 
               )) 
             } 
