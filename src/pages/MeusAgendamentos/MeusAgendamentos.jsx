@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
-import styles from './MeusAgendamentos.module.css';
-import { useAuthValue } from '../../context/AuthContext';
-import { useFetchDocuments } from '../../Hooks/useFetchDocuments';
-import { useDeleteDocument } from '../../Hooks/useDeleteDocument';
-import { useUpdateDocument } from '../../Hooks/useUpdateDocument';
-import { Link } from 'react-router-dom';
-import StarRating from '../../components/StarRating';
+import { useState, useEffect } from "react";
+import { useAuthValue } from "../../context/AuthContext";
+import { useFetchDocuments } from "../../Hooks/useFetchDocuments";
+import { useDeleteDocument } from "../../Hooks/useDeleteDocument";
+import { useUpdateDocument } from "../../Hooks/useUpdateDocument";
+import { useAgendamentoToast } from "../../Hooks/useAgendamentoToast";
+import { Link } from "react-router-dom";
+import styles from "./MeusAgendamentos.module.css";
+import StarRating from "../../components/StarRating";
+import Modal from "../../components/Modal";
 
 const MeusAgendamentos = () => {
   const { user } = useAuthValue();
@@ -16,6 +18,7 @@ const MeusAgendamentos = () => {
   const { documents: agendamentos, loading } = useFetchDocuments('agendamentos', null, user?.uid);
   const { deleteDocument } = useDeleteDocument('agendamentos');
   const { updateDocument } = useUpdateDocument('agendamentos');
+  const { showSuccessToast, showErrorToast } = useAgendamentoToast();
 
   const formatDate = (dateString) => {
     const [year, month, day] = dateString.split('-');
@@ -29,13 +32,22 @@ const MeusAgendamentos = () => {
 
   const handleConfirmCancel = async () => {
     if (selectedAppointment) {
-      await deleteDocument(selectedAppointment.id);
-      setCancelMessage('Agendamento cancelado com sucesso!');
-      setShowCancelModal(false);
+      try {
+        await deleteDocument(selectedAppointment.id);
+        
+        // Exibir toast de sucesso
+        showSuccessToast(`Agendamento com ${selectedAppointment.profissionalNome} cancelado com sucesso!`);
+        
+        setCancelMessage('Agendamento cancelado com sucesso!');
+        setShowCancelModal(false);
 
-      setTimeout(() => {
-        setCancelMessage('');
-      }, 3000);
+        setTimeout(() => {
+          setCancelMessage('');
+        }, 3000);
+      } catch (error) {
+        console.error('Erro ao cancelar agendamento:', error);
+        showErrorToast('Ocorreu um erro ao cancelar o agendamento. Por favor, tente novamente.');
+      }
     }
   };
 

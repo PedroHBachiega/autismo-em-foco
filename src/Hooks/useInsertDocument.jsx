@@ -1,6 +1,6 @@
 import { useState, useEffect, useReducer } from "react"
 import { db } from '../firebase/config'
-import {collection, addDoc, Timestamp} from 'firebase/firestore'
+import { collection, addDoc, Timestamp } from 'firebase/firestore'
 
 const initialState = {
     loading: null,
@@ -34,17 +34,21 @@ export const useInsertDocument = (docCollection) => {
         checkCancelBeforeDispatch({type:"LOADING"})
         try{
             const newDocument = {...document, createAt:Timestamp.now()}
-            const insertDocument = await addDoc(
+            const docRef = await addDoc(
                 collection(db, docCollection),
                 newDocument
             )
 
             checkCancelBeforeDispatch({
                 type:"INSERTED_DOC",
-                payload: insertDocument
+                payload: docRef
             })
+            
+            // Retornar a referência do documento para uso posterior
+            return docRef;
         }catch(error){
             checkCancelBeforeDispatch({type:"ERROR", payload: error.message})
+            throw error; // Propagar o erro para ser tratado pelo chamador
         }
     }
 

@@ -8,6 +8,7 @@ import { useFetchDocuments } from '../../Hooks/useFetchDocuments';
 import { useGTM } from '../../context/GTMContext';
 import { googleMapsApi } from '../../services/googleMapsApi';
 import MapView from '../../components/MapView/MapView';
+import { useAgendamentoToast } from '../../Hooks/useAgendamentoToast';
 
 import { Autocomplete, useLoadScript } from '@react-google-maps/api';
 
@@ -44,6 +45,7 @@ export default function Agendamento() {
   const { insertDocument, response } = useInsertDocument('agendamentos');
   const { documents: existingAppointments } = useFetchDocuments('agendamentos');
   const { trackAppointmentScheduled } = useGTM();
+  const { notifyAgendamentoCriado, notifyAgendamentoErro } = useAgendamentoToast();
 
   // Carrega a API do Google Places
   const { isLoaded: mapsReady, loadError } = useLoadScript({
@@ -134,6 +136,7 @@ export default function Agendamento() {
     e.preventDefault();
     if (!selectedDate || !selectedTime) {
       setMessage('Selecione data e horário.');
+      notifyAgendamentoErro('Selecione data e horário para continuar.');
       return;
     }
 
@@ -151,10 +154,24 @@ export default function Agendamento() {
       createdAt: new Date()
     };
 
-    await insertDocument(agendamento);
-    trackAppointmentScheduled(selectedProfessional.especialidade, selectedProfessional.id);
-    setScheduleSuccess(true);
-    setMessage('Agendamento realizado com sucesso!');
+    try {
+      const docRef = await insertDocument(agendamento);
+      
+      // Adicionar o ID do documento ao objeto de agendamento
+      const agendamentoComId = { ...agendamento, id: docRef.id };
+      
+      // Notificar sucesso com toast
+      await notifyAgendamentoCriado(agendamentoComId);
+      
+      // Registrar evento no GTM
+      trackAppointmentScheduled(selectedProfessional.especialidade, selectedProfessional.id);
+      
+      setScheduleSuccess(true);
+      setMessage('Agendamento realizado com sucesso!');
+    } catch (error) {
+      console.error('Erro ao agendar:', error);
+      notifyAgendamentoErro('Ocorreu um erro ao realizar o agendamento. Por favor, tente novamente.');
+    }
   };
 
   return (
