@@ -51,14 +51,14 @@ const Faq = () => {
             <h2 className={styles.faqTitulo}>Perguntas Frequentes</h2>
             {faqData.map((item, index) => (
                 <div key={index} className={styles.faqItem}>
-                    <button className={styles.faqPergunta} onClick={() => toggleResposta(index)}>
+                    <button style={{ color: 'var(--text)'}} className={styles.faqPergunta} onClick={() => toggleResposta(index)}>
 
                         {item.pergunta}
                         <span className={`${styles.faqIcon} ${aberta === index ? styles.aberta : ''}`}>
                             <FaChevronDown />
                         </span>
                     </button>
-                    <div className={`${styles.faqResposta} ${aberta === index ? styles.mostrar : ''}`}>
+                    <div style={{ color: 'var(--text)'}} className={`${styles.faqResposta} ${aberta === index ? styles.mostrar : ''}`}>
                         {item.resposta}
                     </div>
                 </div>

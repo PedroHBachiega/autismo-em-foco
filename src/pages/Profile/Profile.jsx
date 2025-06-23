@@ -99,7 +99,7 @@ const Profile = () => {
             {userData.displayName ? userData.displayName.charAt(0).toUpperCase() : 'U'}
           </div>
           <div className={styles.userDetails}>
-            <h2>{userData.displayName || 'Usuário'}</h2>
+            <h2 style={{ color: 'var(--text)'}}>{userData.displayName || 'Usuário'}</h2>
             <span className={styles.userType}>
               {userData.userType === 'professional' ? 'Profissional' : 'Usuário'}
             </span>
@@ -107,25 +107,25 @@ const Profile = () => {
         </div>
 
         <div className={styles.infoSection}>
-          <h3>Informações Pessoais</h3>
+          <h3 style={{ color: 'var(--text)'}}>Informações Pessoais</h3>
           <div className={styles.infoCard}>
             <div className={styles.infoItem}>
-              <strong>Email:</strong> {user.email}
+              <strong style={{ color: 'var(--text)'}}>Email:</strong> {user.email}
             </div>
             <div className={styles.infoItem}>
-              <strong>Nome:</strong> {userData.displayName || 'Não informado'}
+              <strong  style={{ color: 'var(--text)'}}>Nome:</strong> {userData.displayName || 'Não informado'}
             </div>
             <div className={styles.infoItem}>
-              <strong>Bio:</strong> {userData.bio || 'Não informado'}
+              <strong  style={{ color: 'var(--text)'}}>Bio:</strong> {userData.bio || 'Não informado'}
             </div>
             <div className={styles.infoItem}>
-              <strong>Telefone:</strong> {userData.telefone || 'Não informado'}
+              <strong  style={{ color: 'var(--text)'}}>Telefone:</strong> {userData.telefone || 'Não informado'}
             </div>
             <div className={styles.infoItem}>
-              <strong>Cidade:</strong> {userData.cidade || 'Não informado'}
+              <strong  style={{ color: 'var(--text)'}}>Cidade:</strong> {userData.cidade || 'Não informado'}
             </div>
             <div className={styles.infoItem}>
-              <strong>Estado:</strong> {userData.estado || 'Não informado'}
+              <strong  style={{ color: 'var(--text)'}}>Estado:</strong> {userData.estado || 'Não informado'}
             </div>
           </div>
         </div>
@@ -166,10 +166,10 @@ const Profile = () => {
           </button>
         ) : (
           <div className={styles.editForm}>
-            <h3>Editar Perfil</h3>
+            <h3 style={{ color: 'var(--text)'}}>Editar Perfil</h3>
             
             <div className={styles.formGroup}>
-              <label>Nome de Exibição:</label>
+              <label style={{ color: 'var(--text)'}}>Nome de Exibição:</label>
               <input
                 type="text"
                 name="displayName"
@@ -180,7 +180,7 @@ const Profile = () => {
             </div>
 
             <div className={styles.formGroup}>
-              <label>Bio:</label>
+              <label style={{ color: 'var(--text)'}}>Bio:</label>
               <textarea
                 name="bio"
                 value={formData.bio}
@@ -191,7 +191,7 @@ const Profile = () => {
             </div>
 
             <div className={styles.formGroup}>
-              <label>Telefone:</label>
+              <label style={{ color: 'var(--text)'}}>Telefone:</label>
               <input
                 type="tel"
                 name="telefone"
@@ -202,7 +202,7 @@ const Profile = () => {
             </div>
 
             <div className={styles.formGroup}>
-              <label>Cidade:</label>
+              <label style={{ color: 'var(--text)'}}>Cidade:</label>
               <input
                 type="text"
                 name="cidade"
@@ -213,7 +213,7 @@ const Profile = () => {
             </div>
 
             <div className={styles.formGroup}>
-              <label>Estado:</label>
+              <label style={{ color: 'var(--text)'}}>Estado:</label>
               <input
                 type="text"
                 name="estado"

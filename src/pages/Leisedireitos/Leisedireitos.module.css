@@ -198,3 +198,11 @@
     grid-template-columns: 1fr;
   }
 }
+
+:global(.dark) .lawsSection h2{
+  color: #3b96f0;
+} 
+
+:global(.dark) .rightsSection h2 {
+  color: #3b96f0;
+}

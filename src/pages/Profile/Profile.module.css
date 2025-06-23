@@ -119,7 +119,7 @@
 .statsSection {
   margin: 2rem 0;
   padding: 1.5rem;
-  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  background: linear-gradient(135deg, #667eea, #764ba2);
   border-radius: 12px;
   border: 1px solid #dee2e6;
 }
@@ -281,4 +281,45 @@
   .cancelButton {
     width: 100%;
   }
+}
+
+:global(.dark) .profileContainer {
+  background-color: #111827;
+  color: #e5e9f0;
+  border: 1px solid #222b3a;
+}
+
+:global(.dark) .infoCard {
+  background-color: #1a202c;
+}
+
+:global(.dark) .infoItem {
+  background-color: #1a202c;
+}
+:global(.dark) .profileContent {
+  background-color: #1a202c;
+}
+
+:global(.dark) .statsSection {
+  background-color: #1a202c;
+}
+
+:global(.dark) .editForm {
+  background-color: #1a202c;
+}
+
+:global(.dark) .formGroup input{
+  background-color: #1a202c;
+}
+
+:global(.dark) .formGroup textarea {
+  background-color: #1a202c;
+}
+
+:global(.dark) .userStats {
+  background-color: #1a202c;
+}
+
+:global(.dark) .statsSection {
+  background-color: #1a202c;
 }

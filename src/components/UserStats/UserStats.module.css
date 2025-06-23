@@ -151,3 +151,11 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+:global(.dark) .userStats {
+  background-color: #1a202c;
+}
+
+:global(.dark) .actionItem {
+  background: #232b36;
+  border: 2px solid #fff;
+}
