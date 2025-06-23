@@ -312,3 +312,7 @@
     padding: 6px 12px;
   }
 }
+
+:global(.dark) .filtrosSection h2 {
+  color: #3b96f0;
+}

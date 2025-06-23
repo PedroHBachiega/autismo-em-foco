@@ -169,7 +169,7 @@ const Agendamento = () => {
         <form className={styles.searchForm} onSubmit={handleSearch}>
           <div className={styles.formGroup}>
             <label htmlFor="especialidade">Especialidade</label>
-            <select
+            <select 
               id="especialidade"
               value={especialidade}
               onChange={(e) => setEspecialidade(e.target.value)}

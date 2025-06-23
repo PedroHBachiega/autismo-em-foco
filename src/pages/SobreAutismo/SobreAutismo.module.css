@@ -8,7 +8,7 @@
 .header {
   text-align: center;
   padding: 60px 20px;
-  background-color: #f0f7ff;
+  background-color: #e6f2ff;
   border-radius: 10px;
   margin-bottom: 40px;
 }
@@ -160,4 +160,10 @@
   .mythsGrid {
     grid-template-columns: 1fr;
   }
+}
+
+:global(.dark) .characteristicsSection h2,
+:global(.dark) .diagnosisSection h2,
+:global(.dark) .mythsSection h2 {
+  color: #3b96f0;
 }

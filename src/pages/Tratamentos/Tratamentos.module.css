@@ -149,3 +149,7 @@
     margin-bottom: 20px;
   }
 }
+
+:global(.dark) .tratamentosContainer h1 {
+  color: #3b96f0;
+}

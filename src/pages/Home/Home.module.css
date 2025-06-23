@@ -81,6 +81,10 @@
   margin-bottom: 30px;
 }
 
+:global(.dark) .heroTextBox {
+  background-color: #111827;
+}
+
 .card {
   background-color: white;
   border-radius: 8px;
@@ -165,6 +169,13 @@
   max-width: 1000px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.cardIcon span {
+  color: #333;
+}
+:global(.dark) .cardIcon span {
+  color: #333333;
 }
 
 /* Responsividade */

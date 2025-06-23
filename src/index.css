@@ -1,5 +1,18 @@
 @import "tailwindcss";
 
+:root {
+  --primary: #3b82f6;
+  --primary-hover: #2563eb;
+  --background: #ffffff;
+  --text: #111827;
+}
+
+.dark {
+  --primary: #60a5fa;
+  --primary-hover: #3b82f6;
+  --background: #111827;
+  --text: #f3f4f6;
+}
 /* Prevenir scroll horizontal */
 html, body {
   overflow-x: hidden;
@@ -7,6 +20,8 @@ html, body {
   width: 100%;
   max-width: 100%;
   touch-action: pan-y;
+  background-color: var(--background);
+  color: var(--text);
 }
 
 #root {

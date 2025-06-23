@@ -13,8 +13,8 @@ const Home = () => {
       >
         <div className={styles.heroContent}>
           <div className={styles.heroTextBox}>
-            <h2>Compreender Para Incluir</h2>
-            <h1>Autismo em Foco</h1>
+            <h2 style={{ color: 'var(--text)'}}>Compreender Para Incluir</h2>
+            <h1 style={{ color: 'var(--text)'}}>Autismo em Foco</h1>
             <Link to="/sobre" className={styles.heroButton}>Saiba mais</Link>
           </div>
         </div>

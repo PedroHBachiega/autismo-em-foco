@@ -407,3 +407,12 @@
     width: 100%;
   }
 }
+
+:global(.dark) .searchSection h2 {
+  color: #3b96f0;
+}
+
+:global(.dark) .formGroup select,
+:global(.dark) .formGroup option {
+  color: #333333;
+}
