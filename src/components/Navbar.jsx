@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useAuthentication } from '../hooks/useAuthentication';
 import { useAuthValue } from '../context/AuthContext'; // ⬅️ Pega o userProfile aqui
 import logotipoImage from '../assets/logotipo.png';
@@ -10,6 +10,10 @@ const Navbar = () => {
   const { userProfile } = useAuthValue(); // ⬅️ userType está aqui
 
   const isAdmin = userProfile?.userType === 'admin';
+  const location = useLocation();
+
+  const linkUnderline = (path) =>
+    `${location.pathname === path ? 'border-b-4 border-white' : ''}`;
 
   const DesktopNavbar = () => (
     <nav className="flex items-center justify-between bg-[#2361ad] px-8 py-2 h-14">
@@ -28,14 +32,14 @@ const Navbar = () => {
           </>
         ) : (
           <>
-            <Link to="/" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Home</Link>
-            <Link to="/sobreautismo" className="text-white font-bold text-base hover:text-blue-200 transition-colors">O que é o autismo?</Link>
-            <Link to="/leisedireitos" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Leis e direitos</Link>
-            <Link to="/eventos" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Eventos</Link>
-            <Link to="/tratamentos" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Tratamento</Link>
-            <Link to="/agendamento" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Agendamento</Link>
-            <Link to="/meus-agendamentos" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Meus agendamentos</Link>
-            <Link to="/comunidade" className="text-white font-bold text-base hover:text-blue-200 transition-colors">Comunidade</Link>
+            <Link to="/" className={`text-white font-bold text-base hover:text-blue-200 transition-colors ${linkUnderline('/')}`}>Home</Link>
+            <Link to="/sobreautismo" className={`text-white font-bold text-base hover:text-blue-200 transition-colors ${linkUnderline('/sobreautismo')}`}>O que é o autismo?</Link>
+            <Link to="/leisedireitos" className={`text-white font-bold text-base hover:text-blue-200 transition-colors ${linkUnderline('/leisedireitos')}`}>Leis e direitos</Link>
+            <Link to="/eventos" className={`text-white font-bold text-base hover:text-blue-200 transition-colors ${linkUnderline('/eventos')}`}>Eventos</Link>
+            <Link to="/tratamentos" className={`text-white font-bold text-base hover:text-blue-200 transition-colors ${linkUnderline('/tratamentos')}`}>Tratamento</Link>
+            <Link to="/agendamento" className={`text-white font-bold text-base hover:text-blue-200 transition-colors ${linkUnderline('/agendamento')}`}>Agendamento</Link>
+            <Link to="/meus-agendamentos" className={`text-white font-bold text-base hover:text-blue-200 transition-colors ${linkUnderline('/meus-agendamentos')}`}>Meus agendamentos</Link>
+            <Link to="/comunidade" className={`text-white font-bold text-base hover:text-blue-200 transition-colors ${linkUnderline('/comunidade')}`}>Comunidade</Link>
           </>
         )}
       </div>
