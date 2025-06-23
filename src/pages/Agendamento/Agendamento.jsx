@@ -5,8 +5,7 @@ import { useInsertDocument } from '../../Hooks/useInsertDocument';
 import { useFetchDocuments } from '../../Hooks/useFetchDocuments';
 import { useGTM } from '../../context/GTMContext';
 import { googleMapsApi, useGoogleMapsPlaces } from '../../services/googleMapsApi';
-// Remova ou comente a importação da cnesApi
-// import { cnesApi } from '../../services/cnesApi';
+import MapView from '../../components/MapView/MapView';
 
 const Agendamento = () => {
   const [especialidade, setEspecialidade] = useState('');
@@ -23,17 +22,14 @@ const Agendamento = () => {
   const [loading, setLoading] = useState(false);
   const [profissionais, setProfissionais] = useState([]);
   const [error, setError] = useState(null);
+  const [showMap, setShowMap] = useState(false); // Novo estado para controlar exibição do mapa
   
-
   const { user } = useAuthValue();
   const { insertDocument, response } = useInsertDocument('agendamentos');
   const { documents: existingAppointments } = useFetchDocuments('agendamentos');
   const { trackAppointmentScheduled } = useGTM();
-
-  // Adicione o hook para carregar o script do Google Maps
   const { isLoaded, loadError, loadGoogleMapsScript } = useGoogleMapsPlaces();
   
-  // Carregue o script do Google Maps quando o componente for montado
   useEffect(() => {
     loadGoogleMapsScript();
   }, [loadGoogleMapsScript]);
@@ -208,15 +204,35 @@ const Agendamento = () => {
             </div>
           </div>
 
-          <button 
-            type="submit" 
-            className={styles.searchButton}
-            disabled={loading}
-          >
-            {loading ? 'Buscando...' : 'Buscar'}
-          </button>
+          <div className={styles.buttonGroup}>
+            <button 
+              type="submit" 
+              className={styles.searchButton}
+              disabled={loading}
+            >
+              {loading ? 'Buscando...' : 'Buscar Profissionais'}
+            </button>
+            
+            <button 
+              type="button" 
+              className={styles.mapButton}
+              onClick={() => setShowMap(!showMap)}
+            >
+              {showMap ? 'Ocultar Mapa' : 'Ver no Mapa'}
+            </button>
+          </div>
         </form>
       </section>
+
+      {/* Seção do Mapa */}
+      {showMap && (
+        <section className={styles.mapSection}>
+          <MapView 
+            especialidadeFiltro={especialidade}
+            cidadeFiltro={cidade}
+          />
+        </section>
+      )}
 
       {error && (
         <div className={styles.errorMessage}>
