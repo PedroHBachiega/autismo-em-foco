@@ -4,18 +4,20 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ReadInstructions from './components/ReadInstructions/ReadInstructions';
 import ThemeToggle from './components/ThemeToggle';
+import NotificationManager from './components/NotificationManager/NotificationManager';
 
 const Layout = () => {
   return (
-    <div className="min-h-screen" style={{ backgroundColor: 'var(--background)', color: 'var(--text)'}}>
+    <>
       <Navbar />
       <main>
         <Outlet />
       </main>
-      <ReadInstructions />
       <Footer />
+      <ReadInstructions />
       <ThemeToggle />
-    </div>
+      <NotificationManager />
+    </>
   );
 };
 

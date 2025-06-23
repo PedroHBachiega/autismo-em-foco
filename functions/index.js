@@ -337,3 +337,111 @@ exports.generateAppointmentConfirmation = functions.firestore
       return null;
     }
   });
+
+// Função para enviar notificação para todos os usuários
+const sendNotificationToAll = async (title, body, data = {}) => {
+  try {
+    const tokensSnapshot = await db.collection('fcmTokens').get();
+    const tokens = [];
+    
+    tokensSnapshot.forEach(doc => {
+      const tokenData = doc.data();
+      if (tokenData.token) {
+        tokens.push(tokenData.token);
+      }
+    });
+
+    if (tokens.length === 0) {
+      console.log('Nenhum token FCM encontrado');
+      return;
+    }
+
+    const message = {
+      notification: {
+        title,
+        body
+      },
+      data,
+      tokens
+    };
+
+    const response = await admin.messaging().sendMulticast(message);
+    console.log(`Notificação enviada para ${response.successCount} dispositivos`);
+    
+    return response;
+  } catch (error) {
+    console.error('Erro ao enviar notificação:', error);
+  }
+};
+
+// Notificação para nova postagem
+exports.notifyNewPost = functions.firestore
+  .document('posts/{postId}')
+  .onCreate(async (snapshot, context) => {
+    const postData = snapshot.data();
+    const postId = context.params.postId;
+    
+    await sendNotificationToAll(
+      '📝 Nova Postagem!',
+      `${postData.createdBy} publicou: ${postData.title}`,
+      {
+        type: 'new_post',
+        postId,
+        postTitle: postData.title
+      }
+    );
+  });
+
+// Notificação para novo evento
+exports.notifyNewEvent = functions.firestore
+  .document('eventos/{eventId}')
+  .onCreate(async (snapshot, context) => {
+    const eventData = snapshot.data();
+    const eventId = context.params.eventId;
+    
+    await sendNotificationToAll(
+      '🎉 Novo Evento!',
+      `Evento: ${eventData.titulo} - ${eventData.dataEvento}`,
+      {
+        type: 'new_event',
+        eventId,
+        eventTitle: eventData.titulo
+      }
+    );
+  });
+
+// Notificação para nova resposta/comentário
+exports.notifyNewComment = functions.firestore
+  .document('posts/{postId}/comments/{commentId}')
+  .onCreate(async (snapshot, context) => {
+    const commentData = snapshot.data();
+    const postId = context.params.postId;
+    
+    // Buscar dados do post
+    const postDoc = await db.collection('posts').doc(postId).get();
+    const postData = postDoc.data();
+    
+    if (postData && postData.uid !== commentData.uid) {
+      // Buscar token do autor do post
+      const tokenDoc = await db.collection('fcmTokens').doc(postData.uid).get();
+      
+      if (tokenDoc.exists) {
+        const tokenData = tokenDoc.data();
+        
+        const message = {
+          notification: {
+            title: '💬 Nova Resposta!',
+            body: `${commentData.displayName} comentou no seu post: ${postData.title}`
+          },
+          data: {
+            type: 'new_comment',
+            postId,
+            commentId: context.params.commentId
+          },
+          token: tokenData.token
+        };
+
+        await admin.messaging().send(message);
+      }
+    }
+  });
