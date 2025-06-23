@@ -2,11 +2,10 @@ import React from 'react';
 import styles from '../Comunidade.module.css';
 import CommentList from './CommentList';
 import CommentForm from './CommentForm';
+import { useAuthValue } from '../../../context/AuthContext';
 
 const PostCard = ({
   post,
-  user,
-  uid,
   deleteDocument,
   handleLike,
   updateLoading,
@@ -15,8 +14,9 @@ const PostCard = ({
   commentText,
   setCommentText,
   handleAddComment,
-  handleEditComment={handleEditComment}
+  handleEditComment = handleEditComment
 }) => {
+  const { user } = useAuthValue();
   return (
     <div className={styles.postCard}>
       <div className={styles.postHeader}>
@@ -50,7 +50,7 @@ const PostCard = ({
       </div>
 
       {post.imageUrl && (
-        <div className={styles.   postImageWrapper}>
+        <div className={styles.postImageWrapper}>
           <img 
             src={post.imageUrl} 
             alt="Imagem do post" 
@@ -66,7 +66,7 @@ const PostCard = ({
       </div>
       <div className={styles.postActions}>
         <button 
-          className={`${styles.actionButton} ${post.likes?.includes(uid) ? styles.liked : ""}`}
+          className={`${styles.actionButton} ${post.likes?.includes(user?.uid) ? styles.liked : ""}`}
           onClick={() => handleLike(post.id)}
           disabled={updateLoading}
         >
@@ -83,7 +83,6 @@ const PostCard = ({
       {/* Exibir comentários existentes */}
       <CommentList 
         comments={post.comments} 
-        uid={uid}
         onEditComment={(comment, newText) => handleEditComment(post.id, comment, newText)}
         updateLoading={updateLoading}
       />
