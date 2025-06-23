@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from '../Comunidade.module.css';
 import CommentList from './CommentList';
 import CommentForm from './CommentForm';
 import { useAuthValue } from '../../../context/AuthContext';
+import Modal from '../../../components/Modal';
 
 const PostCard = ({
   post,
@@ -17,6 +18,7 @@ const PostCard = ({
   handleEditComment = handleEditComment
 }) => {
   const { user } = useAuthValue();
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   return (
     <div className={styles.postCard}>
       <div className={styles.postHeader}>
@@ -32,11 +34,7 @@ const PostCard = ({
         {user && post.uid === user.uid && (
           <button 
             className={styles.moreButton}
-            onClick={() => {
-              if(window.confirm("Tem certeza que deseja excluir este post?")) {
-                deleteDocument(post.id);
-              }
-            }}
+            onClick={() => setShowDeleteModal(true)}
             title="Excluir post"
           >
             🗑️
@@ -97,6 +95,22 @@ const PostCard = ({
           updateLoading={updateLoading}
         />
       )}
+      
+      {/* Modal de confirmação de exclusão */}
+      <Modal
+        isOpen={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+        title="Confirmar Exclusão"
+        confirmText="Excluir Post"
+        cancelText="Cancelar"
+        onConfirm={() => {
+          deleteDocument(post.id);
+          setShowDeleteModal(false);
+        }}
+      >
+        <p>Tem certeza que deseja excluir este post?</p>
+        <p>Esta ação não pode ser desfeita.</p>
+      </Modal>
     </div>
   );
 };

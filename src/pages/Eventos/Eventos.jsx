@@ -1,16 +1,21 @@
 import React, { useState } from 'react'
 import styles from './Eventos.module.css'
 import { useFetchEventos } from '../../Hooks/useFetchEventos'
+import { useDeleteDocument } from '../../Hooks/useDeleteDocument'
 import { Timestamp } from 'firebase/firestore'
 import { Link } from 'react-router-dom';
 import { useAuthValue } from '../../context/AuthContext';
+import Modal from '../../components/Modal';
 
 const Eventos = () => {
   const { userProfile } = useAuthValue();
   const [filtroCategoria, setFiltroCategoria] = useState("Todos");
   const [filtroData, setFiltroData] = useState("todos"); // "todos", "futuros", "passados"
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedEvento, setSelectedEvento] = useState(null);
   
   const { eventos, loading, error } = useFetchEventos(filtroData, filtroCategoria);
+  const { deleteDocument, loading: deleteLoading } = useDeleteDocument("eventos");
 
   // Categorias disponíveis
   const categorias = ["Todos", "Workshop", "Palestra", "Encontro", "Curso", "Feira", "Grupo de Apoio"];
@@ -37,6 +42,21 @@ const Eventos = () => {
     const agora = new Date();
     const dataEventoDate = dataEvento.toDate();
     return dataEventoDate >= agora;
+  };
+  
+  // Função para abrir o modal de confirmação de exclusão
+  const handleDeleteClick = (evento) => {
+    setSelectedEvento(evento);
+    setShowDeleteModal(true);
+  };
+  
+  // Função para confirmar a exclusão do evento
+  const handleConfirmDelete = async () => {
+    if (selectedEvento) {
+      await deleteDocument(selectedEvento.id);
+      setShowDeleteModal(false);
+      setSelectedEvento(null);
+    }
   };
 
   if (loading) {
@@ -128,6 +148,15 @@ const Eventos = () => {
                 {!isEventoFuturo(evento.dataEvento) && (
                   <span className={styles.eventoStatus}>Finalizado</span>
                 )}
+                {userProfile && ['admin', 'profissional'].includes(userProfile.userType) && (
+                  <button 
+                    className={styles.deleteButton}
+                    onClick={() => handleDeleteClick(evento)}
+                    title="Excluir evento"
+                  >
+                    🗑️
+                  </button>
+                )}
               </div>
               <div className={styles.eventoConteudo}>
                 <h3>{evento.titulo}</h3>
@@ -166,6 +195,23 @@ const Eventos = () => {
         <p>Se você organiza eventos relacionados ao TEA e gostaria de divulgá-los em nossa plataforma, entre em contato conosco.</p>
         <button className={styles.cadastroEventoBtn}>Cadastrar Evento</button>
       </section>
+      
+      {/* Modal de confirmação de exclusão */}
+      <Modal
+        isOpen={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+        title="Confirmar Exclusão"
+        confirmText="Excluir Evento"
+        cancelText="Cancelar"
+        onConfirm={handleConfirmDelete}
+      >
+        {selectedEvento && (
+          <>
+            <p>Tem certeza que deseja excluir o evento <strong>{selectedEvento.titulo}</strong>?</p>
+            <p>Esta ação não pode ser desfeita.</p>
+          </>
+        )}
+      </Modal>
     </div>
   )
 }

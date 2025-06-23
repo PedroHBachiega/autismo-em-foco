@@ -283,6 +283,32 @@
   z-index: 2;
 }
 
+/* Botão de exclusão de eventos */
+.deleteButton {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #e74c3c;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+  z-index: 3;
+}
+
+.deleteButton:hover {
+  background-color: #e74c3c;
+  color: white;
+  transform: scale(1.1);
+}
+
 /* Botão desabilitado */
 .inscricaoBtn:disabled {
   background-color: #cccccc;
