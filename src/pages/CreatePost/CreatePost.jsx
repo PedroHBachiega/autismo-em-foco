@@ -2,27 +2,31 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthValue } from '../../context/AuthContext';
 import { useGTM } from '../../context/GTMContext';
-import { useGamification } from '../../Hooks/useGamification'; // Adicionar esta linha
+import { useGamification } from '../../Hooks/useGamification';
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
 import styles from './CreatePost.module.css';
 import { db, storage } from '../../firebase/config';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
 const CreatePost = () => {
   const navigate = useNavigate();
   const { user } = useAuthValue();
   const { trackPostCreation } = useGTM();
-  const { trackAction } = useGamification(); // Adicionar esta linha
+  const { trackAction } = useGamification();
 
-  const [title, setTitle] = useState('');
-  const [body, setBody] = useState('');
-  const [tags, setTags] = useState('');
   const [formError, setFormError] = useState('');
   const [loading, setLoading] = useState(false);
-
-  const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
+  
+  // Schema de validação com Yup
+  const validationSchema = Yup.object({
+    title: Yup.string().required('O título é obrigatório'),
+    body: Yup.string().required('O conteúdo é obrigatório'),
+    tags: Yup.string().required('As tags são obrigatórias'),
+  });
 
   // Se não houver usuário autenticado, direciona para a página de login
   useEffect(() => {
@@ -31,9 +35,9 @@ const CreatePost = () => {
     }
   }, [user, navigate]);
 
-  const handleImageChange = (e) => {
+  const handleImageChange = (e, setFieldValue) => {
     const file = e.target.files[0];
-    setImageFile(file);
+    setFieldValue('imageFile', file);
 
     if (file) {
       const reader = new FileReader();
@@ -44,20 +48,13 @@ const CreatePost = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (values, { setSubmitting }) => {
     setFormError('');
     setLoading(true);
-
-    // Validação de campos obrigatórios
-    if (!title.trim() || !body.trim() || !tags.trim()) {
-      setFormError('Por favor, preencha todos os campos!');
-      setLoading(false);
-      return;
-    }
+    setSubmitting(true);
 
     // Processa as tags em array
-    const tagsArray = tags
+    const tagsArray = values.tags
       .split(',')
       .map((tag) => tag.trim().toLowerCase())
       .filter((tagItem) => tagItem.length > 0);
@@ -65,16 +62,16 @@ const CreatePost = () => {
     try {
       let imageUrl = '';
 
-      if (imageFile) {
-        const imageRef = ref(storage, `posts/${uuidv4()}-${imageFile.name}`);
-        const uploadSnap = await uploadBytes(imageRef, imageFile);
+      if (values.imageFile) {
+        const imageRef = ref(storage, `posts/${uuidv4()}-${values.imageFile.name}`);
+        const uploadSnap = await uploadBytes(imageRef, values.imageFile);
         imageUrl = await getDownloadURL(uploadSnap.ref);
       }
 
       // Cria novo documento em "posts"
       const docRef = await addDoc(collection(db, 'posts'), {
-        title: title.trim(),
-        body: body.trim(),
+        title: values.title.trim(),
+        body: values.body.trim(),
         tags: tagsArray,
         imageUrl,
         uid: user.uid,
@@ -86,7 +83,7 @@ const CreatePost = () => {
       trackPostCreation(docRef.id, tagsArray);
       
       // Adicionar pontos de gamificação
-      await trackAction('CREATE_POST'); // Adicionar esta linha
+      await trackAction('CREATE_POST');
       
       // Redireciona para o dashboard após criar o post
       navigate('/comunidade');
@@ -94,6 +91,7 @@ const CreatePost = () => {
       console.error('Erro ao criar o post:', error);
       setFormError('Erro ao criar o post. Tente novamente.');
       setLoading(false);
+      setSubmitting(false);
     }
   };
 
@@ -102,79 +100,91 @@ const CreatePost = () => {
       <h2>Criar Post</h2>
       <p>Crie seu post e compartilhe seu conhecimento</p>
 
-      <form onSubmit={handleSubmit}>
-        <label>
-          <span>Título:</span>
-          <input
-            type="text"
-            name="title"
-            placeholder="Título do post"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            disabled={loading}
-            required
-          />
-        </label>
+      <Formik
+        initialValues={{
+          title: '',
+          body: '',
+          tags: '',
+          imageFile: null
+        }}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
+        {({ isSubmitting, setFieldValue, values }) => (
+          <Form>
+            <div className={styles.form_group}>
+              <label htmlFor="title">Título:</label>
+              <Field
+                type="text"
+                id="title"
+                name="title"
+                placeholder="Título do post"
+                disabled={loading || isSubmitting}
+              />
+              <ErrorMessage name="title" component="div" className={styles.error} />
+            </div>
 
-        <label>
-          <span>Conteúdo:</span>
-          <textarea
-            name="body"
-            placeholder="Conteúdo do post"
-            value={body}
-            onChange={(e) => setBody(e.target.value)}
-            disabled={loading}
-            required
-          ></textarea>
-        </label>
+            <div className={styles.form_group}>
+              <label htmlFor="body">Conteúdo:</label>
+              <Field
+                as="textarea"
+                id="body"
+                name="body"
+                placeholder="Conteúdo do post"
+                disabled={loading || isSubmitting}
+              />
+              <ErrorMessage name="body" component="div" className={styles.error} />
+            </div>
 
-        <label>
-          <span>Tags:</span>
-          <input
-            type="text"
-            name="tags"
-            placeholder="Tags (separadas por vírgula)"
-            value={tags}
-            onChange={(e) => setTags(e.target.value)}
-            disabled={loading}
-            required
-          />
-        </label>
+            <div className={styles.form_group}>
+              <label htmlFor="tags">Tags:</label>
+              <Field
+                type="text"
+                id="tags"
+                name="tags"
+                placeholder="Tags (separadas por vírgula)"
+                disabled={loading || isSubmitting}
+              />
+              <ErrorMessage name="tags" component="div" className={styles.error} />
+            </div>
 
-        <label>
-          <span>Imagem (opcional):</span>
-          <input 
-          type="file"
-          accept="image/*"
-          onChange={handleImageChange}
-          disabled={loading} 
-          />
-        </label>
+            <div className={styles.form_group}>
+              <label htmlFor="imageFile">Imagem (opcional):</label>
+              <input
+                type="file"
+                id="imageFile"
+                accept="image/*"
+                onChange={(e) => handleImageChange(e, setFieldValue)}
+                disabled={loading || isSubmitting}
+              />
+            </div>
 
-        {imagePreview && (
-          <div className={styles.image_preview}>
-            <p>Prévia da imagem:</p>
-            <img 
-            src={imagePreview}
-            alt="Preview"
-            style={{ maxWidth: '300px', borderRadius: '8px' }}
-            />
-          </div>
+            {imagePreview && (
+              <div className={styles.image_preview}>
+                <p>Prévia da imagem:</p>
+                <img
+                  src={imagePreview}
+                  alt="Preview"
+                  style={{ maxWidth: '300px', borderRadius: '8px' }}
+                />
+              </div>
+            )}
+
+            {!loading && !isSubmitting && (
+              <button type="submit" className={styles.btn}>
+                Criar
+              </button>
+            )}
+            {(loading || isSubmitting) && (
+              <button type="button" className="btn" disabled>
+                Aguarde...
+              </button>
+            )}
+
+            {formError && <p className={styles.error}>{formError}</p>}
+          </Form>
         )}
-
-        {!loading && (
-          <button type="submit" className={styles.btn}>
-            Criar
-          </button>
-        )}
-        {loading && (
-          <button type="button" className="btn" disabled>
-            Aguarde...
-          </button>
-        )}
-
-        {formError && <p className={styles.error}>{formError}</p>}
-      </form>
+      </Formik>
     </div>
   );
 };
