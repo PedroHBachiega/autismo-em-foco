@@ -22,10 +22,18 @@
     gap: 20px;
   }
   
+  .form_group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 10px;
+  }
+  
   .create_post label {
     display: flex;
     flex-direction: column;
     gap: 5px;
+    font-weight: bold;
   }
   
   .create_post label span {
