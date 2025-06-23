@@ -22,7 +22,11 @@ const Profile = () => {
     registroProfissional: '',
     experienciaAutismo: '',
     atendimentoOnline: false,
-    atendimentoPresencial: false
+    atendimentoPresencial: false,
+    // Novos campos para coordenadas
+    latitude: '',
+    longitude: '',
+    endereco: ''
   });
 
   useEffect(() => {
@@ -50,7 +54,11 @@ const Profile = () => {
               registroProfissional: data.registroProfissional || '',
               experienciaAutismo: data.experienciaAutismo || '',
               atendimentoOnline: data.atendimentoOnline || false,
-              atendimentoPresencial: data.atendimentoPresencial || false
+              atendimentoPresencial: data.atendimentoPresencial || false,
+              // Novos campos
+              latitude: data.latitude || '',
+              longitude: data.longitude || '',
+              endereco: data.endereco || ''
             });
           }
         } catch (error) {
@@ -142,6 +150,12 @@ const Profile = () => {
               </div>
               <div className={styles.infoItem}>
                 <strong>Experiência com Autismo:</strong> {userData.experienciaAutismo || 'Não informado'}
+              </div>
+              <div className={styles.infoItem}>
+                <strong>Endereço:</strong> {userData.endereco || 'Não informado'}
+              </div>
+              <div className={styles.infoItem}>
+                <strong>Localização:</strong> {userData.latitude && userData.longitude ? `${userData.latitude}, ${userData.longitude}` : 'Não informado'}
               </div>
               <div className={styles.infoItem}>
                 <strong>Atendimento Online:</strong> {userData.atendimentoOnline ? 'Sim' : 'Não'}
@@ -244,6 +258,44 @@ const Profile = () => {
                     value={formData.registroProfissional}
                     onChange={handleInputChange}
                     className={styles.formInput}
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label>Endereço Completo:</label>
+                  <input
+                    type="text"
+                    name="endereco"
+                    value={formData.endereco}
+                    onChange={handleInputChange}
+                    className={styles.formInput}
+                    placeholder="Rua, número, bairro, cidade, estado"
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label>Latitude:</label>
+                  <input
+                    type="number"
+                    step="any"
+                    name="latitude"
+                    value={formData.latitude}
+                    onChange={handleInputChange}
+                    className={styles.formInput}
+                    placeholder="Ex: -23.5505"
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label>Longitude:</label>
+                  <input
+                    type="number"
+                    step="any"
+                    name="longitude"
+                    value={formData.longitude}
+                    onChange={handleInputChange}
+                    className={styles.formInput}
+                    placeholder="Ex: -46.6333"
                   />
                 </div>
 

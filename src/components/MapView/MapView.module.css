@@ -1,0 +1,68 @@
+.mapContainer {
+  width: 100%;
+  margin: 40px 0;
+}
+
+.mapHeader {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.mapHeader h3 {
+  color: #2e5eaa;
+  font-size: 1.5rem;
+  margin-bottom: 5px;
+}
+
+.mapHeader p {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.map {
+  height: 500px;
+  width: 100%;
+  border-radius: 10px;
+  border: 2px solid #e6f2ff;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.popupContent {
+  min-width: 250px;
+}
+
+.popupContent h4 {
+  color: #2e5eaa;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+.popupContent p {
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.atendimentos {
+  margin: 10px 0;
+}
+
+.badge {
+  background-color: #2e5eaa;
+  color: white;
+  padding: 3px 8px;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  margin-right: 5px;
+}
+
+/* Estilo customizado para marcadores de profissionais */
+:global(.professional-marker) {
+  filter: hue-rotate(120deg);
+}

@@ -416,3 +416,37 @@
 :global(.dark) .formGroup option {
   color: #333333;
 }
+
+/* Adicione estas regras ao arquivo existente */
+
+.buttonGroup {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.mapButton {
+  background-color: #2e5eaa;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: block;
+  margin: 30px auto 0;
+}
+
+.mapButton:hover {
+  background-color: #1d4b8f;
+}
+
+.mapSection {
+  margin: 40px 0;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+}
