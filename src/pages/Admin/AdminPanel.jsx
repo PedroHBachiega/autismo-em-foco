@@ -83,6 +83,9 @@ const AdminPanel = () => {
           <Link to="/eventos" className={styles.actionBtn}>
             👁️ Ver Eventos
           </Link>
+          <Link to="/admin/posts" className={styles.actionBtn}>
+            📝 Curadoria de Posts
+          </Link>
         </div>
       </div>
       
