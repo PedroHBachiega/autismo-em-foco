@@ -5,6 +5,7 @@ import { useDeleteDocument } from '../../../Hooks/useDeleteDocument';
 import { useUpdateDocument } from '../../../Hooks/useUpdateDocument';
 import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 import { useGamification } from '../../../Hooks/useGamification';
+import toast from 'react-hot-toast';
 
 export const useComunidade = () => {
   const { user } = useAuthValue();
@@ -16,7 +17,7 @@ export const useComunidade = () => {
   const [activeCommentPost, setActiveCommentPost] = useState(null);
 
   const { deleteDocument } = useDeleteDocument("posts");
-  const { toggleLike, addComment, editComment, loading: updateLoading } = useUpdateDocument("posts");
+  const { toggleLike, addComment, editComment, deleteComment, loading: updateLoading, error: updateError, success: updateSuccess } = useUpdateDocument("posts");
   const { trackAction } = useGamification();
 
   // Adicionar useEffect para buscar os posts
@@ -69,6 +70,17 @@ export const useComunidade = () => {
     
     await addComment(postId, uid, user.displayName || user.email, commentText);
     await trackAction('COMMENT');
+    // Atualize os comentários localmente:
+    setFetchedPosts((prev) => prev.map(post =>
+      post.id === postId
+        ? { ...post, comments: [...(post.comments || []), {
+            userId: uid,
+            userName: user.displayName || user.email,
+            text: commentText,
+            createdAt: new Date()
+          }] }
+        : post
+    ));
     setCommentText("");
     setActiveCommentPost(null);
   };
@@ -84,8 +96,65 @@ export const useComunidade = () => {
   };
 
   // Função para editar comentário
-  const handleEditComment = async (postId, comment, newText) => {
+  const handleEditCommentInternal = async (postId, comment, newText) => {
     await editComment(postId, uid, comment.createdAt, newText);
+    // Atualize os comentários localmente:
+    setFetchedPosts((prev) => prev.map(post =>
+      post.id === postId
+        ? { ...post, comments: post.comments.map(c =>
+            c.createdAt === comment.createdAt ? { ...c, text: newText } : c
+          ) }
+        : post
+    ));
+  };
+
+  const handleDeletePost = async (postId) => {
+    try {
+      await deleteDocument(postId);
+      setFetchedPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
+    } catch (error) {
+      console.error("Erro ao excluir o post: ", error)
+    }
+  };
+
+  // Função para deletar comentário
+  const handleDeleteComment = async (postId, comment) => {
+    try {
+      await deleteComment(postId, comment.userId, comment.createdAt);
+      setFetchedPosts((prev) => prev.map(post =>
+        post.id === postId
+          ? { ...post, comments: post.comments.filter(c => {
+              let cTime = c.createdAt;
+              let oTime = comment.createdAt;
+              if (cTime?.seconds) cTime = cTime.seconds;
+              else if (cTime instanceof Date) cTime = cTime.getTime();
+              if (oTime?.seconds) oTime = oTime.seconds;
+              else if (oTime instanceof Date) oTime = oTime.getTime();
+              return !(c.userId === comment.userId && cTime === oTime);
+            }) }
+          : post
+      ));
+      toast.success('Comentário excluído com sucesso!');
+    } catch (error) {
+      toast.error('Erro ao excluir comentário.');
+    }
+  };
+
+  // Adicione feedback visual ao editar comentário
+  const handleEditComment = async (postId, comment, newText) => {
+    try {
+      await editComment(postId, uid, comment.createdAt, newText);
+      setFetchedPosts((prev) => prev.map(post =>
+        post.id === postId
+          ? { ...post, comments: post.comments.map(c =>
+              c.createdAt === comment.createdAt ? { ...c, text: newText } : c
+            ) }
+          : post
+      ));
+      toast.success('Comentário editado com sucesso!');
+    } catch (error) {
+      toast.error('Erro ao editar comentário.');
+    }
   };
 
   // Dados simulados para os grupos da comunidade
@@ -131,6 +200,8 @@ export const useComunidade = () => {
     toggleCommentForm,
     handleAddComment,
     handleEditComment,
+    handleDeleteComment, 
+    handleDeletePost,
     groups
   };
 };
