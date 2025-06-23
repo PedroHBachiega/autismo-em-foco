@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import GoogleButton from '../../components/GoogleButton';
 import { useAuthentication } from '../../hooks/useAuthentication';
 import { useGTM } from '../../context/GTMContext';
@@ -9,6 +9,8 @@ function Login() {
   const [senha, setSenha] = useState('');
   const { login, loginWithGoogle, error, loading } = useAuthentication();
   const { trackLogin } = useGTM();
+  const location = useLocation();
+  const [loginMessage, setLoginMessage] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,6 +23,12 @@ function Login() {
     trackLogin('google');
   };
 
+  useEffect(() => {
+    if (location.state?.message) {
+      setLoginMessage(location.state.message);
+    }
+  }, [location]);
+
   return (
     <div className="min-h-screen p-12 sm:p-6 flex justify-center items-center font-sans">
       <div className="w-full max-w-lg">
@@ -30,6 +38,11 @@ function Login() {
               Bem-vindo de volta
             </h2>
             <p className="text-center text-gray-600 text-sm">Acesse sua conta</p>
+            {loginMessage && (
+              <div className="mt-4 p-3 bg-yellow-100 border border-yellow-400 text-yellow-700 rounded-md text-sm text-center">
+                {loginMessage}
+              </div>
+            )}
           </div>
           <div className="py-4 px-10">
             <form onSubmit={handleSubmit} className="flex flex-col gap-5">
