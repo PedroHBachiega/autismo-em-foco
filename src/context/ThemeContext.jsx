@@ -11,6 +11,11 @@ export const ThemeProvider = ({ children }) => {
         return window.matchMedia('(prefers-color-scheme: dark)').matches;
     });
 
+    const [isHighContrast, setIsHighContrast] = useState(() => {
+        const savedContrast = localStorage.getItem('highContrast');
+        return savedContrast === 'true';
+    });
+
     useEffect(() => {
         if (isDark) {
             document.documentElement.classList.add('dark');
@@ -21,12 +26,30 @@ export const ThemeProvider = ({ children }) => {
         }
     }, [isDark]);
 
+    useEffect(() => {
+        if (isHighContrast) {
+            document.documentElement.classList.add('high-contrast');
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('highContrast', 'true');
+            localStorage.setItem('theme', 'dark');
+            setIsDark(true);
+        } else {
+            document.documentElement.classList.remove('high-contrast');
+            localStorage.setItem('highContrast', 'false');
+            // Não remove o modo escuro automaticamente quando desativa o alto contraste
+        }
+    }, [isHighContrast]);
+
     const toggleTheme = () => {
         setIsDark(!isDark);    
     };
 
+    const toggleHighContrast = () => {
+        setIsHighContrast(!isHighContrast);
+    };
+
     return (
-        <ThemeContext.Provider value={{ isDark, toggleTheme }}>
+        <ThemeContext.Provider value={{ isDark, toggleTheme, isHighContrast, toggleHighContrast }}>
             {children}
         </ThemeContext.Provider>
     );

@@ -1,18 +1,43 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import GoogleButton from '../../components/GoogleButton';
 import { useAuthentication } from '../../hooks/useAuthentication';
 import { useGTM } from '../../context/GTMContext';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+
+const schema = yup.object().shape({
+  email: yup.string().email('Email inválido').required('Email é obrigatório'),
+  senha: yup.string().min(6, 'A senha deve ter pelo menos 6 caracteres').required('Senha é obrigatória'),
+});
 
 function Login() {
-  const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
   const { login, loginWithGoogle, error, loading } = useAuthentication();
   const { trackLogin } = useGTM();
+  const location = useLocation();
+  const [loginMessage, setLoginMessage] = useState('');
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await login(email, senha);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    trigger,
+    setError,
+  } = useForm({
+    resolver: yupResolver(schema),
+    mode: 'onChange',
+    reValidateMode: 'onBlur',
+  });
+
+  useEffect(() => {
+    if (location.state?.message) {
+      setLoginMessage(location.state.message);
+    }
+  }, [location]);
+
+  const onSubmit = async (data) => {
+    await login(data.email, data.senha);
     trackLogin('email');
   };
 
@@ -30,9 +55,14 @@ function Login() {
               Bem-vindo de volta
             </h2>
             <p className="text-center text-gray-600 text-sm">Acesse sua conta</p>
+            {loginMessage && (
+              <div className="mt-4 p-3 bg-yellow-100 border border-yellow-400 text-yellow-700 rounded-md text-sm text-center">
+                {loginMessage}
+              </div>
+            )}
           </div>
           <div className="py-4 px-10">
-            <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5" noValidate>
               <div className="flex flex-col gap-2">
                 <label htmlFor="email" className="text-sm font-medium text-gray-700">
                   Email
@@ -41,11 +71,14 @@ function Login() {
                   id="email"
                   type="email"
                   placeholder="seu@email.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full p-2.5 border border-gray-300 rounded-md text-sm text-gray-900 bg-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 placeholder-gray-400"
-                  required
+                  {...register('email')}
+                  className={`w-full p-2.5 border ${errors.email ? 'border-red-500' : 'border-gray-300'} rounded-md text-sm text-gray-900 bg-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 placeholder-gray-400`}
+                  onBlur={() => trigger('email')}
+                  autoComplete="email"
                 />
+                {errors.email && (
+                  <span className="text-red-500 text-xs">{errors.email.message}</span>
+                )}
               </div>
 
               <div className="flex flex-col gap-2">
@@ -61,11 +94,14 @@ function Login() {
                   id="senha"
                   type="password"
                   placeholder="Sua senha"
-                  value={senha}
-                  onChange={(e) => setSenha(e.target.value)}
-                  className="w-full p-2.5 border border-gray-300 rounded-md text-sm text-gray-900 bg-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 placeholder-gray-400"
-                  required
+                  {...register('senha')}
+                  className={`w-full p-2.5 border ${errors.senha ? 'border-red-500' : 'border-gray-300'} rounded-md text-sm text-gray-900 bg-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 placeholder-gray-400`}
+                  onBlur={() => trigger('senha')}
+                  autoComplete="current-password"
                 />
+                {errors.senha && (
+                  <span className="text-red-500 text-xs">{errors.senha.message}</span>
+                )}
               </div>
 
               {error && (

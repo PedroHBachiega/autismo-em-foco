@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './Comunidade.module.css';
 import { useComunidade } from './hooks/useComunidade';
 
-// Componentes 
+ 
 import LoadingSpinner from './components/LoadingSpinner';
 import CreatePostCard from './components/CreatePostCard';
 import FeedFilter from './components/FeedFilter';
@@ -11,7 +11,7 @@ import ProfileCard from './components/ProfileCard';
 import GroupList from './components/GroupList';
 import Ranking from '../../components/Ranking/Ranking';
 
-// ⬅️ ADICIONE AQUI: imports do chat 
+
 import { useAuthValue } from '../../context/AuthContext';
 import { collection, getDocs, query, orderBy, startAt, endAt } from 'firebase/firestore';
 import { db } from '../../firebase/config';
@@ -37,6 +37,9 @@ const Comunidade = () => {
     handleDeleteComment, // <-- Adicione aqui
     groups
   } = useComunidade();
+
+  // Estado para o termo de busca
+  const [searchTerm, setSearchTerm] = useState('');
 
   // ⬅️ ADICIONE AQUI: estados do chat 
   const { user: authUser } = useAuthValue();
@@ -197,6 +200,5 @@ const Comunidade = () => {
       </div>
     </div>
   );
-};
 
 export default Comunidade;

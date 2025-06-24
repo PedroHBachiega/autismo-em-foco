@@ -20,11 +20,21 @@
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
+:global(.high-contrast) .modal {
+  background-color: #000000;
+  border: 2px solid #ffff00;
+  box-shadow: 0 4px 15px rgba(255, 255, 0, 0.3);
+}
+
 .modal h3 {
   font-size: 1.5rem;
   margin-top: 0;
   margin-bottom: 20px;
   color: #2e5eaa;
+}
+
+:global(.high-contrast) .modal h3 {
+  color: #ffff00;
 }
 
 .modalContent {
@@ -52,6 +62,16 @@
   background-color: #e0e0e0;
 }
 
+:global(.high-contrast) .modalCancelButton {
+  background-color: #000000;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+}
+
+:global(.high-contrast) .modalCancelButton:hover {
+  background-color: #333333;
+}
+
 .modalConfirmButton {
   background-color: #e74c3c;
   color: white;
@@ -65,4 +85,14 @@
 
 .modalConfirmButton:hover {
   background-color: #c0392b;
+}
+
+:global(.high-contrast) .modalConfirmButton {
+  background-color: #ffff00;
+  color: #000000;
+  border: none;
+}
+
+:global(.high-contrast) .modalConfirmButton:hover {
+  background-color: #ffff33;
 }

@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import Layout from './Layout';
+import AdminPosts from './pages/Admin/AdminPosts';
 
 // Páginas públicas
 import Home from './pages/Home/Home';
@@ -77,6 +78,7 @@ function App() {
             <AdminPanel />
           </ProtectedRoute>
         } />
+        <Route path="/admin/posts" element={<AdminPosts />} />
         <Route path="/cadastro-evento" element={<CadastroEvento />} />
       </Route>
     </Routes>

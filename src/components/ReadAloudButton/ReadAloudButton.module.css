@@ -2,8 +2,8 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background-color: #2e5eaa;
-  color: white;
+  background-color: var(--button-bg);
+  color: var(--button-text);
   border: none;
   border-radius: 50px;
   padding: 12px 24px;
@@ -17,7 +17,7 @@
 }
 
 .readAloudButton:hover {
-  background-color: #1d4b8f;
+  background-color: var(--button-hover);
   transform: translateY(-2px);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
@@ -30,6 +30,15 @@
   background-color: #e74c3c;
 }
 
+:global(.high-contrast) .reading {
+  background-color: #ff0000;
+  color: #ffffff;
+}
+
 .reading:hover {
   background-color: #c0392b;
+}
+
+:global(.high-contrast) .reading:hover {
+  background-color: #cc0000;
 }

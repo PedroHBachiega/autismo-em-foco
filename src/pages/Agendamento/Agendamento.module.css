@@ -248,6 +248,24 @@
   gap: 20px;
 }
 
+.calendarContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.calendarContainer label {
+  font-weight: 500;
+  color: #1a3d7c;
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+}
+
+:global(.dark) .calendarContainer label {
+  color: #4b8bf4;
+}
+
 .formActions {
   display: flex;
   justify-content: space-between;
