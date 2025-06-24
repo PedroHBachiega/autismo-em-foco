@@ -7,4 +7,12 @@ module.exports = {
     },
   },
   plugins: [],
+  darkMode: 'class',
+  variants: {
+    extend: {
+      backgroundColor: ['dark', 'high-contrast'],
+      textColor: ['dark', 'high-contrast'],
+      borderColor: ['dark', 'high-contrast']
+    },
+  },
 };

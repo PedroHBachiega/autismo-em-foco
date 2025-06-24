@@ -29,3 +29,13 @@
     height: 20px;
   }
   
+  :global(.high-contrast) .googleBtn {
+    background-color: #000000;
+    color: #ffff00;
+    border: 2px solid #ffff00;
+  }
+  
+  :global(.high-contrast) .googleBtn:hover {
+    background-color: #333333;
+  }
+  
