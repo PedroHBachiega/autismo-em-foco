@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'; 
+import React, { useEffect, useState, useMemo } from 'react'; 
 import styles from './Comunidade.module.css'; 
 import { useComunidade } from './hooks/useComunidade'; 
 
@@ -37,6 +37,9 @@ const Comunidade = () => {
     groups 
   } = useComunidade(); 
 
+  // Estado para o termo de busca
+  const [searchTerm, setSearchTerm] = useState('');
+
   // ⬅️ ADICIONE AQUI: estados do chat 
   const { user: authUser } = useAuthValue(); 
   const [users, setUsers] = useState([]); 
@@ -55,7 +58,29 @@ const Comunidade = () => {
     if (authUser?.uid) { 
       fetchUsers(); 
     } 
-  }, [authUser]); 
+  }, [authUser]);
+  
+  // Função para lidar com a busca
+  const handleSearch = (term) => {
+    setSearchTerm(term);
+  };
+  
+  // Filtragem de posts com base no termo de busca usando useMemo para otimização
+  const filteredPosts = useMemo(() => {
+    if (!searchTerm.trim()) {
+      return fetchedPosts; // Retorna todos os posts se não houver termo de busca
+    }
+    
+    const termLower = searchTerm.toLowerCase();
+    return fetchedPosts.filter(post => {
+      // Filtrar por título
+      const titleMatch = post.title?.toLowerCase().includes(termLower);
+      // Filtrar por autor
+      const authorMatch = post.createdBy?.toLowerCase().includes(termLower);
+      
+      return titleMatch || authorMatch;
+    });
+  }, [fetchedPosts, searchTerm]); 
 
   return ( 
     <div className={styles.container}> 
@@ -67,7 +92,7 @@ const Comunidade = () => {
       <div className={styles.contentGrid}> 
         <main className={styles.mainContent}> 
           <CreatePostCard /> 
-          <FeedFilter /> 
+          <FeedFilter onSearch={handleSearch} /> 
 
           <div className={styles.postsList}> 
             {isLoading && <LoadingSpinner />} 
@@ -77,8 +102,12 @@ const Comunidade = () => {
               <p className={styles.emptyMessage}>Nenhum post encontrado. Seja o primeiro a compartilhar!</p> 
             )} 
 
-            {fetchedPosts.length > 0 && 
-              fetchedPosts.map(post => ( 
+            {!isLoading && !fetchError && fetchedPosts.length > 0 && filteredPosts.length === 0 && ( 
+              <p className={styles.emptyMessage}>Nenhum post encontrado para a busca realizada.</p> 
+            )} 
+
+            {filteredPosts.length > 0 && 
+              filteredPosts.map(post => ( 
                 <PostCard 
                   key={post.id} 
                   post={post} 

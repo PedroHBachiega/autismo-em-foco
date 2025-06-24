@@ -483,13 +483,19 @@
 }
 
 .emptyMessage {
+  margin-top: 1rem;
   text-align: center;
-  color: #4a6fa5;
-  font-size: 1.1rem;
-  padding: 40px 0;
-  background-color: white;
+  padding: 20px;
+  background-color: #f8faff;
   border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  color: #555;
+  font-size: 1.1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+:global(.dark) .emptyMessage {
+  background-color: #1f2937;
+  color: #e5e7eb;
 }
 
 .postImageWrapper {
@@ -680,11 +686,62 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+:global(.dark) .searchInput {
+  background-color: #1f2937;
+  border-color: #374151;
+  color: #e5e7eb;
+}
+
+:global(.dark) .searchInput:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+  background-color: #111827;
+}
+
+:global(.dark) .searchIcon {
+  color: #9ca3af;
+}
+
 .filterContainer {
   background-color: white;
   border-radius: 15px;
   padding: 20px;
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.searchContainer {
+  position: relative;
+  width: 100%;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 12px 40px 12px 15px;
+  border: 1px solid #e0e7ff;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: #444;
+  transition: all 0.3s ease;
+  background-color: #f8faff;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #2e5eaa;
+  box-shadow: 0 0 0 3px rgba(46, 94, 170, 0.1);
+  background-color: #fff;
+}
+
+.searchIcon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #8da2c0;
+  pointer-events: none;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
