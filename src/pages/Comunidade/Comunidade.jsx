@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './Comunidade.module.css';
 import { useComunidade } from './hooks/useComunidade';
 
- 
+
 import LoadingSpinner from './components/LoadingSpinner';
 import CreatePostCard from './components/CreatePostCard';
 import FeedFilter from './components/FeedFilter';
@@ -45,7 +45,6 @@ const Comunidade = () => {
   const { user: authUser } = useAuthValue();
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
 
   // ⬅️ ADICIONE AQUI: useEffect para buscar usuários 
@@ -132,6 +131,10 @@ const Comunidade = () => {
               <p className={styles.emptyMessage}>Nenhum post encontrado. Seja o primeiro a compartilhar!</p>
             )}
 
+            {searchTerm && searchResults.length === 0 && (
+              <p className={styles.emptyMessage}>Nenhum resultado para <strong>"{searchTerm}"</strong>.</p>
+            )}
+
             {(searchTerm ? searchResults : fetchedPosts).map(post => (
 
               <PostCard
@@ -200,5 +203,6 @@ const Comunidade = () => {
       </div>
     </div>
   );
+}
 
 export default Comunidade;
