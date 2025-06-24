@@ -9,6 +9,7 @@ import { useGTM } from '../../context/GTMContext';
 import { googleMapsApi } from '../../services/googleMapsApi';
 import MapView from '../../components/MapView/MapView';
 import { useAgendamentoToast } from '../../Hooks/useAgendamentoToast';
+import CalendarioVisual from '../../components/CalendarioVisual/CalendarioVisual';
 
 import { Autocomplete, useLoadScript } from '@react-google-maps/api';
 
@@ -116,14 +117,36 @@ export default function Agendamento() {
       setMessage(free.length ? '' : 'Nenhum horário disponível nesta data.');
     }
   }, [selectedDate, selectedProfessional, existingAppointments]);
+  
+  // Prepara as datas disponíveis para o calendário visual
+  const [availableDates, setAvailableDates] = useState([]);
+  
+  useEffect(() => {
+    if (selectedProfessional) {
+      // Gera datas disponíveis para os próximos 3 meses
+      const dates = [];
+      const today = new Date();
+      const endDate = new Date();
+      endDate.setMonth(endDate.getMonth() + 3);
+      
+      for (let d = new Date(today); d <= endDate; d.setDate(d.getDate() + 1)) {
+        // Pula finais de semana
+        if (d.getDay() !== 0 && d.getDay() !== 6) {
+          const dateString = d.toISOString().split('T')[0];
+          dates.push(dateString);
+        }
+      }
+      
+      setAvailableDates(dates);
+    }
+  }, [selectedProfessional]);
 
   const isWeekend = date => [0, 6].includes(new Date(date).getDay());
 
-  const handleDateChange = e => {
-    const d = e.target.value;
-    setSelectedDate(d);
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
     setSelectedTime('');
-    if (isWeekend(d)) {
+    if (isWeekend(date)) {
       setMessage('Não há atendimentos nos finais de semana.');
       setAvailableTimes([]);
     } else {
@@ -363,16 +386,12 @@ export default function Agendamento() {
             </div>
           ) : (
             <form onSubmit={handleScheduleSubmit} className={styles.scheduleForm}>
-              <div className={styles.formGroup}>
-                <label htmlFor="date">Data</label>
-                <input
-                  type="date"
-                  id="date"
-                  min={getMinDate()}
-                  max={getMaxDate()}
-                  value={selectedDate}
-                  onChange={handleDateChange}
-                  required
+              <div className={styles.calendarContainer}>
+                <label>Selecione uma data</label>
+                <CalendarioVisual 
+                  onDateSelect={handleDateChange} 
+                  availableDates={availableDates} 
+                  selectedDate={selectedDate} 
                 />
               </div>
 

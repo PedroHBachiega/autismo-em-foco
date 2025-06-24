@@ -1,0 +1,146 @@
+.calendar {
+  width: 100%;
+  max-width: 350px;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+:global(.dark) .calendar {
+  background-color: #2a3447;
+  color: #e6f2ff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background-color: #2e5eaa;
+  color: white;
+}
+
+:global(.dark) .header {
+  background-color: #1a3d7c;
+}
+
+.monthYear {
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.navButton {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.navButton:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-weight: 500;
+  color: #555;
+  border-bottom: 1px solid #eee;
+  padding: 10px 0;
+}
+
+:global(.dark) .weekdays {
+  color: #a0b4d0;
+  border-bottom: 1px solid #3a4559;
+}
+
+.weekdays div {
+  font-size: 0.9rem;
+}
+
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  padding: 10px;
+}
+
+.day {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  border-radius: 50%;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.day:hover:not(.empty):not(.weekend) {
+  background-color: #f0f7ff;
+}
+
+:global(.dark) .day:hover:not(.empty):not(.weekend) {
+  background-color: #3a4559;
+}
+
+.empty {
+  cursor: default;
+}
+
+.weekend {
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+:global(.dark) .weekend {
+  color: #6c7a94;
+}
+
+.available {
+  font-weight: 500;
+  color: #2e5eaa;
+}
+
+:global(.dark) .available {
+  color: #4b8bf4;
+}
+
+.selected {
+  background-color: #2e5eaa;
+  color: white;
+}
+
+:global(.dark) .selected {
+  background-color: #4b8bf4;
+}
+
+.availableDot {
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 5px;
+  background-color: #2e5eaa;
+  border-radius: 50%;
+}
+
+:global(.dark) .availableDot {
+  background-color: #4b8bf4;
+}
