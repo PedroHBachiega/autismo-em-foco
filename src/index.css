@@ -5,6 +5,9 @@
   --primary-hover: #2563eb;
   --background: #ffffff;
   --text: #111827;
+  --button-bg: #2e5eaa;
+  --button-hover: #1d4b8f;
+  --button-text: #ffffff;
 }
 
 .dark {
@@ -12,6 +15,19 @@
   --primary-hover: #3b82f6;
   --background: #111827;
   --text: #f3f4f6;
+  --button-bg: #2e5eaa;
+  --button-hover: #1d4b8f;
+  --button-text: #ffffff;
+}
+
+.high-contrast {
+  --primary: #ffff00;
+  --primary-hover: #ffff33;
+  --background: #000000;
+  --text: #ffff00;
+  --button-bg: #ffff00;
+  --button-hover: #ffff33;
+  --button-text: #000000;
 }
 /* Prevenir scroll horizontal */
 html, body {

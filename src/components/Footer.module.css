@@ -8,6 +8,12 @@
     width: 100%;
 }
 
+:global(.high-contrast) .footer {
+    background-color: #000000;
+    color: #ffff00;
+    border-top: 2px solid #ffff00;
+}
+
 .navLinks {
   display: flex;
   justify-content: center;
