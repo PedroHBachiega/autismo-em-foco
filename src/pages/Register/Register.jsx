@@ -1,41 +1,56 @@
 import { useState } from "react";
 import { auth, db } from "../../firebase/config";
 import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-// Adicione esta importação no topo do arquivo, junto com as outras importações
 import { setDoc, doc, getDoc } from "firebase/firestore";
 import { useNavigate, Link } from "react-router-dom";
 import GoogleButton from "../../components/GoogleButton";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+const schema = yup.object().shape({
+  email: yup.string().email("Email inválido").required("Email é obrigatório"),
+  password: yup.string().min(6, "A senha deve ter pelo menos 6 caracteres").required("Senha é obrigatória"),
+  userType: yup.string().oneOf(["usuario", "profissional"], "Selecione um tipo válido").required("Tipo de conta é obrigatório"),
+});
 
 function Register() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [userType, setUserType] = useState("usuario"); // Novo estado para tipo de usuário
-
   const navigate = useNavigate();
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    trigger,
+    setValue,
+  } = useForm({
+    resolver: yupResolver(schema),
+    mode: "onChange",
+    reValidateMode: "onBlur",
+    defaultValues: { userType: "usuario" },
+  });
+
   // Registro com Email e Senha
-  const handleRegister = async (e) => {
-    e.preventDefault();
+  const onSubmit = async (data) => {
     setLoading(true);
     setError("");
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
-        email,
-        password
+        data.email,
+        data.password
       );
       const user = userCredential.user;
       await setDoc(doc(db, "users", user.uid), {
         email: user.email,
         createdAt: new Date(),
-        userType: userType, // Adicionando o tipo de usuário
+        userType: data.userType,
         isProfileComplete: false,
       });
       navigate("/");
     } catch (err) {
-      console.error("Erro ao criar conta:", err);
       setError("Erro ao criar conta: " + err.message);
     }
     setLoading(false);
@@ -49,24 +64,18 @@ function Register() {
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      
-      // Verificar se o usuário já existe
       const userDocRef = doc(db, "users", user.uid);
       const userDoc = await getDoc(userDocRef);
-      
       if (!userDoc.exists()) {
-        // Se não existir, criar com o tipo selecionado
         await setDoc(userDocRef, {
           email: user.email,
           createdAt: new Date(),
-          userType: userType, // Adicionando o tipo de usuário
+          userType: "usuario", // padrão para Google
           isProfileComplete: false,
         });
       }
-      
       navigate("/");
     } catch (err) {
-      console.error("Erro no login com Google:", err);
       setError("Erro ao autenticar com Google: " + err.message);
     }
     setLoading(false);
@@ -82,18 +91,21 @@ function Register() {
             <p className="text-center text-gray-600 text-sm">Junte-se à plataforma do Autismo Em Foco!</p>
           </div>
           <div className="py-4 px-10">
-            <form onSubmit={handleRegister} className="flex flex-col gap-5">
+            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5" noValidate>
               <div className="flex flex-col gap-2">
                 <label htmlFor="email" className="text-sm font-medium text-gray-700">Email</label>
                 <input
                   id="email"
                   type="email"
                   placeholder="seu@email.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full p-2.5 border border-gray-300 rounded-md text-sm text-gray-900 bg-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 placeholder-gray-400"
-                  required
+                  {...register("email")}
+                  className={`w-full p-2.5 border ${errors.email ? "border-red-500" : "border-gray-300"} rounded-md text-sm text-gray-900 bg-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 placeholder-gray-400`}
+                  onBlur={() => trigger("email")}
+                  autoComplete="email"
                 />
+                {errors.email && (
+                  <span className="text-red-500 text-xs">{errors.email.message}</span>
+                )}
               </div>
               <div className="flex flex-col gap-2">
                 <label htmlFor="password" className="text-sm font-medium text-gray-700">Senha</label>
@@ -101,27 +113,31 @@ function Register() {
                   id="password"
                   type="password"
                   placeholder="Crie uma senha segura"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full p-2.5 border border-gray-300 rounded-md text-sm text-gray-900 bg-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 placeholder-gray-400"
-                  required
+                  {...register("password")}
+                  className={`w-full p-2.5 border ${errors.password ? "border-red-500" : "border-gray-300"} rounded-md text-sm text-gray-900 bg-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 placeholder-gray-400`}
+                  onBlur={() => trigger("password")}
+                  autoComplete="new-password"
                 />
+                {errors.password && (
+                  <span className="text-red-500 text-xs">{errors.password.message}</span>
+                )}
               </div>
-              
-              {/* Seleção de tipo de usuário */}
               <div className="flex flex-col gap-2">
                 <label htmlFor="userType" className="text-sm font-medium text-gray-700">Tipo de Conta</label>
                 <select
                   id="userType"
-                  value={userType}
-                  onChange={(e) => setUserType(e.target.value)}
-                  className="w-full p-2.5 border border-gray-300 rounded-md text-sm text-gray-900 bg-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+                  {...register("userType")}
+                  className={`w-full p-2.5 border ${errors.userType ? "border-red-500" : "border-gray-300"} rounded-md text-sm text-gray-900 bg-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100`}
+                  onBlur={() => trigger("userType")}
+                  defaultValue="usuario"
                 >
                   <option value="usuario">Usuário</option>
                   <option value="profissional">Profissional</option>
                 </select>
+                {errors.userType && (
+                  <span className="text-red-500 text-xs">{errors.userType.message}</span>
+                )}
               </div>
-              
               {error && <p className="text-red-500 text-sm text-center mt-2">{error}</p>}
               <button
                 className="mt-2 w-full p-2.5 text-white rounded-md text-sm font-medium hover:brightness-110 disabled:bg-blue-300 disabled:cursor-not-allowed"
@@ -131,7 +147,6 @@ function Register() {
               >
                 {loading ? "Entrando..." : "Entrar"}
               </button>
-
               <GoogleButton
                 onClick={handleGoogleRegister}
                 loading={loading}
