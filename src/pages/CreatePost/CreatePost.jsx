@@ -9,6 +9,7 @@ import { db, storage } from '../../firebase/config';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import LoadingButton from '../../components/LoadingButton';
 import * as Yup from 'yup';
 
 const CreatePost = () => {
@@ -177,16 +178,15 @@ const CreatePost = () => {
               </div>
             )}
 
-            {!loading && !isSubmitting && (
-              <button type="submit" className={styles.btn}>
-                Criar
-              </button>
-            )}
-            {(loading || isSubmitting) && (
-              <button type="button" className="btn" disabled>
-                Aguarde...
-              </button>
-            )}
+            <LoadingButton
+              type="submit"
+              loading={loading || isSubmitting}
+              loadingText="Criando..."
+              className={styles.btn}
+              ariaLabel="Criar nova postagem"
+            >
+              Criar
+            </LoadingButton>
 
             {formError && <p className={styles.error}>{formError}</p>}
           </Form>

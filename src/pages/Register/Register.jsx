@@ -4,6 +4,7 @@ import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } f
 import { setDoc, doc, getDoc } from "firebase/firestore";
 import { useNavigate, Link } from "react-router-dom";
 import GoogleButton from "../../components/GoogleButton";
+import LoadingButton from "../../components/LoadingButton";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -145,14 +146,15 @@ function Register() {
                 )}
               </div>
               {error && <p className="text-red-500 text-sm text-center mt-2">{error}</p>}
-              <button
-                className="mt-2 w-full p-2.5 text-white rounded-md text-sm font-medium hover:brightness-110 disabled:bg-blue-300 disabled:cursor-not-allowed"
-                style={{ backgroundColor: '#2e5eaa' }}
+              <LoadingButton
                 type="submit"
-                disabled={loading}
+                loading={loading}
+                loadingText="Cadastrando..."
+                className="mt-2 w-full"
+                ariaLabel="Criar nova conta"
               >
-                {loading ? "Entrando..." : "Entrar"}
-              </button>
+                Cadastrar
+              </LoadingButton>
               <GoogleButton
                 onClick={handleGoogleRegister}
                 loading={loading}

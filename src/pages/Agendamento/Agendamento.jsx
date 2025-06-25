@@ -10,6 +10,7 @@ import { googleMapsApi } from '../../services/googleMapsApi';
 import MapView from '../../components/MapView/MapView';
 import { useAgendamentoToast } from '../../Hooks/useAgendamentoToast';
 import CalendarioVisual from '../../components/CalendarioVisual/CalendarioVisual';
+import LoadingButton from '../../components/LoadingButton';
 
 import { Autocomplete, useLoadScript } from '@react-google-maps/api';
 
@@ -307,9 +308,9 @@ export default function Agendamento() {
 
           {/* Botões */}
           <div className={styles.buttonGroup}>
-            <button type="submit" disabled={loading} className={styles.searchButton}>
-              {loading ? 'Buscando...' : 'Buscar'}
-            </button>
+            <LoadingButton type="submit" loading={loading} className={styles.searchButton} loadingText="Buscando...">
+              Buscar
+            </LoadingButton>
             <button
               type="button"
               onClick={() => setShowMap(prev => !prev)}

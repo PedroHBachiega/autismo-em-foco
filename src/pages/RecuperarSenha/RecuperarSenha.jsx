@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuthValue } from '../../context/AuthContext';
+import LoadingButton from '../../components/LoadingButton';
 
 function RecuperarSenha() {
   const [email, setEmail] = useState('');
@@ -45,16 +46,15 @@ function RecuperarSenha() {
                   />
                 </div>
                 {error && <p id="email-error" className="text-red-500 text-sm text-center mt-2">{error}</p>}
-                <button
-                  className="mt-2 w-full p-2.5 text-white rounded-md text-sm font-medium hover:brightness-110 disabled:bg-blue-300 disabled:cursor-not-allowed"
-                  style={{ backgroundColor: '#2e5eaa' }}
+                <LoadingButton
                   type="submit"
-                  disabled={loading}
-                  aria-busy={loading ? "true" : "false"}
-                  aria-label="Enviar link de recuperação de senha"
+                  loading={loading}
+                  loadingText="Enviando..."
+                  className="mt-2 w-full"
+                  ariaLabel="Enviar link de recuperação de senha"
                 >
-                  {loading ? "Enviando..." : "Enviar link de recuperação"}
-                </button>
+                  Enviar link de recuperação
+                </LoadingButton>
               </form>
             ) : (
               <div className="flex flex-col items-center gap-4">

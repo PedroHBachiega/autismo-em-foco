@@ -4,6 +4,7 @@ import { useAuthValue } from '../../context/AuthContext';
 import { useInsertDocument } from '../../Hooks/useInsertDocument';
 import { Timestamp } from 'firebase/firestore';
 import styles from './CadastroEvento.module.css';
+import LoadingButton from '../../components/LoadingButton';
 
 const CadastroEvento = () => {
   const { userProfile } = useAuthValue();
@@ -321,15 +322,15 @@ const CadastroEvento = () => {
           >
             Cancelar
           </button>
-          <button 
+          <LoadingButton 
             type="submit" 
             className={styles.submitBtn}
-            disabled={response.loading}
-            aria-busy={response.loading ? "true" : "false"}
-            aria-label="Cadastrar novo evento"
+            loading={response.loading}
+            loadingText="Cadastrando..."
+            ariaLabel="Cadastrar novo evento"
           >
-            {response.loading ? 'Cadastrando...' : 'Cadastrar Evento'}
-          </button>
+            Cadastrar Evento
+          </LoadingButton>
         </div>
 
         {response.error && (

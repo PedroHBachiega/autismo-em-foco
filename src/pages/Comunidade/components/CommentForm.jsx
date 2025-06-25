@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from '../Comunidade.module.css';
+import LoadingButton from '../../../components/LoadingButton';
 
 const CommentForm = ({ commentText, setCommentText, handleAddComment, postId, updateLoading }) => {
   return (
@@ -13,15 +14,15 @@ const CommentForm = ({ commentText, setCommentText, handleAddComment, postId, up
         aria-label="Escreva seu comentário"
         aria-required="true"
       />
-      <button 
+      <LoadingButton 
         onClick={() => handleAddComment(postId)}
-        disabled={updateLoading}
+        loading={updateLoading}
         className={styles.commentButton}
-        aria-label="Enviar comentário"
-        aria-busy={updateLoading ? "true" : "false"}
+        ariaLabel="Enviar comentário"
+        loadingText="Enviando..."
       >
-        {updateLoading ? "Enviando..." : "Enviar"}
-      </button>
+        Enviar
+      </LoadingButton>
     </div>
   );
 };

@@ -1,0 +1,66 @@
+.loadingButton {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: var(--button-bg, #2e5eaa);
+  color: var(--button-text, #ffffff);
+  border: none;
+  min-height: 42px;
+  min-width: 120px;
+}
+
+.loadingButton:hover:not(:disabled) {
+  background-color: var(--button-hover, #1d4b8f);
+}
+
+.loadingButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
+  margin-right: 8px;
+}
+
+.buttonTextLoading {
+  opacity: 0.9;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Suporte para tema escuro */
+:global(.dark) .loadingButton {
+  background-color: var(--button-bg, #2e5eaa);
+  color: var(--button-text, #ffffff);
+}
+
+/* Suporte para alto contraste */
+:global(.high-contrast) .loadingButton {
+  background-color: #000000;
+  color: #ffff00;
+  border: 2px solid #ffff00;
+}
+
+:global(.high-contrast) .spinner {
+  border-color: rgba(255, 255, 0, 0.3);
+  border-top-color: #ffff00;
+}
