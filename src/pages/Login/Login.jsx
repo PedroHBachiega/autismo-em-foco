@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import GoogleButton from '../../components/GoogleButton';
 import LoadingButton from '../../components/LoadingButton';
 import { useAuthentication } from '../../hooks/useAuthentication';
 import { useGTM } from '../../context/GTMContext';
+import { useAgendamentoToast } from '../../Hooks/useAgendamentoToast';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -16,7 +17,12 @@ const schema = yup.object().shape({
 function Login() {
   const { login, loginWithGoogle, error, loading } = useAuthentication();
   const { trackLogin } = useGTM();
+  const { showErrorToast } = useAgendamentoToast();
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const fromPath = location.state?.from || '/';
+  const message = location.state?.message;
   const [loginMessage, setLoginMessage] = useState('');
 
   const {
@@ -24,7 +30,6 @@ function Login() {
     handleSubmit,
     formState: { errors },
     trigger,
-    setError,
   } = useForm({
     resolver: yupResolver(schema),
     mode: 'onChange',
@@ -32,25 +37,40 @@ function Login() {
   });
 
   useEffect(() => {
-    if (location.state?.message) {
-      setLoginMessage(location.state.message);
+    const hasShown = sessionStorage.getItem('hasShownToast');
+    if (message && !hasShown) {
+      setLoginMessage(message);
+      showErrorToast(message);
+  
+     
+      sessionStorage.setItem('hasShownToast', 'true');
+      navigate(location.pathname, { replace: true, state: {} });
     }
-  }, [location]);
+  }, [message, navigate, location.pathname, showErrorToast]);
+
+  useEffect(() => {
+    return () => {
+      sessionStorage.removeItem('hasShownToast');
+    };
+  }, []);
 
   const onSubmit = async (data) => {
     await login(data.email, data.senha);
     trackLogin('email');
+    navigate(fromPath, { replace: true });
   };
 
   const handleGoogleLogin = async () => {
     await loginWithGoogle();
     trackLogin('google');
+    navigate(fromPath, { replace: true });
   };
 
   return (
     <div className="min-h-screen p-12 sm:p-6 flex justify-center items-center font-sans">
       <div className="w-full max-w-lg">
         <div className="bg-white rounded-xl shadow-lg overflow-hidden animate-fadeIn border border-gray-200">
+          {/* Cabeçalho com banner de alerta */}
           <div className="pt-6 px-6 pb-2">
             <h2 className="text-2xl font-bold text-center text-gray-900 mb-2">
               Bem-vindo de volta
@@ -62,8 +82,11 @@ function Login() {
               </div>
             )}
           </div>
+
+          {/* Formulário */}
           <div className="py-4 px-10">
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5" noValidate>
+              {/* Email */}
               <div className="flex flex-col gap-2">
                 <label htmlFor="email" className="text-sm font-medium text-gray-700">
                   Email
@@ -84,6 +107,7 @@ function Login() {
                 )}
               </div>
 
+              {/* Senha */}
               <div className="flex flex-col gap-2">
                 <div className="flex justify-between items-center">
                   <label htmlFor="senha" className="text-sm font-medium text-gray-700">
@@ -109,10 +133,12 @@ function Login() {
                 )}
               </div>
 
+              {/* Erro de autenticação */}
               {error && (
                 <p className="text-red-500 text-sm text-center mt-2">{error}</p>
               )}
 
+              {/* Botões de ação */}
               <LoadingButton
                 type="submit"
                 loading={loading}
@@ -131,6 +157,7 @@ function Login() {
             </form>
           </div>
 
+          {/* Link para cadastro */}
           <div className="py-4 px-6 border-t border-gray-100">
             <p className="text-center text-sm text-gray-500">
               Não tem uma conta?{' '}
