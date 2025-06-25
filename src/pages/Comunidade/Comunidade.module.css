@@ -52,6 +52,7 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
+
 }
 
 .createPost:hover {
@@ -59,13 +60,37 @@
   transform: translateY(-2px);
 }
 
-.createPostMessage {
-  font-size: 1.1rem;
-  color: #4a6fa5;
-  margin: 0;
-  padding: 0;
-  flex: 1;
-  margin-right: 20px;
+.successMessage{
+  background-color: #e9f8ef;
+  color: #1a6531;
+  border: 1px solid #a3e4b5;
+  padding: 12px 20px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+  box-shadow: 0 2px 8px  rgba(0,0,0,0.05);
+  max-width: fit-content;
+  margin-bottom: 15px;
+  animation: fadeInOut 4s ease forwards;
+  z-index: 2;
+}
+
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  10%, 90% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
 }
 
 .postButton {

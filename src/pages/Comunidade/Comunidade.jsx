@@ -132,7 +132,7 @@ const Comunidade = () => {
             )}
 
             {searchTerm && searchResults.length === 0 && (
-              <p className={styles.emptyMessage}>Nenhum resultado para <strong>"{searchTerm}"</strong>.</p>
+              <p className={styles.emptyMessage}>Nenhum resultado para <strong>"{searchTerm}"</strong> </p>
             )}
 
             {(searchTerm ? searchResults : fetchedPosts).map(post => (
