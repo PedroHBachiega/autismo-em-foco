@@ -39,14 +39,19 @@ function RecuperarSenha() {
                     onChange={(e) => setEmail(e.target.value)}
                     className="w-full p-2.5 border border-gray-300 rounded-md text-sm text-gray-900 bg-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 placeholder-gray-400"
                     required
+                    aria-required="true"
+                    aria-describedby={error ? "email-error" : undefined}
+                    aria-invalid={error ? "true" : "false"}
                   />
                 </div>
-                {error && <p className="text-red-500 text-sm text-center mt-2">{error}</p>}
+                {error && <p id="email-error" className="text-red-500 text-sm text-center mt-2">{error}</p>}
                 <button
                   className="mt-2 w-full p-2.5 text-white rounded-md text-sm font-medium hover:brightness-110 disabled:bg-blue-300 disabled:cursor-not-allowed"
                   style={{ backgroundColor: '#2e5eaa' }}
                   type="submit"
                   disabled={loading}
+                  aria-busy={loading ? "true" : "false"}
+                  aria-label="Enviar link de recuperação de senha"
                 >
                   {loading ? "Enviando..." : "Enviar link de recuperação"}
                 </button>

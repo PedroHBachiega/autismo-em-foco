@@ -9,13 +9,18 @@ const CommentForm = ({ commentText, setCommentText, handleAddComment, postId, up
         onChange={(e) => setCommentText(e.target.value)}
         placeholder="Escreva seu comentário..."
         rows="3"
+        id="comment-textarea"
+        aria-label="Escreva seu comentário"
+        aria-required="true"
       />
       <button 
         onClick={() => handleAddComment(postId)}
         disabled={updateLoading}
         className={styles.commentButton}
+        aria-label="Enviar comentário"
+        aria-busy={updateLoading ? "true" : "false"}
       >
-        Enviar
+        {updateLoading ? "Enviando..." : "Enviar"}
       </button>
     </div>
   );

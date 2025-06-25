@@ -120,8 +120,10 @@ const CreatePost = () => {
                 name="title"
                 placeholder="Título do post"
                 disabled={loading || isSubmitting}
+                aria-required="true"
+                aria-describedby="title-error"
               />
-              <ErrorMessage name="title" component="div" className={styles.error} />
+              <ErrorMessage name="title" component="div" className={styles.error} id="title-error" />
             </div>
 
             <div className={styles.form_group}>
@@ -132,8 +134,10 @@ const CreatePost = () => {
                 name="body"
                 placeholder="Conteúdo do post"
                 disabled={loading || isSubmitting}
+                aria-required="true"
+                aria-describedby="body-error"
               />
-              <ErrorMessage name="body" component="div" className={styles.error} />
+              <ErrorMessage name="body" component="div" className={styles.error} id="body-error" />
             </div>
 
             <div className={styles.form_group}>
@@ -144,8 +148,10 @@ const CreatePost = () => {
                 name="tags"
                 placeholder="Tags (separadas por vírgula)"
                 disabled={loading || isSubmitting}
+                aria-required="true"
+                aria-describedby="tags-error"
               />
-              <ErrorMessage name="tags" component="div" className={styles.error} />
+              <ErrorMessage name="tags" component="div" className={styles.error} id="tags-error" />
             </div>
 
             <div className={styles.form_group}>
@@ -156,15 +162,16 @@ const CreatePost = () => {
                 accept="image/*"
                 onChange={(e) => handleImageChange(e, setFieldValue)}
                 disabled={loading || isSubmitting}
+                aria-describedby="image-preview"
               />
             </div>
 
             {imagePreview && (
-              <div className={styles.image_preview}>
+              <div className={styles.image_preview} id="image-preview">
                 <p>Prévia da imagem:</p>
                 <img
                   src={imagePreview}
-                  alt="Preview"
+                  alt="Preview da imagem carregada"
                   style={{ maxWidth: '300px', borderRadius: '8px' }}
                 />
               </div>
