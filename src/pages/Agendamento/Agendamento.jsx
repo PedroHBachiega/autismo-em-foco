@@ -63,7 +63,8 @@ export default function Agendamento() {
     setShowResults(false);
 
     try {
-      const filters = { city: cidade, specialty: especialidade };
+      const filters = { city: cidade, specialty: especialidade , lat: coords.lat,
+  lng: coords.lng };
       const establishments = await googleMapsApi.getEstablishments(filters);
 
       if (establishments?.length) {
@@ -324,13 +325,9 @@ export default function Agendamento() {
 
       {/* Mapa com marcador dinâmico */}
       {showMap && (
-        <section className={styles.mapSection}>
-          <MapView
-            especialidadeFiltro={especialidade}
-            cidadeFiltro={cidade}
-            markerCoords={coords}
-          />
-        </section>
+       <section className={styles.mapSection}>
+        <MapView profissionais={profissionais} />
+       </section>
       )}
 
       {/* Mensagem de erro */}
