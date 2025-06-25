@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import GoogleButton from '../../components/GoogleButton';
+import LoadingButton from '../../components/LoadingButton';
 import { useAuthentication } from '../../hooks/useAuthentication';
 import { useGTM } from '../../context/GTMContext';
 import { useForm } from 'react-hook-form';
@@ -112,14 +113,15 @@ function Login() {
                 <p className="text-red-500 text-sm text-center mt-2">{error}</p>
               )}
 
-              <button
+              <LoadingButton
                 type="submit"
-                disabled={loading}
-                className="mt-2 w-full p-2.5 text-white rounded-md text-sm font-medium hover:brightness-110 disabled:bg-blue-300 disabled:cursor-not-allowed"
-                style={{ backgroundColor: '#2e5eaa' }}
+                loading={loading}
+                loadingText="Entrando..."
+                className="mt-2 w-full"
+                ariaLabel="Entrar na conta"
               >
-                {loading ? 'Entrando...' : 'Entrar'}
-              </button>
+                Entrar
+              </LoadingButton>
 
               <GoogleButton
                 onClick={handleGoogleLogin}

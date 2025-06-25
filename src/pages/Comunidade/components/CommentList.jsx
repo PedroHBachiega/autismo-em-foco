@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from '../Comunidade.module.css';
 import { useAuthValue } from '../../../context/AuthContext';
+import LoadingButton from '../../../components/LoadingButton';
 
 const CommentList = ({ comments, onEditComment, onDeleteComment, updateLoading }) => {
   const { user } = useAuthValue();
@@ -38,7 +39,7 @@ const CommentList = ({ comments, onEditComment, onDeleteComment, updateLoading }
                 className={styles.commentEditInput}
               />
               <div className={styles.commentEditActions}>
-                <button onClick={() => handleSave(comment)} disabled={updateLoading} className={styles.commentButton}>Salvar</button>
+                <LoadingButton onClick={() => handleSave(comment)} loading={updateLoading} className={styles.commentButton} loadingText="Salvando...">Salvar</LoadingButton>
                 <button onClick={() => setEditingIndex(null)} className={styles.commentButton}>Cancelar</button>
               </div>
             </>
