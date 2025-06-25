@@ -86,7 +86,7 @@ const CreatePost = () => {
       await trackAction('CREATE_POST');
       
       // Redireciona para o dashboard após criar o post
-      navigate('/comunidade');
+      navigate('/comunidade', { state: { postCriado: true} });
     } catch (error) {
       console.error('Erro ao criar o post:', error);
       setFormError('Erro ao criar o post. Tente novamente.');
