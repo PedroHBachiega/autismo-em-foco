@@ -13,14 +13,14 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 
 export function useAuthentication() {
-  // Estados de usuário e perfil
+
   const [user, setUser] = useState(null);
   const [userProfile, setUserProfile] = useState(null);
 
-  // Estado só para o carregamento inicial (auth + perfil)
+  
   const [initialLoading, setInitialLoading] = useState(true);
 
-  // Outros estados de ação (login, logout, reset…)
+  
   const [actionLoading, setActionLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -28,7 +28,7 @@ export function useAuthentication() {
   const { pathname } = useLocation();
   const googleProvider = new GoogleAuthProvider();
 
-  // Helper: busca o perfil no Firestore
+
   const fetchUserProfile = async (uid) => {
     try {
       const ref = doc(db, "users", uid);
@@ -45,7 +45,7 @@ export function useAuthentication() {
     return null;
   };
 
-  // 5) Monitora o estado de auth (login persistido) e carrega perfil
+ 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (u) => {
       if (u) {
@@ -56,10 +56,10 @@ export function useAuthentication() {
         setUserProfile(null);
       }
 
-      // permite só uma vez, depois disso já tiramos o loading
+     
       setInitialLoading(false);
 
-      // redireciona quem não estiver logado numa rota privada
+     
       const publicPaths = [
         "/login","/register","/sobreautismo","/leisedireitos",
         "/eventos","/tratamentos","/sobre","/recuperar-senha"
@@ -165,9 +165,9 @@ export function useAuthentication() {
   return {
     user,
     userProfile,
-    // aqui entregamos o *carregamento inicial* (auth + perfil)
+  
     loading: initialLoading,
-    // pra formulários de login / reset, use actionLoading
+    
     actionLoading,
     error,
     login,

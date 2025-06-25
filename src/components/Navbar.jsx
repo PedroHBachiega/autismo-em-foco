@@ -7,7 +7,7 @@ import MobileNavbar from './MobileNavbar';
 
 const Navbar = () => {
   const { user, logout } = useAuthentication();
-  const { userProfile } = useAuthValue(); // ⬅️ userType está aqui
+  const { userProfile } = useAuthValue(); 
 
   const isAdmin = userProfile?.userType === 'admin';
   const location = useLocation();
@@ -52,7 +52,7 @@ const Navbar = () => {
             <Link to="/profile" className="text-white high-contrast:text-yellow-300 font-bold text-base hover:text-blue-200 high-contrast:hover:text-yellow-100 transition-colors">
               Perfil
             </Link>
-            <button onClick={logout} className="bg-red-500 high-contrast:bg-yellow-300 text-white high-contrast:text-black rounded-lg px-5 py-1 font-bold text-base hover:bg-red-700 high-contrast:hover:bg-yellow-400 hover:border hover:border-white high-contrast:hover:border-black transition-colors">Logout</button>
+            <button onClick={logout} className="bg-red-500 high-contrast:bg-yellow-300 text-white high-contrast:text-black rounded-lg px-5 py-1 font-bold text-base hover:bg-red-700 high-contrast:hover:bg-yellow-400 hover:border hover:border-white high-contrast:hover:border-black transition-colors">Sair</button>
           </>
         )}
       </div>

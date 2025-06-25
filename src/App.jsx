@@ -2,7 +2,6 @@ import { Routes, Route } from 'react-router-dom';
 import Layout from './Layout';
 import AdminPosts from './pages/Admin/AdminPosts';
 
-// Páginas públicas
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
@@ -14,7 +13,7 @@ import Leisedireitos from './pages/Leisedireitos/Leisedireitos';
 import Eventos from './pages/Eventos/Eventos';
 import CadastroEvento from './pages/CadastroEvento/CadastroEvento';
 
-// Páginas protegidas
+
 import Profile from './pages/Profile/Profile';
 import Comunidade from './pages/Comunidade/Comunidade';
 import CreatePost from './pages/CreatePost/CreatePost';
@@ -23,7 +22,7 @@ import Agendamento from './pages/Agendamento/Agendamento';
 import MeusAgendamentos from './pages/MeusAgendamentos/MeusAgendamentos';
 import AdminPanel from './pages/Admin/AdminPanel';
 
-// Componente de proteção de rota
+
 import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
