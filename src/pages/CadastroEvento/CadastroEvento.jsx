@@ -120,6 +120,9 @@ const CadastroEvento = () => {
                 value={formData.titulo}
                 onChange={handleInputChange}
                 required
+                aria-required="true"
+                aria-invalid={!formData.titulo && formData.titulo !== undefined ? "true" : "false"}
+                aria-describedby="titulo-error"
                 placeholder="Ex: Workshop sobre Comunicação Alternativa"
               />
             </div>
@@ -132,6 +135,9 @@ const CadastroEvento = () => {
                 value={formData.descricao}
                 onChange={handleInputChange}
                 required
+                aria-required="true"
+                aria-invalid={!formData.descricao && formData.descricao !== undefined ? "true" : "false"}
+                aria-describedby="descricao-error"
                 rows="4"
                 placeholder="Descreva o evento, objetivos e público-alvo..."
               />
@@ -145,6 +151,9 @@ const CadastroEvento = () => {
                 value={formData.categoria}
                 onChange={handleInputChange}
                 required
+                aria-required="true"
+                aria-invalid={!formData.categoria ? "true" : "false"}
+                aria-describedby="categoria-error"
               >
                 {categorias.map(cat => (
                   <option key={cat} value={cat}>{cat}</option>
@@ -166,6 +175,9 @@ const CadastroEvento = () => {
                 value={formData.dataEvento}
                 onChange={handleInputChange}
                 required
+                aria-required="true"
+                aria-invalid={!formData.dataEvento && formData.dataEvento !== undefined ? "true" : "false"}
+                aria-describedby="dataEvento-error"
                 min={new Date().toISOString().split('T')[0]}
               />
             </div>
@@ -179,6 +191,7 @@ const CadastroEvento = () => {
                   name="horarioInicio"
                   value={formData.horarioInicio}
                   onChange={handleInputChange}
+                  aria-describedby="horarioInicio-desc"
                 />
               </div>
 
@@ -190,6 +203,7 @@ const CadastroEvento = () => {
                   name="horarioFim"
                   value={formData.horarioFim}
                   onChange={handleInputChange}
+                  aria-describedby="horarioFim-desc"
                 />
               </div>
             </div>
@@ -303,6 +317,7 @@ const CadastroEvento = () => {
             type="button" 
             onClick={() => navigate('/eventos')}
             className={styles.cancelBtn}
+            aria-label="Cancelar cadastro e voltar para a lista de eventos"
           >
             Cancelar
           </button>
@@ -310,13 +325,15 @@ const CadastroEvento = () => {
             type="submit" 
             className={styles.submitBtn}
             disabled={response.loading}
+            aria-busy={response.loading ? "true" : "false"}
+            aria-label="Cadastrar novo evento"
           >
             {response.loading ? 'Cadastrando...' : 'Cadastrar Evento'}
           </button>
         </div>
 
         {response.error && (
-          <div className={styles.error}>
+          <div className={styles.error} role="alert" aria-live="assertive" id="form-error">
             Erro: {response.error}
           </div>
         )}

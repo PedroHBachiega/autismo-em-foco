@@ -75,9 +75,11 @@ function Login() {
                   className={`w-full p-2.5 border ${errors.email ? 'border-red-500' : 'border-gray-300'} rounded-md text-sm text-gray-900 bg-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 placeholder-gray-400`}
                   onBlur={() => trigger('email')}
                   autoComplete="email"
+                  aria-invalid={errors.email ? 'true' : 'false'}
+                  aria-describedby={errors.email ? 'email-error' : undefined}
                 />
                 {errors.email && (
-                  <span className="text-red-500 text-xs">{errors.email.message}</span>
+                  <span id="email-error" className="text-red-500 text-xs">{errors.email.message}</span>
                 )}
               </div>
 
@@ -98,9 +100,11 @@ function Login() {
                   className={`w-full p-2.5 border ${errors.senha ? 'border-red-500' : 'border-gray-300'} rounded-md text-sm text-gray-900 bg-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 placeholder-gray-400`}
                   onBlur={() => trigger('senha')}
                   autoComplete="current-password"
+                  aria-invalid={errors.senha ? 'true' : 'false'}
+                  aria-describedby={errors.senha ? 'senha-error' : undefined}
                 />
                 {errors.senha && (
-                  <span className="text-red-500 text-xs">{errors.senha.message}</span>
+                  <span id="senha-error" className="text-red-500 text-xs">{errors.senha.message}</span>
                 )}
               </div>
 

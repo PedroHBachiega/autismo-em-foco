@@ -102,9 +102,11 @@ function Register() {
                   className={`w-full p-2.5 border ${errors.email ? "border-red-500" : "border-gray-300"} rounded-md text-sm text-gray-900 bg-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 placeholder-gray-400`}
                   onBlur={() => trigger("email")}
                   autoComplete="email"
+                  aria-invalid={errors.email ? "true" : "false"}
+                  aria-describedby={errors.email ? "email-error" : undefined}
                 />
                 {errors.email && (
-                  <span className="text-red-500 text-xs">{errors.email.message}</span>
+                  <span id="email-error" className="text-red-500 text-xs">{errors.email.message}</span>
                 )}
               </div>
               <div className="flex flex-col gap-2">
@@ -117,9 +119,11 @@ function Register() {
                   className={`w-full p-2.5 border ${errors.password ? "border-red-500" : "border-gray-300"} rounded-md text-sm text-gray-900 bg-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 placeholder-gray-400`}
                   onBlur={() => trigger("password")}
                   autoComplete="new-password"
+                  aria-invalid={errors.password ? "true" : "false"}
+                  aria-describedby={errors.password ? "password-error" : undefined}
                 />
                 {errors.password && (
-                  <span className="text-red-500 text-xs">{errors.password.message}</span>
+                  <span id="password-error" className="text-red-500 text-xs">{errors.password.message}</span>
                 )}
               </div>
               <div className="flex flex-col gap-2">
@@ -130,12 +134,14 @@ function Register() {
                   className={`w-full p-2.5 border ${errors.userType ? "border-red-500" : "border-gray-300"} rounded-md text-sm text-gray-900 bg-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100`}
                   onBlur={() => trigger("userType")}
                   defaultValue="usuario"
+                  aria-invalid={errors.userType ? "true" : "false"}
+                  aria-describedby={errors.userType ? "userType-error" : undefined}
                 >
                   <option value="usuario">Usuário</option>
                   <option value="profissional">Profissional</option>
                 </select>
                 {errors.userType && (
-                  <span className="text-red-500 text-xs">{errors.userType.message}</span>
+                  <span id="userType-error" className="text-red-500 text-xs">{errors.userType.message}</span>
                 )}
               </div>
               {error && <p className="text-red-500 text-sm text-center mt-2">{error}</p>}
