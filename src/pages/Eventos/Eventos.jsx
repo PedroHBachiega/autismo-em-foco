@@ -83,7 +83,7 @@ const Eventos = () => {
     <div className={styles.eventosContainer}>
       <header className={styles.eventosHeader}>
         <h1>Eventos e Atividades</h1>
-        <p>Confira os próximos eventos, workshops e encontros relacionados ao TEA</p>
+        <p style={{ color: 'var(--text)'}}>Confira os próximos eventos, workshops e encontros relacionados ao TEA</p>
         
         {/* Botão para cadastrar evento (apenas para admins e profissionais) */}
         {userProfile && ['admin', 'profissional'].includes(userProfile.userType) && (
@@ -163,7 +163,7 @@ const Eventos = () => {
                 <div className={styles.eventoInfo}>
                   <div className={styles.infoItem}>
                     <span className={styles.infoIcon}>📅</span>
-                    <span>{formatarData(evento.dataEvento)}</span>
+                    <span >{formatarData(evento.dataEvento)}</span>
                   </div>
                   <div className={styles.infoItem}>
                     <span className={styles.infoIcon}>⏰</span>
@@ -171,10 +171,10 @@ const Eventos = () => {
                   </div>
                   <div className={styles.infoItem}>
                     <span className={styles.infoIcon}>📍</span>
-                    <span>{evento.local || "Local não definido"}</span>
+                    <span >{evento.local || "Local não definido"}</span>
                   </div>
                 </div>
-                <p className={styles.eventoDescricao}>{evento.descricao}</p>
+                <p style={{ color: 'var(--text)'}} className={styles.eventoDescricao}>{evento.descricao}</p>
                 {isEventoFuturo(evento.dataEvento) ? (
                   <button className={styles.inscricaoBtn}>Inscrever-se</button>
                 ) : (
@@ -192,7 +192,7 @@ const Eventos = () => {
 
       <section className={styles.cadastroEventoSection}>
         <h2>Tem um evento para divulgar?</h2>
-        <p>Se você organiza eventos relacionados ao TEA e gostaria de divulgá-los em nossa plataforma, entre em contato conosco.</p>
+        <p style={{ color: 'var(--text)'}}>Se você organiza eventos relacionados ao TEA e gostaria de divulgá-los em nossa plataforma, entre em contato conosco.</p>
         <button className={styles.cadastroEventoBtn}>Cadastrar Evento</button>
       </section>
       

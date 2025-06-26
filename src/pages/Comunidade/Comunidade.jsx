@@ -98,7 +98,8 @@ const Comunidade = () => {
     <div className={styles.container}>
       <header className={styles.header}>
         <h1>Comunidade</h1>
-        <p>Compartilhe experiências e conecte-se com outras pessoas</p>
+        <p 
+          style={{ color: 'var(--text)'}}>Compartilhe experiências e conecte-se com outras pessoas</p>
       </header>
 
       <div className={styles.contentGrid}>

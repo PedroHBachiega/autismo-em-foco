@@ -166,3 +166,14 @@
 :global(.dark) .mythsSection h2 {
   color: #3b96f0;
 }
+
+:global(.dark) .characteristicCard {
+  background-color: #1f2937;
+  border: 1px solid #ffffff
+}
+
+:global(.dark) .mythCard {
+  background-color: #1f2937;
+  border: 1px solid #ffffff
+}
+

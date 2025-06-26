@@ -12,18 +12,18 @@ const SobreAutismo = () => {
         <div className={styles.characteristicsGrid}>
           <div className={styles.characteristicCard}>
             <div className={styles.characteristicIcon}>🗣️</div>
-            <h3>Comunicação</h3>
-            <p>Dificuldades na comunicação verbal e não-verbal, que podem variar desde atraso na fala até dificuldades em manter conversas ou entender expressões faciais.</p>
+            <h3 style={{ color: 'var(--text)'}}>Comunicação</h3>
+            <p style={{ color: 'var(--text)'}}>Dificuldades na comunicação verbal e não-verbal, que podem variar desde atraso na fala até dificuldades em manter conversas ou entender expressões faciais.</p>
           </div>
           <div className={styles.characteristicCard}>
             <div className={styles.characteristicIcon}>👥</div>
-            <h3>Interação Social</h3>
-            <p>Desafios em desenvolver e manter relacionamentos, compreender regras sociais implícitas e demonstrar empatia da maneira convencional.</p>
+            <h3 style={{ color: 'var(--text)'}}>Interação Social</h3>
+            <p style={{ color: 'var(--text)'}}>Desafios em desenvolver e manter relacionamentos, compreender regras sociais implícitas e demonstrar empatia da maneira convencional.</p>
           </div>
           <div className={styles.characteristicCard}>
             <div className={styles.characteristicIcon}>🔄</div>
-            <h3>Comportamentos Repetitivos</h3>
-            <p>Movimentos repetitivos, rotinas rígidas, interesses intensos e específicos, e sensibilidade sensorial aumentada ou diminuída.</p>
+            <h3 style={{ color: 'var(--text)'}}>Comportamentos Repetitivos</h3>
+            <p style={{ color: 'var(--text)'}}>Movimentos repetitivos, rotinas rígidas, interesses intensos e específicos, e sensibilidade sensorial aumentada ou diminuída.</p>
           </div>
         </div>
       </section>
@@ -51,19 +51,19 @@ const SobreAutismo = () => {
         <div className={styles.mythsGrid}>
           <div className={styles.mythCard}>
             <h3 className={styles.mythTitle}>Mito: Pessoas com autismo não demonstram afeto</h3>
-            <p>Verdade: Pessoas com TEA sentem e demonstram afeto, mas podem fazê-lo de maneiras diferentes das convencionais.</p>
+            <p style={{ color: 'var(--text)'}}>Verdade: Pessoas com TEA sentem e demonstram afeto, mas podem fazê-lo de maneiras diferentes das convencionais.</p>
           </div>
           <div className={styles.mythCard}>
             <h3 className={styles.mythTitle}>Mito: Autismo é uma doença</h3>
-            <p>Verdade: O autismo não é uma doença, mas uma condição de neurodesenvolvimento que faz parte da identidade da pessoa.</p>
+            <p style={{ color: 'var(--text)'}}>Verdade: O autismo não é uma doença, mas uma condição de neurodesenvolvimento que faz parte da identidade da pessoa.</p>
           </div>
           <div className={styles.mythCard}>
             <h3 className={styles.mythTitle}>Mito: Todas as pessoas com autismo têm habilidades extraordinárias</h3>
-            <p>Verdade: Algumas pessoas com TEA podem ter habilidades específicas notáveis, mas isso não ocorre em todos os casos.</p>
+            <p style={{ color: 'var(--text)'}}>Verdade: Algumas pessoas com TEA podem ter habilidades específicas notáveis, mas isso não ocorre em todos os casos.</p>
           </div>
           <div className={styles.mythCard}>
             <h3 className={styles.mythTitle}>Mito: O autismo tem cura</h3>
-            <p>Verdade: O autismo não tem cura, mas intervenções adequadas podem melhorar significativamente a qualidade de vida.</p>
+            <p style={{ color: 'var(--text)'}}>Verdade: O autismo não tem cura, mas intervenções adequadas podem melhorar significativamente a qualidade de vida.</p>
           </div>
         </div>
       </section>

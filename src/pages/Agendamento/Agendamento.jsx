@@ -204,7 +204,8 @@ export default function Agendamento() {
     <div className={styles.container}>
       <header className={styles.header}>
         <h1>Agendamento de Consultas</h1>
-        <p>Encontre profissionais e clínicas especializadas em TEA na sua região</p>
+        <p 
+          style={{ color: 'var(--text)'}}>Encontre profissionais e clínicas especializadas em TEA na sua região</p>
       </header>
 
       <section className={styles.searchSection}>
@@ -461,7 +462,8 @@ export default function Agendamento() {
       {/* Chamada para profissionais */}
       <section className={styles.registerSection}>
         <h2>É um profissional ou clínica?</h2>
-        <p>Cadastre-se para aparecer nos resultados.</p>
+        <p 
+          style={{ color: 'var(--text)'}}>Cadastre-se para aparecer nos resultados.</p>
         <a href="#" className={styles.registerButton}>Cadastrar Serviço</a>
       </section>
     </div>
