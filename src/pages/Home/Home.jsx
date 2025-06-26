@@ -13,8 +13,13 @@ const Home = () => {
       >
         <div className={styles.heroContent}>
           <div className={styles.heroTextBox}>
+<<<<<<< HEAD
             <h2 style={{ color: 'var(--text)'}}>Compreender Para Incluir</h2>
             <h1 style={{ color: 'var(--text)'}}>Autismo em Foco</h1>
+=======
+            <h2>Compreender Para Incluir</h2>
+            <h1>Autismo em Foco</h1>
+>>>>>>> origin/main
             <Link to="/sobre" className={styles.heroButton}>Saiba mais</Link>
           </div>
         </div>
@@ -24,10 +29,17 @@ const Home = () => {
       <section className={styles.infoCards}>
         <div className={styles.card}>
           <div className={styles.cardIcon}>
+<<<<<<< HEAD
             <span style={{ color: 'var(--text)'}}>?</span>
           </div>
           <h3 style={{ color: 'var(--text)'}}>O que é o autismo?</h3>
           <p style={{ color: 'var(--text)'}}>Conheça as principais características do transtorno do espectro autista e como ele se manifesta.</p>
+=======
+            <span>?</span>
+          </div>
+          <h3>O que é o autismo?</h3>
+          <p>Conheça as principais características do transtorno do espectro autista e como ele se manifesta.</p>
+>>>>>>> origin/main
           <Link to="/sobreautismo" className={styles.cardButton}>Acessar</Link>
         </div>
 
@@ -35,8 +47,13 @@ const Home = () => {
           <div className={styles.cardIcon}>
             <span>⚖️</span>
           </div>
+<<<<<<< HEAD
           <h3 style={{ color: 'var(--text)'}}>Leis relacionadas</h3>
           <p style={{ color: 'var(--text)'}}>Confira os direitos das pessoas com autismo garantidos por lei.</p>
+=======
+          <h3>Leis relacionadas</h3>
+          <p>Confira os direitos das pessoas com autismo garantidos por lei.</p>
+>>>>>>> origin/main
           <Link to="/leisedireitos" className={styles.cardButton}>Acessar</Link>
         </div>
 
@@ -44,8 +61,13 @@ const Home = () => {
           <div className={styles.cardIcon}>
             <span>📅</span>
           </div>
+<<<<<<< HEAD
           <h3 style={{ color: 'var(--text)'}}>Datas Especiais</h3>
           <p style={{ color: 'var(--text)'}}>Descubra eventos e datas importantes para a conscientização sobre o autismo.</p>
+=======
+          <h3>Datas Especiais</h3>
+          <p>Descubra eventos e datas importantes para a conscientização sobre o autismo.</p>
+>>>>>>> origin/main
           <Link to="/eventos" className={styles.cardButton}>Acessar</Link>
         </div>
       </section>

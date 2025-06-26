@@ -1,8 +1,14 @@
 import { initializeApp } from "firebase/app";
+<<<<<<< HEAD
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
+=======
+import { getAnalytics } from "firebase/analytics";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+>>>>>>> origin/main
 
 const firebaseConfig = {
   apiKey: "AIzaSyBw1B0kDrCvKOZHCE9c-lpWff-aL0YXISI",
@@ -17,6 +23,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
+<<<<<<< HEAD
 export const db = getFirestore(app);
 export const storage = getStorage(app);
 export const messaging = getMessaging(app);
@@ -45,3 +52,6 @@ export const onMessageListener = () =>
       resolve(payload);
     });
   });
+=======
+export const db = getFirestore(app);
+>>>>>>> origin/main

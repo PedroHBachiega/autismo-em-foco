@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+<<<<<<< HEAD
 :root {
   --primary: #3b82f6;
   --primary-hover: #2563eb;
@@ -32,12 +33,20 @@
 /* Prevenir scroll horizontal */
 html, body {
  overflow-x: hidden;
+=======
+/* Prevenir scroll horizontal */
+html, body {
+  overflow-x: hidden;
+>>>>>>> origin/main
   position: relative;
   width: 100%;
   max-width: 100%;
   touch-action: pan-y;
+<<<<<<< HEAD
   background-color: var(--background);
   color: var(--text);
+=======
+>>>>>>> origin/main
 }
 
 #root {

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthValue } from '../../context/AuthContext';
@@ -29,6 +30,27 @@ const CreatePost = () => {
     body: Yup.string().required('O conteúdo é obrigatório'),
     tags: Yup.string().required('As tags são obrigatórias'),
   });
+=======
+// src/pages/Comunidade/CreatePost/CreatePost.jsx
+
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuthValue } from '../../context/AuthContext';
+import { db } from '../../firebase/config';
+import { collection, addDoc, Timestamp } from 'firebase/firestore';
+import styles from './CreatePost.module.css';
+
+const CreatePost = () => {
+
+  const navigate = useNavigate();
+  const { user } = useAuthValue();
+
+  const [title, setTitle] = useState('');
+  const [body, setBody] = useState('');
+  const [tags, setTags] = useState('');
+  const [formError, setFormError] = useState('');
+  const [loading, setLoading] = useState(false);
+>>>>>>> origin/main
 
   // Se não houver usuário autenticado, direciona para a página de login
   useEffect(() => {
@@ -37,6 +59,7 @@ const CreatePost = () => {
     }
   }, [user, navigate]);
 
+<<<<<<< HEAD
   const handleImageChange = (e, setFieldValue) => {
     const file = e.target.files[0];
     setFieldValue('imageFile', file);
@@ -57,11 +80,28 @@ const CreatePost = () => {
 
     // Processa as tags em array
     const tagsArray = values.tags
+=======
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setFormError('');
+    setLoading(true);
+
+    // Validação de campos obrigatórios
+    if (!title.trim() || !body.trim() || !tags.trim()) {
+      setFormError('Por favor, preencha todos os campos!');
+      setLoading(false);
+      return;
+    }
+
+    // Processa as tags em array
+    const tagsArray = tags
+>>>>>>> origin/main
       .split(',')
       .map((tag) => tag.trim().toLowerCase())
       .filter((tagItem) => tagItem.length > 0);
 
     try {
+<<<<<<< HEAD
       let imageUrl = '';
 
       if (values.imageFile) {
@@ -76,11 +116,19 @@ const CreatePost = () => {
         body: values.body.trim(),
         tags: tagsArray,
         imageUrl,
+=======
+      // Cria novo documento em "posts"
+      await addDoc(collection(db, 'posts'), {
+        title: title.trim(),
+        body: body.trim(),
+        tags: tagsArray,
+>>>>>>> origin/main
         uid: user.uid,
         createdBy: user.displayName || user.email,
         createdAt: Timestamp.now(),
       });
 
+<<<<<<< HEAD
       // Rastrear evento de criação de post
       trackPostCreation(docRef.id, tagsArray);
       
@@ -89,11 +137,18 @@ const CreatePost = () => {
       
       // Redireciona para o dashboard após criar o post
       navigate('/comunidade', { state: { postCriado: true} });
+=======
+      // Redireciona para o dashboard após criar o post
+      navigate('/comunidade');
+>>>>>>> origin/main
     } catch (error) {
       console.error('Erro ao criar o post:', error);
       setFormError('Erro ao criar o post. Tente novamente.');
       setLoading(false);
+<<<<<<< HEAD
       setSubmitting(false);
+=======
+>>>>>>> origin/main
     }
   };
 
@@ -102,6 +157,7 @@ const CreatePost = () => {
       <h2>Criar Post</h2>
       <p>Crie seu post e compartilhe seu conhecimento</p>
 
+<<<<<<< HEAD
       <Formik
         initialValues={{
           title: '',
@@ -195,6 +251,60 @@ const CreatePost = () => {
           </Form>
         )}
       </Formik>
+=======
+      <form onSubmit={handleSubmit}>
+        <label>
+          <span>Título:</span>
+          <input
+            type="text"
+            name="title"
+            placeholder="Título do post"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            disabled={loading}
+            required
+          />
+        </label>
+
+        <label>
+          <span>Conteúdo:</span>
+          <textarea
+            name="body"
+            placeholder="Conteúdo do post"
+            value={body}
+            onChange={(e) => setBody(e.target.value)}
+            disabled={loading}
+            required
+          ></textarea>
+        </label>
+
+        <label>
+          <span>Tags:</span>
+          <input
+            type="text"
+            name="tags"
+            placeholder="Tags (separadas por vírgula)"
+            value={tags}
+            onChange={(e) => setTags(e.target.value)}
+            disabled={loading}
+            required
+          />
+        </label>
+
+        {!loading && (
+          <button type="submit" className={styles.btn}>
+            Criar
+          </button>
+        )}
+        {loading && (
+          <button type="button" className="btn" disabled>
+            Aguarde...
+          </button>
+        )}
+
+        {formError && <p className={styles.error}>{formError}</p>}
+      </form>
+>>>>>>> origin/main
     </div>
   );
 };

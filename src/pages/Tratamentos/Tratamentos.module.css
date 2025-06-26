@@ -8,13 +8,20 @@
   text-align: center;
   padding: 40px 20px;
   margin-bottom: 30px;
+<<<<<<< HEAD
   background-color: #f0f7ff;
   border-radius: 10px;
+=======
+>>>>>>> origin/main
 }
 
 .header h1 {
   font-size: 2.5rem;
+<<<<<<< HEAD
   color: #1a3d7c; /* Improved contrast */
+=======
+  color: #2361ad;
+>>>>>>> origin/main
   margin-bottom: 15px;
 }
 
@@ -51,7 +58,11 @@
 
 .therapyCard h2 {
   font-size: 1.8rem;
+<<<<<<< HEAD
   color: #1a3d7c;
+=======
+  color: #2361ad;
+>>>>>>> origin/main
   margin-bottom: 20px;
   padding-bottom: 15px;
   border-bottom: 1px solid #e0e0e0;
@@ -88,7 +99,11 @@
 
 .therapyInfo h3 {
   font-size: 1.3rem;
+<<<<<<< HEAD
   color: #1a3d7c;
+=======
+  color: #2361ad;
+>>>>>>> origin/main
   margin-bottom: 15px;
 }
 
@@ -112,7 +127,11 @@
 
 .findProfessional h2 {
   font-size: 2rem;
+<<<<<<< HEAD
   color: #1a3d7c;
+=======
+  color: #2361ad;
+>>>>>>> origin/main
   margin-bottom: 15px;
 }
 
@@ -149,6 +168,7 @@
     width: 100%;
     margin-bottom: 20px;
   }
+<<<<<<< HEAD
 }
 
 :global(.dark) .tratamentosContainer h1,
@@ -165,3 +185,6 @@
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
+=======
+}
+>>>>>>> origin/main

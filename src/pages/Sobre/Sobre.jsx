@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import styles from './Sobre.module.css'
+<<<<<<< HEAD
 import Faq from '../../components/Faq/Faq';
+=======
+>>>>>>> origin/main
 
 import grupoApoioImg from '../../assets/grupo-apoio.jpg';
 import pedroSouzaImg from '../../assets/pedrosouza.png';
@@ -61,7 +64,11 @@ const Sobre = () => {
     <div className={styles.sobreContainer}>
       <section className={styles.header}>
         <h1>Sobre o Autismo em Foco</h1>
+<<<<<<< HEAD
         <p style={{ color: 'var(--text)'}}>Conheça nossa missão e equipe</p>
+=======
+        <p>Conheça nossa missão e equipe</p>
+>>>>>>> origin/main
       </section>
 
       <section className={styles.mission}>
@@ -103,7 +110,11 @@ const Sobre = () => {
           ))}
           </div>
           </section>
+<<<<<<< HEAD
           <Faq />
+=======
+
+>>>>>>> origin/main
       <section className={styles.contact}>
         <h2>Entre em Contato</h2>
         <p>Estamos à disposição para esclarecer dúvidas e receber sugestões.</p>
@@ -126,7 +137,10 @@ const Sobre = () => {
           </div>
         </div>
       </section>
+<<<<<<< HEAD
           
+=======
+>>>>>>> origin/main
     </div>
   );
 };

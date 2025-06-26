@@ -1,17 +1,35 @@
 import React from 'react'
 import styles from './SobreAutismo.module.css'
+<<<<<<< HEAD
 import HeaderInfoTEA from '../../components/HeaderInfoTEA/HeaderInfoTEA'
+=======
+>>>>>>> origin/main
 
 const SobreAutismo = () => {
   return (
     <div className={styles.container}>
+<<<<<<< HEAD
       <HeaderInfoTEA />
+=======
+      <header className={styles.header}>
+        <h1>O que é o Autismo?</h1>
+        <p>Entendendo o Transtorno do Espectro Autista (TEA)</p>
+      </header>
+
+      <section className={styles.infoSection}>
+        <div className={styles.infoCard}>
+          <h2>Definição</h2>
+          <p>O Transtorno do Espectro Autista (TEA) é uma condição de neurodesenvolvimento que afeta a comunicação, interação social e pode incluir padrões repetitivos de comportamento, interesses ou atividades. O autismo é considerado um espectro porque se manifesta de maneiras muito diferentes em cada pessoa.</p>
+        </div>
+      </section>
+>>>>>>> origin/main
 
       <section className={styles.characteristicsSection}>
         <h2>Principais Características</h2>
         <div className={styles.characteristicsGrid}>
           <div className={styles.characteristicCard}>
             <div className={styles.characteristicIcon}>🗣️</div>
+<<<<<<< HEAD
             <h3 style={{ color: 'var(--text)'}}>Comunicação</h3>
             <p style={{ color: 'var(--text)'}}>Dificuldades na comunicação verbal e não-verbal, que podem variar desde atraso na fala até dificuldades em manter conversas ou entender expressões faciais.</p>
           </div>
@@ -24,14 +42,33 @@ const SobreAutismo = () => {
             <div className={styles.characteristicIcon}>🔄</div>
             <h3 style={{ color: 'var(--text)'}}>Comportamentos Repetitivos</h3>
             <p style={{ color: 'var(--text)'}}>Movimentos repetitivos, rotinas rígidas, interesses intensos e específicos, e sensibilidade sensorial aumentada ou diminuída.</p>
+=======
+            <h3>Comunicação</h3>
+            <p>Dificuldades na comunicação verbal e não-verbal, que podem variar desde atraso na fala até dificuldades em manter conversas ou entender expressões faciais.</p>
+          </div>
+          <div className={styles.characteristicCard}>
+            <div className={styles.characteristicIcon}>👥</div>
+            <h3>Interação Social</h3>
+            <p>Desafios em desenvolver e manter relacionamentos, compreender regras sociais implícitas e demonstrar empatia da maneira convencional.</p>
+          </div>
+          <div className={styles.characteristicCard}>
+            <div className={styles.characteristicIcon}>🔄</div>
+            <h3>Comportamentos Repetitivos</h3>
+            <p>Movimentos repetitivos, rotinas rígidas, interesses intensos e específicos, e sensibilidade sensorial aumentada ou diminuída.</p>
+>>>>>>> origin/main
           </div>
         </div>
       </section>
 
       <section className={styles.diagnosisSection}>
         <h2>Diagnóstico</h2>
+<<<<<<< HEAD
         <p style={{ color: 'var(--text)'}}>O diagnóstico do TEA é clínico, realizado por profissionais especializados como neurologistas, psiquiatras e neuropsicólogos. Geralmente envolve observação comportamental, entrevistas com familiares e aplicação de instrumentos específicos de avaliação.</p>
         <p style={{ color: 'var(--text)'}}>Os sinais podem aparecer nos primeiros anos de vida, mas em alguns casos, especialmente quando os sintomas são mais sutis, o diagnóstico pode ocorrer mais tarde.</p>
+=======
+        <p>O diagnóstico do TEA é clínico, realizado por profissionais especializados como neurologistas, psiquiatras e neuropsicólogos. Geralmente envolve observação comportamental, entrevistas com familiares e aplicação de instrumentos específicos de avaliação.</p>
+        <p>Os sinais podem aparecer nos primeiros anos de vida, mas em alguns casos, especialmente quando os sintomas são mais sutis, o diagnóstico pode ocorrer mais tarde.</p>
+>>>>>>> origin/main
         <div className={styles.warningBox}>
           <h3>Sinais de Alerta</h3>
           <ul>
@@ -51,6 +88,7 @@ const SobreAutismo = () => {
         <div className={styles.mythsGrid}>
           <div className={styles.mythCard}>
             <h3 className={styles.mythTitle}>Mito: Pessoas com autismo não demonstram afeto</h3>
+<<<<<<< HEAD
             <p style={{ color: 'var(--text)'}}>Verdade: Pessoas com TEA sentem e demonstram afeto, mas podem fazê-lo de maneiras diferentes das convencionais.</p>
           </div>
           <div className={styles.mythCard}>
@@ -64,6 +102,21 @@ const SobreAutismo = () => {
           <div className={styles.mythCard}>
             <h3 className={styles.mythTitle}>Mito: O autismo tem cura</h3>
             <p style={{ color: 'var(--text)'}}>Verdade: O autismo não tem cura, mas intervenções adequadas podem melhorar significativamente a qualidade de vida.</p>
+=======
+            <p>Verdade: Pessoas com TEA sentem e demonstram afeto, mas podem fazê-lo de maneiras diferentes das convencionais.</p>
+          </div>
+          <div className={styles.mythCard}>
+            <h3 className={styles.mythTitle}>Mito: Autismo é uma doença</h3>
+            <p>Verdade: O autismo não é uma doença, mas uma condição de neurodesenvolvimento que faz parte da identidade da pessoa.</p>
+          </div>
+          <div className={styles.mythCard}>
+            <h3 className={styles.mythTitle}>Mito: Todas as pessoas com autismo têm habilidades extraordinárias</h3>
+            <p>Verdade: Algumas pessoas com TEA podem ter habilidades específicas notáveis, mas isso não ocorre em todos os casos.</p>
+          </div>
+          <div className={styles.mythCard}>
+            <h3 className={styles.mythTitle}>Mito: O autismo tem cura</h3>
+            <p>Verdade: O autismo não tem cura, mas intervenções adequadas podem melhorar significativamente a qualidade de vida.</p>
+>>>>>>> origin/main
           </div>
         </div>
       </section>

@@ -2,11 +2,16 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+<<<<<<< HEAD
+=======
+  font-family: 'Roboto', sans-serif;
+>>>>>>> origin/main
   background-color: #f9fafc;
   min-height: 100vh;
 }
 
 .header {
+<<<<<<< HEAD
   background-color: #f0f7ff; /* Cor de fundo unificada */
   border-radius: 10px;
   padding: 60px 20px;
@@ -18,11 +23,36 @@
   color: #1a3d7c; /* Cor do título unificada */
   font-size: 2.8rem;
   margin-bottom: 15px;
+=======
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(135deg, #e0f0ff 0%, #d6e9ff 100%);
+  border-radius: 15px;
+  margin-bottom: 40px;
+  box-shadow: 0 6px 20px rgba(46, 94, 170, 0.1);
+  transition: all 0.3s ease;
+}
+
+.header:hover {
+  box-shadow: 0 8px 25px rgba(46, 94, 170, 0.15);
+}
+
+.header h1 {
+  font-size: 2.8rem;
+  color: #2e5eaa;
+  margin-bottom: 15px;
+  font-weight: 700;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+>>>>>>> origin/main
 }
 
 .header p {
   font-size: 1.2rem;
+<<<<<<< HEAD
   color: #555555;
+=======
+  color: #4a6fa5;
+>>>>>>> origin/main
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.5;
@@ -52,7 +82,10 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/main
 }
 
 .createPost:hover {
@@ -60,6 +93,7 @@
   transform: translateY(-2px);
 }
 
+<<<<<<< HEAD
 .successMessage{
   background-color: #e9f8ef;
   color: #1a6531;
@@ -91,6 +125,15 @@
     opacity: 0;
     transform: translateY(-10px);
   }
+=======
+.createPostMessage {
+  font-size: 1.1rem;
+  color: #4a6fa5;
+  margin: 0;
+  padding: 0;
+  flex: 1;
+  margin-right: 20px;
+>>>>>>> origin/main
 }
 
 .postButton {
@@ -174,6 +217,13 @@
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
+<<<<<<< HEAD
+=======
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(46, 94, 170, 0.2);
+>>>>>>> origin/main
 }
 
 .postButton:hover {
@@ -220,8 +270,13 @@
 }
 
 .filterButton {
+<<<<<<< HEAD
   background-color: #d0e1f9; /* Improved contrast */
   border: 1px solid #ccc; /* Improved contrast */
+=======
+  background-color: #f0f7ff;
+  border: 1px solid #ddd;
+>>>>>>> origin/main
   padding: 8px 15px;
   border-radius: 20px;
   font-size: 0.9rem;
@@ -241,6 +296,15 @@
   gap: 20px;
 }
 
+<<<<<<< HEAD
+=======
+.postCard {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+>>>>>>> origin/main
 
 .postHeader {
   display: flex;
@@ -258,7 +322,11 @@
 .authorAvatar {
   width: 40px;
   height: 40px;
+<<<<<<< HEAD
   background-color: #f0f7ff; /* Altere para combinar com outras páginas */
+=======
+  background-color: #f0f7ff;
+>>>>>>> origin/main
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -430,6 +498,7 @@
 }
 
 .commentForm {
+<<<<<<< HEAD
   background-color: white;
   border-radius: 12px;
   padding: 20px;
@@ -441,12 +510,20 @@
 }
 
 
+=======
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+>>>>>>> origin/main
 .commentForm textarea {
   padding: 8px;
   border: 1px solid #ced4da;
   border-radius: 4px;
   resize: vertical;
   margin-bottom: 8px;
+<<<<<<< HEAD
   width: 100%; /* ou width: 400px; para tamanho fixo */
 }
 
@@ -778,4 +855,26 @@
 :global(.dark) .emptyMessage {
   background-color: #111827;
   color: #e5e9f0;
+=======
+}
+
+.commentButton {
+  align-self: flex-end;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.commentButton:hover {
+  background-color: #45a049;
+}
+
+.commentButton:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+>>>>>>> origin/main
 }

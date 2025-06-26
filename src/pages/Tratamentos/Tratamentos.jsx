@@ -26,18 +26,13 @@ const Tratamentos = () => {
               <img src={abaImage} alt="Método ABA" className={styles.imagemTerapias}/>
             </div>
             <div className={styles.therapyInfo}>
-              <p style={{ color: 'var(--text)'}}
->A ABA é uma abordagem baseada em evidências científicas que utiliza técnicas de modificação do comportamento para desenvolver habilidades importantes e reduzir comportamentos inadequados.</p>
+              <p style={{ color: 'var(--text)'}}>A ABA é uma abordagem baseada em evidências científicas que utiliza técnicas de modificação do comportamento para desenvolver habilidades importantes e reduzir comportamentos inadequados.</p>
               <h3>Benefícios:</h3>
               <ul>
-                <li style={{ color: 'var(--text)'}}
-                  >Desenvolvimento de habilidades de comunicação</li>
-                <li style={{ color: 'var(--text)'}}
-                  >Melhora nas interações sociais</li>
-                <li style={{ color: 'var(--text)'}}
-                  >Redução de comportamentos desafiadores</li>
-                <li style={{ color: 'var(--text)'}}
-                  >Aumento da independência</li>
+                <li style={{ color: 'var(--text)'}}>Desenvolvimento de habilidades de comunicação</li>
+                <li style={{ color: 'var(--text)'}}>Melhora nas interações sociais</li>
+                <li style={{ color: 'var(--text)'}}>Redução de comportamentos desafiadores</li>
+                <li style={{ color: 'var(--text)'}}>Aumento da independência</li>
               </ul>
             </div>
           </div>
@@ -50,8 +45,7 @@ const Tratamentos = () => {
               <img src={fonoaudiologiaImage} alt="Fonoaudióloga" className={styles.imagemTerapias} />
             </div>
             <div className={styles.therapyInfo}>
-              <p style={{ color: 'var(--text)'}}
-                >A terapia fonoaudiológica trabalha o desenvolvimento da comunicação, linguagem e habilidades sociais, fundamentais para pessoas com TEA.</p>
+              <p style={{ color: 'var(--text)'}}>A terapia fonoaudiológica trabalha o desenvolvimento da comunicação, linguagem e habilidades sociais, fundamentais para pessoas com TEA.</p>
               <h3>Benefícios:</h3>
               <ul>
                 <li style={{ color: 'var(--text)'}}>Desenvolvimento da linguagem verbal e não-verbal</li>

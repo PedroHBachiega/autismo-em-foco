@@ -28,6 +28,7 @@
     width: 20px;
     height: 20px;
   }
+<<<<<<< HEAD
   
   :global(.high-contrast) .googleBtn {
     background-color: #000000;
@@ -38,4 +39,6 @@
   :global(.high-contrast) .googleBtn:hover {
     background-color: #333333;
   }
+=======
+>>>>>>> origin/main
   
