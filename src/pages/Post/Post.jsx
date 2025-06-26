@@ -3,7 +3,10 @@ import { useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { db } from '../../firebase/config'
 import { doc, getDoc } from 'firebase/firestore'
+<<<<<<< HEAD
 import ReadAloudButton from '../../components/ReadAloudButton/ReadAloudButton';
+=======
+>>>>>>> origin/main
 
 const Post = () => {
     const { id } = useParams()
@@ -37,6 +40,7 @@ const Post = () => {
         fetchPost()
     }, [id])
 
+<<<<<<< HEAD
     // Função para preparar o texto para leitura - MOVIDA PARA DENTRO DO COMPONENTE
     const getReadableContent = () => {
         if (!post) return "";
@@ -93,6 +97,25 @@ const Post = () => {
                                     marginRight: '8px',
                                     fontSize: '0.9rem'
                                 }}>#{tag}</span>
+=======
+    return (
+        <div className={styles.post_container}>
+            {loading && <p>Carregando post...</p>}
+            {error && <p className={styles.error}>{error}</p>}
+            {post && (
+                <>
+                    <h1>{post.title}</h1>
+                    <div className={styles.post_author}>
+                        <p>por {post.createdBy}</p>
+                    </div>
+                    <div className={styles.post_content}>
+                        <p>{post.body}</p>
+                    </div>
+                    {post.tags && (
+                        <div className={styles.tags}>
+                            {post.tags.map((tag) => (
+                                <span key={tag}>#{tag}</span>
+>>>>>>> origin/main
                             ))}
                         </div>
                     )}
@@ -102,4 +125,8 @@ const Post = () => {
     )
 }
 
+<<<<<<< HEAD
 export default Post
+=======
+export default Post 
+>>>>>>> origin/main

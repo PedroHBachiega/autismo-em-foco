@@ -2,6 +2,10 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+<<<<<<< HEAD
+=======
+  font-family: 'Roboto', sans-serif;
+>>>>>>> origin/main
 }
 
 .header {
@@ -14,7 +18,11 @@
 
 .header h1 {
   font-size: 2.5rem;
+<<<<<<< HEAD
   color: #1a3d7c;
+=======
+  color: #2e5eaa;
+>>>>>>> origin/main
   margin-bottom: 15px;
 }
 
@@ -35,7 +43,11 @@
 
 .mainLaw h2 {
   font-size: 1.8rem;
+<<<<<<< HEAD
   color: #1a3d7c;
+=======
+  color: #2e5eaa;
+>>>>>>> origin/main
   margin-bottom: 20px;
 }
 
@@ -53,7 +65,11 @@
 .lawsSection h2 {
   text-align: center;
   font-size: 2rem;
+<<<<<<< HEAD
   color: #1a3d7c;
+=======
+  color: #2e5eaa;
+>>>>>>> origin/main
   margin-bottom: 30px;
 }
 
@@ -77,7 +93,11 @@
 
 .lawCard h3 {
   font-size: 1.3rem;
+<<<<<<< HEAD
   color: #1a3d7c;
+=======
+  color: #2e5eaa;
+>>>>>>> origin/main
   margin-bottom: 15px;
   padding-bottom: 10px;
   border-bottom: 1px solid #e0e0e0;
@@ -91,7 +111,11 @@
 
 .lawCard a {
   display: inline-block;
+<<<<<<< HEAD
   color: #1a3d7c;
+=======
+  color: #2e5eaa;
+>>>>>>> origin/main
   font-weight: 500;
   text-decoration: none;
 }
@@ -107,7 +131,11 @@
 .rightsSection h2 {
   text-align: center;
   font-size: 2rem;
+<<<<<<< HEAD
   color: #1a3d7c;
+=======
+  color: #2e5eaa;
+>>>>>>> origin/main
   margin-bottom: 30px;
 }
 
@@ -132,7 +160,11 @@
 
 .rightItem h3 {
   font-size: 1.3rem;
+<<<<<<< HEAD
   color: #1a3d7c;
+=======
+  color: #2e5eaa;
+>>>>>>> origin/main
   margin-bottom: 10px;
 }
 
@@ -150,7 +182,11 @@
 
 .helpSection h2 {
   font-size: 1.8rem;
+<<<<<<< HEAD
   color: #1a3d7c;
+=======
+  color: #2e5eaa;
+>>>>>>> origin/main
   margin-bottom: 15px;
 }
 
@@ -176,6 +212,7 @@
   background-color: #1d4b8f;
 }
 
+<<<<<<< HEAD
 .header p {
   color: #333; /* Improved contrast */
 }
@@ -184,6 +221,8 @@
   color: #222; /* Improved contrast */
 }
 
+=======
+>>>>>>> origin/main
 @media (max-width: 768px) {
   .header {
     padding: 40px 15px;
@@ -196,6 +235,7 @@
   .lawsGrid {
     grid-template-columns: 1fr;
   }
+<<<<<<< HEAD
 }
 
 :global(.dark) .lawsSection h2{
@@ -238,4 +278,6 @@
 :global(.dark) .helpSection {
   background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+=======
+>>>>>>> origin/main
 }

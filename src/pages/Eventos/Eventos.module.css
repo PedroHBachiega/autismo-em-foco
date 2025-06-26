@@ -2,6 +2,10 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+<<<<<<< HEAD
+=======
+  font-family: 'Roboto', sans-serif;
+>>>>>>> origin/main
 }
 
 .eventosHeader {
@@ -14,7 +18,11 @@
 
 .eventosHeader h1 {
   font-size: 2.5rem;
+<<<<<<< HEAD
   color: #1a3d7c;
+=======
+  color: #2e5eaa;
+>>>>>>> origin/main
   margin-bottom: 15px;
 }
 
@@ -31,7 +39,11 @@
 
 .filtrosSection h2 {
   font-size: 1.5rem;
+<<<<<<< HEAD
   color: #1a3d7c;
+=======
+  color: #2e5eaa;
+>>>>>>> origin/main
   margin-bottom: 15px;
 }
 
@@ -46,6 +58,7 @@
   background-color: #f0f7ff;
   border: 1px solid #d0e1f9;
   border-radius: 50px;
+<<<<<<< HEAD
   color: 'var(--text)';
   font-size: 0.9rem;
   cursor: pointer;
@@ -54,6 +67,14 @@
 }
 
 
+=======
+  color: #2e5eaa;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+>>>>>>> origin/main
 .filtroBotao:hover {
   background-color: #d0e1f9;
 }
@@ -72,6 +93,10 @@
 }
 
 .eventoCard {
+<<<<<<< HEAD
+=======
+  background-color: white;
+>>>>>>> origin/main
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -97,7 +122,11 @@
   position: absolute;
   top: 15px;
   right: 15px;
+<<<<<<< HEAD
   background-color: #1a3d7c;
+=======
+  background-color: #2e5eaa;
+>>>>>>> origin/main
   color: white;
   padding: 5px 10px;
   border-radius: 50px;
@@ -111,7 +140,11 @@
 
 .eventoConteudo h3 {
   font-size: 1.3rem;
+<<<<<<< HEAD
   color: #1a3d7c;
+=======
+  color: #2e5eaa;
+>>>>>>> origin/main
   margin-bottom: 15px;
 }
 
@@ -173,7 +206,11 @@
 
 .cadastroEventoSection h2 {
   font-size: 1.8rem;
+<<<<<<< HEAD
   color: #1a3d7c;
+=======
+  color: #2e5eaa;
+>>>>>>> origin/main
   margin-bottom: 15px;
 }
 
@@ -198,6 +235,7 @@
   background-color: #1d4b8f;
 }
 
+<<<<<<< HEAD
 .cadastrarEventoBtn {
   display: inline-flex;
   align-items: center;
@@ -218,6 +256,8 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+=======
+>>>>>>> origin/main
 @media (max-width: 768px) {
   .eventosHeader {
     padding: 40px 15px;
@@ -234,6 +274,7 @@
   .filtrosBotoes {
     justify-content: center;
   }
+<<<<<<< HEAD
 }
 
 /* Estilos para loading e error */
@@ -376,3 +417,6 @@
 :global(.dark) .cadastroEventoSection h2{
   color: #3b96f0;
 }
+=======
+}
+>>>>>>> origin/main

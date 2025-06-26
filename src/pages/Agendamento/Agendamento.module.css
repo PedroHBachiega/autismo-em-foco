@@ -2,6 +2,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+<<<<<<< HEAD
 }
 
 .header {
@@ -9,14 +10,30 @@
   border-radius: 10px;
   padding: 60px 20px;
   text-align: center;
+=======
+  font-family: 'Roboto', sans-serif;
+}
+
+.header {
+  text-align: center;
+  padding: 60px 20px;
+  background-color: #f0f7ff;
+  border-radius: 10px;
+>>>>>>> origin/main
   margin-bottom: 40px;
 }
 
 .header h1 {
+<<<<<<< HEAD
   color: #1a3d7c;
   font-size: 2.5rem;
   margin-bottom: 15px;
   
+=======
+  font-size: 2.5rem;
+  color: #2e5eaa;
+  margin-bottom: 15px;
+>>>>>>> origin/main
 }
 
 .header p {
@@ -33,7 +50,11 @@
 .searchSection h2 {
   text-align: center;
   font-size: 2rem;
+<<<<<<< HEAD
   color: #1a3d7c;
+=======
+  color: #2e5eaa;
+>>>>>>> origin/main
   margin-bottom: 30px;
 }
 
@@ -64,7 +85,10 @@
   border: 1px solid #ddd;
   border-radius: 5px;
   font-size: 1rem;
+<<<<<<< HEAD
   color: #333;
+=======
+>>>>>>> origin/main
 }
 
 .formRow {
@@ -119,7 +143,10 @@
   overflow: hidden;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
+<<<<<<< HEAD
   color: #333;
+=======
+>>>>>>> origin/main
 }
 
 .resultCard:hover {
@@ -193,7 +220,11 @@
 
 .registerSection h2 {
   font-size: 1.8rem;
+<<<<<<< HEAD
   color: #1a3d7c;
+=======
+  color: #2e5eaa;
+>>>>>>> origin/main
   margin-bottom: 15px;
 }
 
@@ -219,6 +250,7 @@
   background-color: #1d4b8f;
 }
 
+<<<<<<< HEAD
 .scheduleFormSection {
   margin-bottom: 60px;
   background-color: #f8f9fa;
@@ -393,6 +425,8 @@
   text-align: center;
 }
 
+=======
+>>>>>>> origin/main
 @media (max-width: 768px) {
   .header {
     padding: 40px 15px;
@@ -410,6 +444,7 @@
   .resultsGrid {
     grid-template-columns: 1fr;
   }
+<<<<<<< HEAD
   
   .scheduleFormContainer {
     padding: 20px;
@@ -483,4 +518,6 @@
 :global(.dark) .header h1,
 :global(.dark) .registerSection h2{
   color: #3b96f0;
+=======
+>>>>>>> origin/main
 }

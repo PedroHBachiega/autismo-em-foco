@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuthValue } from '../../context/AuthContext';
+<<<<<<< HEAD
 import Button from '../../components/Button';
 import { MdEmail } from 'react-icons/md';
+=======
+>>>>>>> origin/main
 
 function RecuperarSenha() {
   const [email, setEmail] = useState('');
@@ -26,7 +29,15 @@ function RecuperarSenha() {
             <h2 className="text-2xl font-bold text-center text-gray-900 mb-2">
               {enviado ? "Email enviado!" : "Recuperar senha"}
             </h2>
+<<<<<<< HEAD
             <p className="text-center text-gray-600 text-sm">Informe seu email para receber um link de redefinição de senha</p>
+=======
+            <p className="text-center text-gray-500 text-sm">
+              {enviado 
+                ? "Verifique sua caixa de entrada para redefinir sua senha" 
+                : "Informe seu email para receber um link de redefinição de senha"}
+            </p>
+>>>>>>> origin/main
           </div>
           <div className="py-4 px-10">
             {!enviado ? (
@@ -41,6 +52,7 @@ function RecuperarSenha() {
                     onChange={(e) => setEmail(e.target.value)}
                     className="w-full p-2.5 border border-gray-300 rounded-md text-sm text-gray-900 bg-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 placeholder-gray-400"
                     required
+<<<<<<< HEAD
                     aria-required="true"
                     aria-describedby={error ? "email-error" : undefined}
                     aria-invalid={error ? "true" : "false"}
@@ -58,6 +70,19 @@ function RecuperarSenha() {
                 >
                   Enviar link de recuperação
                 </Button>
+=======
+                  />
+                </div>
+                {error && <p className="text-red-500 text-sm text-center mt-2">{error}</p>}
+                <button
+                  className="mt-2 w-full p-2.5 text-white rounded-md text-sm font-medium hover:brightness-110 disabled:bg-blue-300 disabled:cursor-not-allowed"
+                  style={{ backgroundColor: '#2e5eaa' }}
+                  type="submit"
+                  disabled={loading}
+                >
+                  {loading ? "Enviando..." : "Enviar link de recuperação"}
+                </button>
+>>>>>>> origin/main
               </form>
             ) : (
               <div className="flex flex-col items-center gap-4">

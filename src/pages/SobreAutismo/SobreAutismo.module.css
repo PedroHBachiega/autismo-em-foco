@@ -2,12 +2,20 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+<<<<<<< HEAD
+=======
+  font-family: 'Roboto', sans-serif;
+>>>>>>> origin/main
 }
 
 .header {
   text-align: center;
   padding: 60px 20px;
+<<<<<<< HEAD
   background-color: #e6f2ff;
+=======
+  background-color: #f0f7ff;
+>>>>>>> origin/main
   border-radius: 10px;
   margin-bottom: 40px;
 }
@@ -38,7 +46,11 @@
 .mythsSection h2 {
   text-align: center;
   font-size: 2rem;
+<<<<<<< HEAD
   color: #1a3d7c;
+=======
+  color: #2e5eaa;
+>>>>>>> origin/main
   margin-bottom: 30px;
 }
 
@@ -82,7 +94,11 @@
 
 .characteristicCard h3 {
   font-size: 1.3rem;
+<<<<<<< HEAD
   color: #1a3d7c;
+=======
+  color: #2e5eaa;
+>>>>>>> origin/main
   margin-bottom: 10px;
 }
 
@@ -159,6 +175,7 @@
   .mythsGrid {
     grid-template-columns: 1fr;
   }
+<<<<<<< HEAD
 }
 
 :global(.dark) .characteristicsSection h2,
@@ -177,3 +194,6 @@
   border: 1px solid #ffffff
 }
 
+=======
+}
+>>>>>>> origin/main

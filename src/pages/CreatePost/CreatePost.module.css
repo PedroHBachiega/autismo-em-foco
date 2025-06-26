@@ -11,7 +11,11 @@
   }
   
   .create_post p {
+<<<<<<< HEAD
     color: #555; /* Improved contrast */
+=======
+    color: #777;
+>>>>>>> origin/main
     margin-bottom: 30px;
     text-align: center;
   }
@@ -22,6 +26,7 @@
     gap: 20px;
   }
   
+<<<<<<< HEAD
   .form_group {
     display: flex;
     flex-direction: column;
@@ -29,11 +34,16 @@
     margin-bottom: 10px;
   }
   
+=======
+>>>>>>> origin/main
   .create_post label {
     display: flex;
     flex-direction: column;
     gap: 5px;
+<<<<<<< HEAD
     font-weight: bold;
+=======
+>>>>>>> origin/main
   }
   
   .create_post label span {
@@ -45,6 +55,10 @@
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
+<<<<<<< HEAD
+=======
+    font-family: inherit;
+>>>>>>> origin/main
   }
   
   .create_post textarea {
@@ -53,7 +67,12 @@
   }
   
   .error {
+<<<<<<< HEAD
     background-color: #f5b7b1; /* Improved contrast */
+=======
+    color: #721c24;
+    background-color: #f8d7da;
+>>>>>>> origin/main
     border: 1px solid #f5c6cb;
     padding: 10px;
     border-radius: 5px;
@@ -61,6 +80,7 @@
     margin-top: 10px;
   }
 
+<<<<<<< HEAD
   .button {
     background-color: #1a3d7c;
     border-radius: 12px;
@@ -77,10 +97,13 @@
     background-color: #1a3d7c;
   }
 
+=======
+>>>>>>> origin/main
   .btn {
     background-color: #2e5eaa;
     border-radius: 12px;
     color: white;
+<<<<<<< HEAD
     padding: 5px 5px;
     border: 1px;
     cursor: pointer;
@@ -90,4 +113,11 @@
 
   .btn:hover {
     background-color: #1d4f8f;
+=======
+    padding: 5px;
+    
+    
+    
+    
+>>>>>>> origin/main
   }
