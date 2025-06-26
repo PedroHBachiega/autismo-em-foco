@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import GoogleButton from '../../components/GoogleButton';
 import Button from '../../components/Button';
 import { MdLogin } from 'react-icons/md';
-import { useAuthentication } from '../../Hooks/useAuthentication';
+import { useAuthentication } from '../../Hooks/UseAuthentication';
 import { useGTM } from '../../context/GTMContext';
 import { useAgendamentoToast } from '../../Hooks/useAgendamentoToast';
 import { useForm } from 'react-hook-form';
