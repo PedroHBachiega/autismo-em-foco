@@ -14,13 +14,10 @@
     "@react-google-maps/api": "^2.20.7",
     "@tailwindcss/vite": "^4.1.7",
     "firebase": "^11.8.1",
-<<<<<<< HEAD
     "firebase-admin": "^13.4.0",
     "formik": "^2.4.6",
     "leaflet": "^1.9.4",
     "prop-types": "^15.8.1",
-=======
->>>>>>> origin/main
     "react": "^19.1.0",
     "react-calendar": "^6.0.0",
     "react-dom": "^19.1.0",

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { createContext, useContext, useReducer, useEffect } from "react";
 import { onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, sendPasswordResetEmail } from "firebase/auth";
 import { auth, db } from "../firebase/config";
@@ -160,34 +159,11 @@ export function AuthProvider({ children }) {
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <p className="text-lg">Carregando sessão…</p>
-=======
-// src/context/AuthContext.jsx
-
-import React, { createContext, useContext } from 'react';
-import { useAuthentication } from '../Hooks/UseAuthentication';
-
-// 1. Cria o contexto
-const AuthContext = createContext();
-
-// 2. AuthProvider integra TODO o retorno de useAuthentication
-export function AuthProvider({ children }) {
-  // 🔥 useAuthentication já cuida de onAuthStateChanged, login, logout, erros e loading
-  const auth = useAuthentication();
-  // auth = { user, loading, error, login, loginWithGoogle, logout }
-
-  // Se quiser apresentação mais sofisticada de “aguarde”, 
-  // você pode substituir o return abaixo por um Skeleton ou Spinner corporativo
-  if (auth.loading) {
-    return (
-      <div className="flex h-screen items-center justify-center">
-        <p className="text-lg font-medium text-gray-600">Carregando sessão…</p>
->>>>>>> origin/main
       </div>
     );
   }
 
   return (
-<<<<<<< HEAD
     <AuthContext.Provider value={{
       ...state,
       login,
@@ -195,24 +171,15 @@ export function AuthProvider({ children }) {
       logout,
       resetPassword
     }}>
-=======
-    <AuthContext.Provider value={auth}>
->>>>>>> origin/main
       {children}
     </AuthContext.Provider>
   );
 }
 
-<<<<<<< HEAD
 export function useAuthValue() {
   const context = useContext(AuthContext);
   if (!context) {
     throw new Error("useAuthValue deve ser usado dentro de <AuthProvider>");
   }
   return context;
-=======
-// 3. Hook para consumir o contexto em qualquer componente
-export function useAuthValue() {
-  return useContext(AuthContext);
->>>>>>> origin/main
 }

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import GoogleButton from '../../components/GoogleButton';
@@ -48,91 +47,65 @@ function Login() {
       sessionStorage.setItem('hasShownToast', 'true');
 
       setTimeout(() => {
+        setLoginMessage('');
         sessionStorage.removeItem('hasShownToast');
-      }, 3000); // limpa a flag após o tempo de exibição
-
-      navigate(location.pathname, { replace: true, state: {} });
+      }, 5000);
     }
-  }, [message, navigate, location.pathname, showErrorToast]);
+  }, [message, showErrorToast]);
 
   const onSubmit = async (data) => {
-    const success = await login(data.email, data.senha);
-
-    if (success) {
-      trackLogin('email');
-      navigate(fromPath, { replace: true });
+    try {
+      const result = await login(data.email, data.senha);
+      if (result) {
+        trackLogin('email');
+        navigate(fromPath, { replace: true });
+      }
+    } catch (err) {
+      console.error('Erro no login:', err);
     }
   };
 
   const handleGoogleLogin = async () => {
-    const success = await loginWithGoogle();
-
-    if (success) {
-      trackLogin('google');
-      navigate(fromPath, { replace: true });
+    try {
+      const result = await loginWithGoogle();
+      if (result) {
+        trackLogin('google');
+        navigate(fromPath, { replace: true });
+      }
+    } catch (err) {
+      console.error('Erro no login com Google:', err);
     }
   };
 
   return (
-    <div className="min-h-screen p-12 sm:p-6 flex justify-center items-center font-sans">
-      <div className="w-full max-w-lg">
-        <div className="bg-white rounded-xl shadow-lg overflow-hidden animate-fadeIn border border-gray-200">
-          {/* Cabeçalho com banner de alerta */}
-          <div className="pt-6 px-6 pb-2">
-            <h2 className="text-2xl font-bold text-center text-gray-900 mb-2">
-              Bem-vindo de volta
-            </h2>
-            <p className="text-center text-gray-600 text-sm">Acesse sua conta</p>
-            {loginMessage && (
-              <div className="mt-4 p-3 bg-yellow-100 border border-yellow-400 text-yellow-700 rounded-md text-sm text-center">
-                {loginMessage}
-              </div>
-            )}
-          </div>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+      <div className="w-full max-w-md">
+        {/* Cabeçalho */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Bem-vindo de volta!</h1>
+          <p className="text-gray-600">Entre na sua conta para continuar</p>
+        </div>
 
-          {/* Formulário */}
-          <div className="py-4 px-10">
-            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5" noValidate>
+        {/* Mensagem de redirecionamento */}
+        {loginMessage && (
+          <div className="mb-4 p-3 bg-yellow-100 border border-yellow-400 text-yellow-700 rounded-md text-sm">
+            {loginMessage}
+          </div>
+        )}
+
+        {/* Card de login */}
+        <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+          <div className="p-6">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               {/* Email */}
               <div className="flex flex-col gap-2">
                 <label htmlFor="email" className="text-sm font-medium text-gray-700">
                   Email
                 </label>
-=======
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import GoogleButton from '../../components/GoogleButton';
-import { useAuthValue } from '../../context/AuthContext';
-
-function Login() {
-  const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
-  const { login, loginWithGoogle, error, loading } = useAuthValue();
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await login(email, senha);
-  };
-
-  return (
-    <div className="min-h-screen  p-12 sm:p-6 flex justify-center items-start font-sans">
-      <div className="w-full max-w-lg">
-        <div className="flex justify-between items-center mb-8"></div>
-        <div className="bg-white rounded-xl shadow-lg overflow-hidden animate-fadeIn border border-gray-200">
-          <div className="pt-6 px-6 pb-2">
-            <h2 className="text-2xl font-bold text-center text-gray-900 mb-2">Bem-vindo de volta</h2>
-            <p className="text-center text-gray-500 text-sm">Acesse sua conta</p>
-          </div>
-          <div className="py-4 px-10">
-            <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-              <div className="flex flex-col gap-2">
-                <label htmlFor="email" className="text-sm font-medium text-gray-700">Email</label>
->>>>>>> origin/main
                 <input
                   id="email"
                   type="email"
                   placeholder="seu@email.com"
-<<<<<<< HEAD
                   {...register('email')}
                   className={`w-full p-2.5 border ${errors.email ? 'border-red-500' : 'border-gray-300'} rounded-md text-sm text-gray-900 bg-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 placeholder-gray-400`}
                   onBlur={() => trigger('email')}
@@ -154,24 +127,11 @@ function Login() {
                   <Link to="/recuperar-senha" className="text-xs text-blue-600 hover:underline">
                     Esqueceu a senha?
                   </Link>
-=======
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full p-2.5 border border-gray-300 rounded-md text-sm text-gray-900 bg-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 placeholder-gray-400"
-                  required
-                />
-              </div>
-              <div className="flex flex-col gap-2">
-                <div className="flex justify-between items-center">
-                  <label htmlFor="senha" className="text-sm font-medium text-gray-700">Senha</label>
-                  <Link to="/recuperar-senha" className="text-xs text-blue-600 hover:underline">Esqueceu a senha?</Link>
->>>>>>> origin/main
                 </div>
                 <input
                   id="senha"
                   type="password"
                   placeholder="Sua senha"
-<<<<<<< HEAD
                   {...register('senha')}
                   className={`w-full p-2.5 border ${errors.senha ? 'border-red-500' : 'border-gray-300'} rounded-md text-sm text-gray-900 bg-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 placeholder-gray-400`}
                   onBlur={() => trigger('senha')}
@@ -204,32 +164,11 @@ function Login() {
 
               <GoogleButton
                 onClick={handleGoogleLogin}
-=======
-                  value={senha}
-                  onChange={(e) => setSenha(e.target.value)}
-                  className="w-full p-2.5 border border-gray-300 rounded-md text-sm text-gray-900 bg-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 placeholder-gray-400"
-                  required
-                />
-              </div>
-              {error && <p className="text-red-500 text-sm text-center mt-2">{error}</p>}
-              <button
-                className="mt-2 w-full p-2.5 text-white rounded-md text-sm font-medium hover:brightness-110 disabled:bg-blue-300 disabled:cursor-not-allowed"
-                style={{ backgroundColor: '#2e5eaa' }}
-                type="submit"
-                disabled={loading}
-              >
-                {loading ? "Entrando..." : "Entrar"}
-              </button>
-
-              <GoogleButton
-                onClick={loginWithGoogle}
->>>>>>> origin/main
                 loading={loading}
                 text="Entrar com Google"
               />
             </form>
           </div>
-<<<<<<< HEAD
 
           {/* Link para cadastro */}
           <div className="py-4 px-6 border-t border-gray-100">
@@ -238,12 +177,6 @@ function Login() {
               <Link to="/register" className="text-blue-600 font-medium hover:underline">
                 Cadastre-se
               </Link>
-=======
-          <div className="py-4 px-6 border-t border-gray-100">
-            <p className="text-center text-sm text-gray-500">
-              Não tem uma conta?{' '}
-              <Link to="/register" className="text-blue-600 font-medium hover:underline">Cadastre-se</Link>
->>>>>>> origin/main
             </p>
           </div>
         </div>
@@ -252,8 +185,4 @@ function Login() {
   );
 }
 
-<<<<<<< HEAD
 export default Login;
-=======
-export default Login;
->>>>>>> origin/main

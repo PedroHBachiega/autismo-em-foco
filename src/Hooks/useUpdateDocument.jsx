@@ -114,7 +114,6 @@ export const useUpdateDocument = (docCollection) => {
     }
   };
 
-<<<<<<< HEAD
   // Função para editar comentários
   const editComment = async (postId, userId, originalCreatedAt, newText) => {
     if (!userId) {
@@ -188,15 +187,9 @@ export const useUpdateDocument = (docCollection) => {
     }
   };
 
-=======
->>>>>>> origin/main
   useEffect(() => {
     return () => setCancelled(true);
   }, []);
 
-<<<<<<< HEAD
   return { updateDocument, toggleLike, addComment, editComment, deleteComment, loading, error, success };
-=======
-  return { updateDocument, toggleLike, addComment, loading, error, success };
->>>>>>> origin/main
 };

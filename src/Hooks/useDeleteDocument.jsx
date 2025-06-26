@@ -25,24 +25,18 @@ export const useDeleteDocument = (docCollection) => {
       checkCancelBeforeDispatch(() => {
         setLoading(false)
       })
-<<<<<<< HEAD
       
       // Retornar true para indicar sucesso
       return true;
-=======
->>>>>>> origin/main
     } catch (error) {
       checkCancelBeforeDispatch(() => {
         console.error(error)
         setError(error.message)
         setLoading(false)
       })
-<<<<<<< HEAD
       
       // Propagar o erro para ser tratado pelo chamador
       throw error;
-=======
->>>>>>> origin/main
     }
   }
 
