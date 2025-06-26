@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useAuthentication } from '../hooks/useAuthentication';
+import { useAuthentication } from '../Hooks/UseAuthentication'; 
 import { useAuthValue } from '../context/AuthContext'; // ⬅️ Pega o userProfile aqui
 import logotipoImage from '../assets/logotipo.png';
 import MobileNavbar from './MobileNavbar';

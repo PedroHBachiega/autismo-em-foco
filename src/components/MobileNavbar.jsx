@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useAuthentication } from '../hooks/useAuthentication';
+import { useAuthentication } from '../Hooks/UseAuthentication'; 
 import { useAuthValue } from '../context/AuthContext';
 import logotipoImage from '../assets/logotipo.png';
 
