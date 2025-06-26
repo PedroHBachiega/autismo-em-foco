@@ -9,8 +9,9 @@ import { db, storage } from '../../firebase/config';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import LoadingButton from '../../components/LoadingButton';
+import Button from '../../components/Button';
 import * as Yup from 'yup';
+import { MdCreate } from 'react-icons/md';
 
 const CreatePost = () => {
   const navigate = useNavigate();
@@ -178,15 +179,17 @@ const CreatePost = () => {
               </div>
             )}
 
-            <LoadingButton
+            <Button
               type="submit"
               loading={loading || isSubmitting}
               loadingText="Criando..."
-              className={styles.btn}
+              variant="primary"
+              size="large"
+              icon={<MdCreate />}
               ariaLabel="Criar nova postagem"
             >
-              Criar
-            </LoadingButton>
+              Criar Post
+            </Button>
 
             {formError && <p className={styles.error}>{formError}</p>}
           </Form>

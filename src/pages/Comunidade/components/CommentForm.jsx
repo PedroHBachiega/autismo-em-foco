@@ -1,6 +1,7 @@
 import React from 'react';
+import Button from '../../../components/Button';
 import styles from '../Comunidade.module.css';
-import LoadingButton from '../../../components/LoadingButton';
+import { MdSend } from 'react-icons/md';
 
 const CommentForm = ({ commentText, setCommentText, handleAddComment, postId, updateLoading }) => {
   return (
@@ -14,15 +15,17 @@ const CommentForm = ({ commentText, setCommentText, handleAddComment, postId, up
         aria-label="Escreva seu comentário"
         aria-required="true"
       />
-      <LoadingButton 
+      <Button 
         onClick={() => handleAddComment(postId)}
         loading={updateLoading}
-        className={styles.commentButton}
+        variant="primary"
+        size="small"
+        icon={<MdSend />}
         ariaLabel="Enviar comentário"
         loadingText="Enviando..."
       >
         Enviar
-      </LoadingButton>
+      </Button>
     </div>
   );
 };

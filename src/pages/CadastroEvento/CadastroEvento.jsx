@@ -4,7 +4,8 @@ import { useAuthValue } from '../../context/AuthContext';
 import { useInsertDocument } from '../../Hooks/useInsertDocument';
 import { Timestamp } from 'firebase/firestore';
 import styles from './CadastroEvento.module.css';
-import LoadingButton from '../../components/LoadingButton';
+import Button from '../../components/Button';
+import { MdCancel, MdEvent } from 'react-icons/md';
 
 const CadastroEvento = () => {
   const { userProfile } = useAuthValue();
@@ -314,23 +315,27 @@ const CadastroEvento = () => {
         </div>
 
         <div className={styles.formActions}>
-          <button 
+          <Button 
             type="button" 
             onClick={() => navigate('/eventos')}
-            className={styles.cancelBtn}
+            variant="secondary"
+            size="medium"
+            icon={<MdCancel />}
             aria-label="Cancelar cadastro e voltar para a lista de eventos"
           >
             Cancelar
-          </button>
-          <LoadingButton 
+          </Button>
+          <Button 
             type="submit" 
-            className={styles.submitBtn}
             loading={response.loading}
             loadingText="Cadastrando..."
+            variant="primary"
+            size="medium"
+            icon={<MdEvent />}
             ariaLabel="Cadastrar novo evento"
           >
             Cadastrar Evento
-          </LoadingButton>
+          </Button>
         </div>
 
         {response.error && (

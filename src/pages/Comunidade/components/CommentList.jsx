@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import Button from '../../../components/Button';
 import styles from '../Comunidade.module.css';
 import { useAuthValue } from '../../../context/AuthContext';
-import LoadingButton from '../../../components/LoadingButton';
+import { MdSave, MdCancel, MdEdit, MdDelete } from 'react-icons/md';
 
 const CommentList = ({ comments, onEditComment, onDeleteComment, updateLoading }) => {
   const { user } = useAuthValue();
@@ -39,8 +40,24 @@ const CommentList = ({ comments, onEditComment, onDeleteComment, updateLoading }
                 className={styles.commentEditInput}
               />
               <div className={styles.commentEditActions}>
-                <LoadingButton onClick={() => handleSave(comment)} loading={updateLoading} className={styles.commentButton} loadingText="Salvando...">Salvar</LoadingButton>
-                <button onClick={() => setEditingIndex(null)} className={styles.commentButton}>Cancelar</button>
+                <Button 
+                  onClick={() => handleSave(comment)} 
+                  loading={updateLoading} 
+                  variant="success"
+                  size="small"
+                  icon={<MdSave />}
+                  loadingText="Salvando..."
+                >
+                  Salvar
+                </Button>
+                <Button 
+                  onClick={() => setEditingIndex(null)} 
+                  variant="secondary"
+                  size="small"
+                  icon={<MdCancel />}
+                >
+                  Cancelar
+                </Button>
               </div>
             </>
           ) : (
@@ -48,8 +65,22 @@ const CommentList = ({ comments, onEditComment, onDeleteComment, updateLoading }
               <p>{comment.text}</p>
               {user && user.uid === comment.userId && (
                 <div className={styles.commentEditActions}>
-                  <button onClick={() => handleEditClick(index, comment.text)} className={styles.editButton}>Editar</button>
-                  <button onClick={() => onDeleteComment(comment)} className={styles.commentButton} style={{backgroundColor:'#d32f2f',marginLeft:'8px'}}>Excluir</button>
+                  <Button 
+                    onClick={() => handleEditClick(index, comment.text)} 
+                    variant="ghost"
+                    size="small"
+                    icon={<MdEdit />}
+                  >
+                    Editar
+                  </Button>
+                  <Button 
+                    onClick={() => onDeleteComment(comment)} 
+                    variant="danger"
+                    size="small"
+                    icon={<MdDelete />}
+                  >
+                    Excluir
+                  </Button>
                 </div>
               )}
             </>
