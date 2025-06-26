@@ -71,7 +71,8 @@ const MeusAgendamentos = () => {
     <div className={styles.container}>
       <header className={styles.header}>
         <h1>Meus Agendamentos</h1>
-        <p>Gerencie suas consultas agendadas</p>
+        <p 
+          style={{ color: 'var(--text)'}}>Gerencie suas consultas agendadas</p>
       </header>
 
       {!user && (
@@ -95,7 +96,8 @@ const MeusAgendamentos = () => {
           {!loading && agendamentos?.length === 0 && (
             <div className={styles.emptyState}>
               <h2>Você ainda não tem agendamentos</h2>
-              <p>Agende uma consulta para começar seu acompanhamento</p>
+              <p 
+                style={{ color: 'var(--text)'}}>Agende uma consulta para começar seu acompanhamento</p>
               <Link to="/agendamento" className={styles.scheduleButton}>Agendar Consulta</Link>
             </div>
           )}
@@ -116,8 +118,10 @@ const MeusAgendamentos = () => {
                           <h3>{agendamento.profissionalNome}</h3>
                           <p className={styles.especialidade}>{agendamento.especialidade}</p>
                           <div className={styles.agendamentoInfo}>
-                            <p><span>🗕️</span> <span>Data: {formatDate(agendamento.data)}</span></p>
-                            <p><span>🕒</span> <span>Horário: {agendamento.horario}</span></p>
+                            <p 
+                              style={{ color: 'var(--text)'}}><span>🗕️</span> <span>Data: {formatDate(agendamento.data)}</span></p>
+                            <p 
+                              style={{ color: 'var(--text)'}}><span>🕒</span> <span>Horário: {agendamento.horario}</span></p>
                           </div>
                         </div>
                         <div className={styles.cardFooter}>

@@ -8,6 +8,8 @@
   text-align: center;
   padding: 40px 20px;
   margin-bottom: 30px;
+  background-color: #f0f7ff;
+  border-radius: 10px;
 }
 
 .header h1 {
@@ -149,6 +151,17 @@
   }
 }
 
-:global(.dark) .tratamentosContainer h1 {
+:global(.dark) .tratamentosContainer h1,
+:global(.dark) .therapyCard h2,
+:global(.dark) .therapyCard h3,
+:global(.dark) .findProfessional h2{
   color: #3b96f0;
 }
+
+:global(.dark) .header,
+:global(.dark) .therapyCard,
+:global(.dark) .findProfessional {
+  background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+

@@ -26,13 +26,18 @@ const Tratamentos = () => {
               <img src={abaImage} alt="Método ABA" className={styles.imagemTerapias}/>
             </div>
             <div className={styles.therapyInfo}>
-              <p>A ABA é uma abordagem baseada em evidências científicas que utiliza técnicas de modificação do comportamento para desenvolver habilidades importantes e reduzir comportamentos inadequados.</p>
+              <p style={{ color: 'var(--text)'}}
+>A ABA é uma abordagem baseada em evidências científicas que utiliza técnicas de modificação do comportamento para desenvolver habilidades importantes e reduzir comportamentos inadequados.</p>
               <h3>Benefícios:</h3>
               <ul>
-                <li>Desenvolvimento de habilidades de comunicação</li>
-                <li>Melhora nas interações sociais</li>
-                <li>Redução de comportamentos desafiadores</li>
-                <li>Aumento da independência</li>
+                <li style={{ color: 'var(--text)'}}
+                  >Desenvolvimento de habilidades de comunicação</li>
+                <li style={{ color: 'var(--text)'}}
+                  >Melhora nas interações sociais</li>
+                <li style={{ color: 'var(--text)'}}
+                  >Redução de comportamentos desafiadores</li>
+                <li style={{ color: 'var(--text)'}}
+                  >Aumento da independência</li>
               </ul>
             </div>
           </div>
@@ -45,13 +50,14 @@ const Tratamentos = () => {
               <img src={fonoaudiologiaImage} alt="Fonoaudióloga" className={styles.imagemTerapias} />
             </div>
             <div className={styles.therapyInfo}>
-              <p>A terapia fonoaudiológica trabalha o desenvolvimento da comunicação, linguagem e habilidades sociais, fundamentais para pessoas com TEA.</p>
+              <p style={{ color: 'var(--text)'}}
+                >A terapia fonoaudiológica trabalha o desenvolvimento da comunicação, linguagem e habilidades sociais, fundamentais para pessoas com TEA.</p>
               <h3>Benefícios:</h3>
               <ul>
-                <li>Desenvolvimento da linguagem verbal e não-verbal</li>
-                <li>Melhora na articulação e fluência</li>
-                <li>Desenvolvimento de habilidades pragmáticas</li>
-                <li>Suporte para comunicação alternativa quando necessário</li>
+                <li style={{ color: 'var(--text)'}}>Desenvolvimento da linguagem verbal e não-verbal</li>
+                <li style={{ color: 'var(--text)'}}>Melhora na articulação e fluência</li>
+                <li style={{ color: 'var(--text)'}}>Desenvolvimento de habilidades pragmáticas</li>
+                <li style={{ color: 'var(--text)'}}>Suporte para comunicação alternativa quando necessário</li>
               </ul>
             </div>
           </div>
@@ -64,13 +70,13 @@ const Tratamentos = () => {
               <img src={mulherAutistaImage} alt="Mulher autista" className={styles.imagemTerapias}/>
             </div>
             <div className={styles.therapyInfo}>
-              <p>A Terapia Ocupacional auxilia no desenvolvimento de habilidades para a vida diária e na regulação sensorial, frequentemente alterada em pessoas com TEA.</p>
+              <p style={{ color: 'var(--text)'}}>A Terapia Ocupacional auxilia no desenvolvimento de habilidades para a vida diária e na regulação sensorial, frequentemente alterada em pessoas com TEA.</p>
               <h3>Benefícios:</h3>
               <ul>
-                <li>Melhora na integração sensorial</li>
-                <li>Desenvolvimento de habilidades motoras</li>
-                <li>Maior independência nas atividades diárias</li>
-                <li>Adaptação de ambientes para melhor funcionalidade</li>
+                <li style={{ color: 'var(--text)'}}>Melhora na integração sensorial</li>
+                <li style={{ color: 'var(--text)'}}>Desenvolvimento de habilidades motoras</li>
+                <li style={{ color: 'var(--text)'}}>Maior independência nas atividades diárias</li>
+                <li style={{ color: 'var(--text)'}}>Adaptação de ambientes para melhor funcionalidade</li>
               </ul>
             </div>
           </div>
@@ -83,13 +89,13 @@ const Tratamentos = () => {
               <img src={psicoterapiaImage} alt="Psicóloga" className={styles.imagemTerapias}/>
             </div>
             <div className={styles.therapyInfo}>
-              <p>A psicoterapia, especialmente a Terapia Cognitivo-Comportamental adaptada, pode ajudar pessoas com TEA a lidar com ansiedade, depressão e desenvolver habilidades sociais.</p>
+              <p style={{ color: 'var(--text)'}}>A psicoterapia, especialmente a Terapia Cognitivo-Comportamental adaptada, pode ajudar pessoas com TEA a lidar com ansiedade, depressão e desenvolver habilidades sociais.</p>
               <h3>Benefícios:</h3>
               <ul>
-                <li>Manejo da ansiedade e estresse</li>
-                <li>Desenvolvimento de habilidades sociais</li>
-                <li>Compreensão de emoções próprias e alheias</li>
-                <li>Estratégias para lidar com mudanças e transições</li>
+                <li style={{ color: 'var(--text)'}}>Manejo da ansiedade e estresse</li>
+                <li style={{ color: 'var(--text)'}}>Desenvolvimento de habilidades sociais</li>
+                <li style={{ color: 'var(--text)'}}>Compreensão de emoções próprias e alheias</li>
+                <li style={{ color: 'var(--text)'}}>Estratégias para lidar com mudanças e transições</li>
               </ul>
             </div>
           </div>
@@ -98,7 +104,7 @@ const Tratamentos = () => {
 
       <section className={styles.findProfessional}>
         <h2>Encontre Profissionais Especializados</h2>
-        <p>Estamos desenvolvendo um diretório de profissionais especializados em TEA. Em breve, você poderá buscar especialistas em sua região.</p>
+        <p style={{ color: 'var(--text)'}}>Estamos desenvolvendo um diretório de profissionais especializados em TEA. Em breve, você poderá buscar especialistas em sua região.</p>
         <button className={styles.primaryButton}>Cadastre-se para ser notificado</button>
       </section>
     </div>

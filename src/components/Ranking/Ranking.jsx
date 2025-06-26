@@ -17,7 +17,7 @@ const Ranking = () => {
     <div className={styles.ranking}>
       <div className={styles.header}>
         <h3>🏆 Ranking da Comunidade</h3>
-        <p>Os membros mais ativos da nossa comunidade</p>
+        <p style={{ color: 'var(--text)'}}>Os membros mais ativos da nossa comunidade</p>
       </div>
 
       <div className={styles.rankingList}>

@@ -46,11 +46,13 @@
   background-color: #f0f7ff;
   border: 1px solid #d0e1f9;
   border-radius: 50px;
-  color: #2e5eaa;
+  color: 'var(--text)';
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.3s ease;
+  color: 'var(--text)'
 }
+
 
 .filtroBotao:hover {
   background-color: #d0e1f9;
@@ -70,7 +72,6 @@
 }
 
 .eventoCard {
-  background-color: white;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -339,5 +340,39 @@
 }
 
 :global(.dark) .filtrosSection h2 {
+  color: #3b96f0;
+}
+
+:global(.dark) .eventosHeader {
+  background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+:global(.dark) .cadastroEventoSection {
+  background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+:global(.dark) .eventoConteudo{
+  background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+:global(.dark) .filtroBotao{
+  background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+ :global(.dark) .filtroBotao.ativo {
+  background: #2e5eaa;
+  color: white;
+  border-color: #2e5eaa;
+}
+
+:global(.dark) .eventosHeader h1{
+  color: #3b96f0;
+}
+
+:global(.dark) .cadastroEventoSection h2{
   color: #3b96f0;
 }

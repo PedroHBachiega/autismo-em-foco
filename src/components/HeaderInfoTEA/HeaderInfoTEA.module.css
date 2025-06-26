@@ -54,3 +54,18 @@
     padding: 20px;
   }
 }
+
+
+:global(.dark) .introText {
+  background-color: #1f2937;
+  border: 1px solid #ffffff
+}
+
+:global(.dark) .headerContainer {
+  background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+:global(.dark) .headerContainer h1{
+  color: #3b96f0;
+}

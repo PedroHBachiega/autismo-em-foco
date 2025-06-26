@@ -205,3 +205,37 @@
 :global(.dark) .rightsSection h2 {
   color: #3b96f0;
 }
+
+:global(.dark) .header {
+  background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+:global(.dark) .header h1{
+  color: #3b96f0;
+}
+
+:global(.dark) .mainLaw {
+  background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+:global(.dark) .mainLaw h2{
+  color: #3b96f0;
+}
+
+:global(.dark) .lawCard {
+  background-color: #1f2937;
+}
+
+:global(.dark) .lawCard h3,
+:global(.dark) .lawCard a,
+:global(.dark) .rightsList h3,
+:global(.dark) .helpSection  h2{
+  color: #3b96f0;
+}
+
+:global(.dark) .rightsList,
+:global(.dark) .helpSection {
+  background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
