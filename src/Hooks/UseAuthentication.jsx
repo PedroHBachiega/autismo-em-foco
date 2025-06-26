@@ -5,29 +5,23 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
-  sendPasswordResetEmail
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import { auth, db } from "../firebase/config";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { useNavigate, useLocation } from "react-router-dom";
 
-
 export function useAuthentication() {
-
   const [user, setUser] = useState(null);
   const [userProfile, setUserProfile] = useState(null);
 
-  
   const [initialLoading, setInitialLoading] = useState(true);
-
-  
   const [actionLoading, setActionLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const googleProvider = new GoogleAuthProvider();
-
 
   const fetchUserProfile = async (uid) => {
     try {
@@ -45,7 +39,6 @@ export function useAuthentication() {
     return null;
   };
 
- 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (u) => {
       if (u) {
@@ -56,14 +49,19 @@ export function useAuthentication() {
         setUserProfile(null);
       }
 
-     
       setInitialLoading(false);
 
-     
       const publicPaths = [
-        "/login","/register","/sobreautismo","/leisedireitos",
-        "/eventos","/tratamentos","/sobre","/recuperar-senha"
+        "/login",
+        "/register",
+        "/sobreautismo",
+        "/leisedireitos",
+        "/eventos",
+        "/tratamentos",
+        "/sobre",
+        "/recuperar-senha",
       ];
+
       if (!u && !publicPaths.includes(pathname)) {
         navigate("/", { replace: true });
       }
@@ -78,9 +76,8 @@ export function useAuthentication() {
     setError(null);
     try {
       const cred = await signInWithEmailAndPassword(auth, email, password);
-      await fetchUserProfile(cred.user.uid);
-      const profile = await fetchUserProfile(cred.user.uid)
-      
+      const profile = await fetchUserProfile(cred.user.uid);
+
       if (!profile) {
         await setDoc(doc(db, "users", cred.user.uid), {
           uid: cred.user.uid,
@@ -90,19 +87,20 @@ export function useAuthentication() {
           estado: "",
           telefone: "",
           bio: "",
-          createdAt: new Date()
-        });  
-    }
-        await fetchUserProfile(cred.user.uid);
-
-        navigate("/", { replace: true });
-      } catch {
-        setError("Email ou senha inválidos.");
-      } finally {
-        setActionLoading(false);
-        }
+          createdAt: new Date(),
+        });
       }
-    
+
+      await fetchUserProfile(cred.user.uid);
+      return true;
+    } catch {
+      setError("Email ou senha inválidos.");
+      return false;
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
   // 2) Login com Google
   const loginWithGoogle = async () => {
     setActionLoading(true);
@@ -122,15 +120,15 @@ export function useAuthentication() {
           estado: "",
           telefone: "",
           bio: "",
-          createdAt: new Date()
-        });  
+          createdAt: new Date(),
+        });
       }
-      
-      await fetchUserProfile(googleUser.uid);
 
-      navigate("/", { replace: true })
+      await fetchUserProfile(googleUser.uid);
+      return true;
     } catch {
-      setError("Falha no login com Google.")
+      setError("Falha no login com Google.");
+      return false;
     } finally {
       setActionLoading(false);
     }
@@ -152,10 +150,12 @@ export function useAuthentication() {
       await sendPasswordResetEmail(auth, email);
       return true;
     } catch (err) {
-      setError({
-        "auth/user-not-found": "Email não encontrado.",
-        "auth/invalid-email": "Email inválido."
-      }[err.code] || "Erro ao enviar email de redefinição.");
+      setError(
+        {
+          "auth/user-not-found": "Email não encontrado.",
+          "auth/invalid-email": "Email inválido.",
+        }[err.code] || "Erro ao enviar email de redefinição."
+      );
       return false;
     } finally {
       setActionLoading(false);
@@ -165,14 +165,12 @@ export function useAuthentication() {
   return {
     user,
     userProfile,
-  
     loading: initialLoading,
-    
     actionLoading,
     error,
     login,
     loginWithGoogle,
     logout,
-    resetPassword
+    resetPassword,
   };
 }

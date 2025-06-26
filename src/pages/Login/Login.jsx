@@ -37,34 +37,39 @@ function Login() {
     reValidateMode: 'onBlur',
   });
 
+  // ✅ Corrigido: evita toast duplicado
   useEffect(() => {
     const hasShown = sessionStorage.getItem('hasShownToast');
+
     if (message && !hasShown) {
       setLoginMessage(message);
       showErrorToast(message);
-  
-     
       sessionStorage.setItem('hasShownToast', 'true');
+
+      setTimeout(() => {
+        sessionStorage.removeItem('hasShownToast');
+      }, 3000); // limpa a flag após o tempo de exibição
+
       navigate(location.pathname, { replace: true, state: {} });
     }
   }, [message, navigate, location.pathname, showErrorToast]);
 
-  useEffect(() => {
-    return () => {
-      sessionStorage.removeItem('hasShownToast');
-    };
-  }, []);
-
   const onSubmit = async (data) => {
-    await login(data.email, data.senha);
-    trackLogin('email');
-    navigate(fromPath, { replace: true });
+    const success = await login(data.email, data.senha);
+
+    if (success) {
+      trackLogin('email');
+      navigate(fromPath, { replace: true });
+    }
   };
 
   const handleGoogleLogin = async () => {
-    await loginWithGoogle();
-    trackLogin('google');
-    navigate(fromPath, { replace: true });
+    const success = await loginWithGoogle();
+
+    if (success) {
+      trackLogin('google');
+      navigate(fromPath, { replace: true });
+    }
   };
 
   return (

@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react'; // Adicionar useEffect
+import { useState, useEffect } from 'react'; 
 import { db } from '../../../firebase/config';
 import { useAuthValue } from '../../../context/AuthContext';
 import { useDeleteDocument } from '../../../Hooks/useDeleteDocument';
 import { useUpdateDocument } from '../../../Hooks/useUpdateDocument';
-import { collection, getDocs, query, orderBy } from 'firebase/firestore';
+import { collection, getDocs, onSnapshot, query, orderBy } from 'firebase/firestore';
 import { useGamification } from '../../../Hooks/useGamification';
 import toast from 'react-hot-toast';
 
@@ -50,12 +50,24 @@ export const useComunidade = () => {
   
   const handleLike = async (postId) => {
     if (!user) {
-      alert("Você precisa estar logado para curtir posts");
-      return;
+        alert("Você precisa estar logado para curtir posts");
+        return;
     }
-    await toggleLike(postId, uid);
-    await trackAction('LIKE');
-  };
+    try {
+        await toggleLike(postId, uid);
+        // Atualize o estado local dos posts
+        setFetchedPosts(prevPosts => prevPosts.map(post => 
+            post.id === postId 
+            ? { ...post, likes: post.likes.includes(uid) 
+                ? post.likes.filter(id => id !== uid) 
+                : [...post.likes, uid] }
+            : post
+        ));
+        await trackAction('LIKE');
+    } catch (error) {
+        console.error('Erro ao curtir o post:', error);
+    }
+};
   
   const handleAddComment = async (postId) => {
     if (!user) {
