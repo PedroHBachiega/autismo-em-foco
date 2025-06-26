@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import GoogleButton from '../../components/GoogleButton';
-import LoadingButton from '../../components/LoadingButton';
+import Button from '../../components/Button';
+import { MdLogin } from 'react-icons/md';
 import { useAuthentication } from '../../hooks/useAuthentication';
 import { useGTM } from '../../context/GTMContext';
 import { useAgendamentoToast } from '../../Hooks/useAgendamentoToast';
@@ -139,15 +140,17 @@ function Login() {
               )}
 
               {/* Botões de ação */}
-              <LoadingButton
+              <Button
                 type="submit"
                 loading={loading}
                 loadingText="Entrando..."
-                className="mt-2 w-full"
+                variant="primary"
+                size="large"
+                icon={<MdLogin />}
                 ariaLabel="Entrar na conta"
               >
                 Entrar
-              </LoadingButton>
+              </Button>
 
               <GoogleButton
                 onClick={handleGoogleLogin}

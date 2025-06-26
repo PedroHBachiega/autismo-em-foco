@@ -10,7 +10,8 @@ import { googleMapsApi } from '../../services/googleMapsApi';
 import MapView from '../../components/MapView/MapView';
 import { useAgendamentoToast } from '../../Hooks/useAgendamentoToast';
 import CalendarioVisual from '../../components/CalendarioVisual/CalendarioVisual';
-import LoadingButton from '../../components/LoadingButton';
+import Button from '../../components/Button';
+import { MdSearch, MdMap, MdSchedule, MdArrowBack, MdCancel, MdCheck, MdPersonAdd } from 'react-icons/md';
 
 import { Autocomplete, useLoadScript } from '@react-google-maps/api';
 
@@ -309,16 +310,25 @@ export default function Agendamento() {
 
           {/* Botões */}
           <div className={styles.buttonGroup}>
-            <LoadingButton type="submit" loading={loading} className={styles.searchButton} loadingText="Buscando...">
+            <Button 
+              type="submit" 
+              loading={loading} 
+              loadingText="Buscando..." 
+              variant="primary" 
+              size="medium" 
+              icon={<MdSearch />}
+            >
               Buscar
-            </LoadingButton>
-            <button
+            </Button>
+            <Button
               type="button"
               onClick={() => setShowMap(prev => !prev)}
-              className={styles.mapButton}
+              variant="outline"
+              size="medium"
+              icon={<MdMap />}
             >
               {showMap ? 'Ocultar Mapa' : 'Ver no Mapa'}
-            </button>
+            </Button>
           </div>
         </form>
       </section>
@@ -350,12 +360,14 @@ export default function Agendamento() {
                     <p>📍 {p.endereco}</p>
                     <p>🏙️ {p.cidade}</p>
                     <p>⭐ {p.avaliacao}</p>
-                    <button
+                    <Button
                       onClick={() => handleScheduleClick(p)}
-                      className={styles.scheduleButton}
+                      variant="primary"
+                      size="small"
+                      icon={<MdSchedule />}
                     >
                       Agendar
-                    </button>
+                    </Button>
                   </div>
                 </div>
               ))}
@@ -375,12 +387,14 @@ export default function Agendamento() {
               <p>
                 Consulta agendada para {selectedDate} às {selectedTime}.
               </p>
-              <button
+              <Button
                 onClick={() => setShowScheduleForm(false)}
-                className={styles.primaryButton}
+                variant="primary"
+                size="medium"
+                icon={<MdArrowBack />}
               >
                 Voltar
-              </button>
+              </Button>
             </div>
           ) : (
             <form onSubmit={handleScheduleSubmit} className={styles.scheduleForm}>
@@ -419,20 +433,25 @@ export default function Agendamento() {
               )}
 
               <div className={styles.formActions}>
-                <button
+                <Button
                   type="button"
                   onClick={() => setShowScheduleForm(false)}
-                  className={styles.cancelButton}
+                  variant="secondary"
+                  size="medium"
+                  icon={<MdCancel />}
                 >
                   Cancelar
-                </button>
-                <button
+                </Button>
+                <Button
                   type="submit"
-                  disabled={response.loading}
-                  className={styles.confirmButton}
+                  loading={response.loading}
+                  loadingText="Agendando..."
+                  variant="success"
+                  size="medium"
+                  icon={<MdCheck />}
                 >
-                  {response.loading ? 'Agendando...' : 'Confirmar'}
-                </button>
+                  Confirmar
+                </Button>
               </div>
             </form>
           )}

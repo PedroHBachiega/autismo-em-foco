@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import Button from '../../../components/Button';
 import styles from '../Comunidade.module.css';
-import { MdCheckCircle } from 'react-icons/md';
+import { MdCheckCircle, MdAdd } from 'react-icons/md';
 
 const CreatePostCard = () => {
   const location = useLocation();
@@ -31,7 +32,13 @@ const CreatePostCard = () => {
       <div className={styles.createPost}>
       <h2>Compartilhe algo com a comunidade...</h2>
       <Link to="/posts/create">
-        <button className={styles.postButton}>Criar Post</button>
+        <Button 
+          variant="primary" 
+          size="medium"
+          icon={<MdAdd />}
+        >
+          Criar Post
+        </Button>
       </Link>
     </div>
     </>

@@ -1,7 +1,8 @@
 import React from 'react';
+import Button from './Button';
 import styles from './Modal.module.css';
 
-const Modal = ({ isOpen, onClose, title, children, confirmText, onConfirm, cancelText }) => {
+const Modal = ({ isOpen, onClose, title, children, confirmText, onConfirm, cancelText, confirmVariant = 'danger' }) => {
   if (!isOpen) return null;
 
   return (
@@ -13,14 +14,22 @@ const Modal = ({ isOpen, onClose, title, children, confirmText, onConfirm, cance
         </div>
         <div className={styles.modalActions}>
           {cancelText && (
-            <button className={styles.modalCancelButton} onClick={onClose}>
+            <Button 
+              variant="secondary" 
+              onClick={onClose}
+              size="medium"
+            >
               {cancelText}
-            </button>
+            </Button>
           )}
           {confirmText && onConfirm && (
-            <button className={styles.modalConfirmButton} onClick={onConfirm}>
+            <Button 
+              variant={confirmVariant}
+              onClick={onConfirm}
+              size="medium"
+            >
               {confirmText}
-            </button>
+            </Button>
           )}
         </div>
       </div>
