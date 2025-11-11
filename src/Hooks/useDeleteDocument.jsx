@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { db } from "../firebase/config"
 import { doc, deleteDoc } from "firebase/firestore"
+import api from "../services/apiClient"
 
 export const useDeleteDocument = (docCollection) => {
   const [loading, setLoading] = useState(false)
@@ -20,7 +21,15 @@ export const useDeleteDocument = (docCollection) => {
     })
 
     try {
-      await deleteDoc(doc(db, docCollection, id))
+      if (docCollection === 'eventos') {
+        await api.del(`/eventos/${id}`)
+      } else if (docCollection === 'posts') {
+        await api.del(`/posts/${id}`)
+      } else if (docCollection === 'agendamentos') {
+        await api.del(`/agendamentos/${id}`)
+      } else {
+        await deleteDoc(doc(db, docCollection, id))
+      }
 
       checkCancelBeforeDispatch(() => {
         setLoading(false)

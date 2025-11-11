@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { db } from "../firebase/config"
 import { doc, getDoc } from "firebase/firestore"
+import api from "../services/apiClient"
 
 export const useFetchDocument = (collection, id) => {
   const [document, setDocument] = useState(null)
@@ -21,15 +22,24 @@ export const useFetchDocument = (collection, id) => {
       setError(null)
 
       try {
-        const docRef = doc(db, collection, id)       // doc() é síncrono
-        const docSnap = await getDoc(docRef)
-
-        if (docSnap.exists()) {
-          // inclui o próprio id no objeto retornado
-          setDocument({ id: docSnap.id, ...docSnap.data() })
+        if (collection === 'agendamentos') {
+          const data = await api.get(`/agendamentos/${id}`)
+          if (data && data.id) {
+            setDocument(data)
+          } else {
+            setDocument(null)
+            setError(`Documento "${id}" não encontrado em "${collection}".`)
+          }
         } else {
-          setDocument(null)
-          setError(`Documento "${id}" não encontrado em "${collection}".`)
+          const docRef = doc(db, collection, id)
+          const docSnap = await getDoc(docRef)
+
+          if (docSnap.exists()) {
+            setDocument({ id: docSnap.id, ...docSnap.data() })
+          } else {
+            setDocument(null)
+            setError(`Documento "${id}" não encontrado em "${collection}".`)
+          }
         }
       } catch (err) {
         console.error("Erro ao buscar documento:", err)

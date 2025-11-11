@@ -1,11 +1,8 @@
-import { useState, useEffect } from 'react'; 
-import { db } from '../../../firebase/config';
+import { useState, useEffect } from 'react';
 import { useAuthValue } from '../../../context/AuthContext';
-import { useDeleteDocument } from '../../../Hooks/useDeleteDocument';
-import { useUpdateDocument } from '../../../Hooks/useUpdateDocument';
-import { collection, getDocs, onSnapshot, query, orderBy } from 'firebase/firestore';
 import { useGamification } from '../../../Hooks/useGamification';
 import toast from 'react-hot-toast';
+import api from '../../../services/apiClient';
 
 export const useComunidade = () => {
   const { user } = useAuthValue();
@@ -16,8 +13,6 @@ export const useComunidade = () => {
   const [commentText, setCommentText] = useState("");
   const [activeCommentPost, setActiveCommentPost] = useState(null);
 
-  const { deleteDocument } = useDeleteDocument("posts");
-  const { toggleLike, addComment, editComment, deleteComment, loading: updateLoading, error: updateError, success: updateSuccess } = useUpdateDocument("posts");
   const { trackAction } = useGamification();
 
   // Adicionar useEffect para buscar os posts
@@ -26,17 +21,18 @@ export const useComunidade = () => {
       try {
         setIsLoading(true);
         setFetchError(null);
-        
-        const postsRef = collection(db, 'posts');
-        const q = query(postsRef, orderBy('createdAt', 'desc'));
-        const querySnapshot = await getDocs(q);
-        
-        const posts = [];
-        querySnapshot.forEach((doc) => {
-          posts.push({ id: doc.id, ...doc.data() });
-        });
-        
-        setFetchedPosts(posts);
+        const posts = await api.get('/posts');
+        // Normalize createdAt as Date objects for consistent handling
+        const normalized = (posts || []).map(p => ({
+          ...p,
+          createdAt: p.createdAt ? new Date(p.createdAt) : null,
+          comments: Array.isArray(p.comments) ? p.comments.map(c => ({
+            ...c,
+            createdAt: c.createdAt ? new Date(c.createdAt) : null,
+          })) : [],
+          likes: Array.isArray(p.likes) ? p.likes : [],
+        }));
+        setFetchedPosts(normalized);
       } catch (error) {
         console.error('Erro ao buscar posts:', error);
         setFetchError('Erro ao carregar os posts. Tente novamente.');
@@ -54,7 +50,7 @@ export const useComunidade = () => {
         return;
     }
     try {
-        await toggleLike(postId, uid);
+        await api.post(`/posts/${postId}/like/toggle`, {});
         // Atualize o estado local dos posts
         setFetchedPosts(prevPosts => prevPosts.map(post => 
             post.id === postId 
@@ -80,7 +76,10 @@ export const useComunidade = () => {
       return;
     }
     
-    await addComment(postId, uid, user.displayName || user.email, commentText);
+    await api.post(`/posts/${postId}/comments`, {
+      text: commentText,
+      userName: user.displayName || user.email,
+    });
     await trackAction('COMMENT');
     // Atualize os comentários localmente:
     setFetchedPosts((prev) => prev.map(post =>
@@ -109,7 +108,13 @@ export const useComunidade = () => {
 
   // Função para editar comentário
   const handleEditCommentInternal = async (postId, comment, newText) => {
-    await editComment(postId, uid, comment.createdAt, newText);
+    const createdAtSeconds = comment?.createdAt instanceof Date
+      ? Math.floor(comment.createdAt.getTime() / 1000)
+      : (comment?.createdAt?.seconds ?? null);
+    await api.put(`/posts/${postId}/comments`, {
+      OriginalCreatedAtSeconds: createdAtSeconds,
+      NewText: newText,
+    });
     // Atualize os comentários localmente:
     setFetchedPosts((prev) => prev.map(post =>
       post.id === postId
@@ -122,7 +127,7 @@ export const useComunidade = () => {
 
   const handleDeletePost = async (postId) => {
     try {
-      await deleteDocument(postId);
+      await api.del(`/posts/${postId}`);
       setFetchedPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
     } catch (error) {
       console.error("Erro ao excluir o post: ", error)
@@ -132,7 +137,13 @@ export const useComunidade = () => {
   // Função para deletar comentário
   const handleDeleteComment = async (postId, comment) => {
     try {
-      await deleteComment(postId, comment.userId, comment.createdAt);
+      const createdAtSeconds = comment?.createdAt instanceof Date
+        ? Math.floor(comment.createdAt.getTime() / 1000)
+        : (comment?.createdAt?.seconds ?? null);
+      await api.del(`/posts/${postId}/comments`, {
+        body: JSON.stringify({ CreatedAtSeconds: createdAtSeconds }),
+        headers: { 'Content-Type': 'application/json' },
+      });
       setFetchedPosts((prev) => prev.map(post =>
         post.id === postId
           ? { ...post, comments: post.comments.filter(c => {
@@ -155,7 +166,13 @@ export const useComunidade = () => {
   // Adicione feedback visual ao editar comentário
   const handleEditComment = async (postId, comment, newText) => {
     try {
-      await editComment(postId, uid, comment.createdAt, newText);
+      const createdAtSeconds = comment?.createdAt instanceof Date
+        ? Math.floor(comment.createdAt.getTime() / 1000)
+        : (comment?.createdAt?.seconds ?? null);
+      await api.put(`/posts/${postId}/comments`, {
+        OriginalCreatedAtSeconds: createdAtSeconds,
+        NewText: newText,
+      });
       setFetchedPosts((prev) => prev.map(post =>
         post.id === postId
           ? { ...post, comments: post.comments.map(c =>
@@ -206,8 +223,7 @@ export const useComunidade = () => {
     commentText,
     setCommentText,
     activeCommentPost,
-    deleteDocument,
-    updateLoading,
+    updateLoading: false,
     handleLike,
     toggleCommentForm,
     handleAddComment,

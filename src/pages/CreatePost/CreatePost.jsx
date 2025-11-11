@@ -3,9 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useAuthValue } from '../../context/AuthContext';
 import { useGTM } from '../../context/GTMContext';
 import { useGamification } from '../../Hooks/useGamification';
-import { collection, addDoc, Timestamp } from 'firebase/firestore';
 import styles from './CreatePost.module.css';
-import { db, storage } from '../../firebase/config';
+import { storage } from '../../firebase/config';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
@@ -70,19 +69,17 @@ const CreatePost = () => {
         imageUrl = await getDownloadURL(uploadSnap.ref);
       }
 
-      // Cria novo documento em "posts"
-      const docRef = await addDoc(collection(db, 'posts'), {
+      // Cria novo post via API
+      const result = await api.post('/posts', {
         title: values.title.trim(),
         body: values.body.trim(),
         tags: tagsArray,
         imageUrl,
-        uid: user.uid,
         createdBy: user.displayName || user.email,
-        createdAt: Timestamp.now(),
       });
 
       // Rastrear evento de criação de post
-      trackPostCreation(docRef.id, tagsArray);
+      trackPostCreation(result.id, tagsArray);
       
       // Adicionar pontos de gamificação
       await trackAction('CREATE_POST');
@@ -200,3 +197,4 @@ const CreatePost = () => {
 };
 
 export default CreatePost;
+import api from '../../services/apiClient';

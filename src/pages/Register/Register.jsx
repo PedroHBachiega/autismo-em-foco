@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { auth, db } from "../../firebase/config";
 import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import api from "../../services/apiClient";
 import { setDoc, doc, getDoc } from "firebase/firestore";
 import { useNavigate, Link } from "react-router-dom";
 import GoogleButton from "../../components/GoogleButton";
@@ -39,6 +40,22 @@ function Register() {
     setLoading(true);
     setError("");
     try {
+      const useApi = import.meta.env.VITE_AUTH_VIA_API === 'true';
+      if (useApi) {
+        try {
+          await api.post('/auth/register', {
+            email: data.email,
+            password: data.password,
+            displayName: '',
+            userType: data.userType || 'usuario'
+          });
+        } catch (e) {
+          setError("Erro ao criar conta via API: " + (e.message || ''));
+          setLoading(false);
+          return;
+        }
+      }
+
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         data.email,

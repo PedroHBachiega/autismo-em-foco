@@ -1,9 +1,5 @@
-import { useState, useEffect } from "react"
-import { db } from "../firebase/config"
-import {
-  collection,
-  getDocs
-} from "firebase/firestore"
+import { useState, useEffect } from "react";
+import api from "../services/apiClient";
 
 export const useFetchEventos = (filtroData = "todos", filtroCategoria = "Todos") => {
   const [eventos, setEventos] = useState([]);
@@ -15,25 +11,11 @@ export const useFetchEventos = (filtroData = "todos", filtroCategoria = "Todos")
       try {
         setLoading(true);
         setError(null);
-        
-        const collectionRef = collection(db, "eventos");
-        const snapshot = await getDocs(collectionRef);
-        
-        if (snapshot.empty) {
-          setEventos([]);
-          setLoading(false);
-          return;
-        }
-        
-        let todosEventos = [];
-        snapshot.forEach((doc) => {
-          todosEventos.push({
-            id: doc.id,
-            ...doc.data()
-          });
-        });
-        
-        let eventosFiltrados = [...todosEventos];
+        const todosEventos = await api.get('/eventos');
+        let eventosFiltrados = (todosEventos || []).map(e => ({
+          ...e,
+          dataEvento: e.dataEvento ? new Date(e.dataEvento) : null,
+        }));
         
         if (filtroData !== "todos") {
           const hoje = new Date();
@@ -43,7 +25,7 @@ export const useFetchEventos = (filtroData = "todos", filtroCategoria = "Todos")
             eventosFiltrados = eventosFiltrados.filter(evento => {
               if (!evento.dataEvento) return false;
               try {
-                const dataEvento = evento.dataEvento.toDate();
+                const dataEvento = new Date(evento.dataEvento);
                 dataEvento.setHours(0, 0, 0, 0);
                 return dataEvento >= hoje;
               } catch {
@@ -54,7 +36,7 @@ export const useFetchEventos = (filtroData = "todos", filtroCategoria = "Todos")
             eventosFiltrados = eventosFiltrados.filter(evento => {
               if (!evento.dataEvento) return false;
               try {
-                const dataEvento = evento.dataEvento.toDate();
+                const dataEvento = new Date(evento.dataEvento);
                 dataEvento.setHours(0, 0, 0, 0);
                 return dataEvento < hoje;
               } catch {
@@ -64,7 +46,7 @@ export const useFetchEventos = (filtroData = "todos", filtroCategoria = "Todos")
 
             eventosFiltrados.sort((a, b) => {
               try {
-                return b.dataEvento.toDate() - a.dataEvento.toDate();
+                return new Date(b.dataEvento) - new Date(a.dataEvento);
               } catch {
                 return 0;
               }

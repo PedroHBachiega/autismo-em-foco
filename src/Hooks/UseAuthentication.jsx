@@ -8,6 +8,7 @@ import {
   sendPasswordResetEmail,
 } from "firebase/auth";
 import { auth, db } from "../firebase/config";
+import api from "../services/apiClient";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -43,10 +44,18 @@ export function useAuthentication() {
     const unsub = onAuthStateChanged(auth, async (u) => {
       if (u) {
         setUser(u);
+        try {
+          const token = await u.getIdToken(/* forceRefresh */ true);
+          localStorage.setItem('api_token', token);
+        } catch (_) {
+          // se não conseguir obter token, garante que não há lixo
+          localStorage.removeItem('api_token');
+        }
         await fetchUserProfile(u.uid);
       } else {
         setUser(null);
         setUserProfile(null);
+        localStorage.removeItem('api_token');
       }
 
       setInitialLoading(false);
@@ -75,6 +84,19 @@ export function useAuthentication() {
     setActionLoading(true);
     setError(null);
     try {
+      // Opcional: validar via API antes de logar no Firebase
+      const useApi = import.meta.env.VITE_AUTH_VIA_API === 'true';
+      if (useApi) {
+        try {
+          const res = await api.post('/auth/login', { email, password });
+          localStorage.setItem('api_token', res?.token || '');
+          localStorage.setItem('api_user', JSON.stringify(res));
+        } catch (e) {
+          setError(e.message || "Falha ao autenticar via API.");
+          return false;
+        }
+      }
+
       const cred = await signInWithEmailAndPassword(auth, email, password);
       const profile = await fetchUserProfile(cred.user.uid);
 
@@ -139,6 +161,7 @@ export function useAuthentication() {
     await auth.signOut();
     setUser(null);
     setUserProfile(null);
+    localStorage.removeItem('api_token');
     navigate("/login", { replace: true });
   };
 

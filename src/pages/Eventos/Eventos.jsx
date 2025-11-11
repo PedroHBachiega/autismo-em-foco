@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styles from './Eventos.module.css'
 import { useFetchEventos } from '../../Hooks/useFetchEventos'
-import { useDeleteDocument } from '../../Hooks/useDeleteDocument'
+import api from '../../services/apiClient'
 import { Timestamp } from 'firebase/firestore'
 import { Link } from 'react-router-dom';
 import { useAuthValue } from '../../context/AuthContext';
@@ -15,7 +15,7 @@ const Eventos = () => {
   const [selectedEvento, setSelectedEvento] = useState(null);
   
   const { eventos, loading, error } = useFetchEventos(filtroData, filtroCategoria);
-  const { deleteDocument, loading: deleteLoading } = useDeleteDocument("eventos");
+  const deleteLoading = false;
 
   // Categorias disponíveis
   const categorias = ["Todos", "Workshop", "Palestra", "Encontro", "Curso", "Feira", "Grupo de Apoio"];
@@ -53,7 +53,7 @@ const Eventos = () => {
   // Função para confirmar a exclusão do evento
   const handleConfirmDelete = async () => {
     if (selectedEvento) {
-      await deleteDocument(selectedEvento.id);
+      await api.del(`/eventos/${selectedEvento.id}`);
       setShowDeleteModal(false);
       setSelectedEvento(null);
     }

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { db } from '../../firebase/config';
-import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore';
 import styles from '../Comunidade/Comunidade.module.css';
+import api from '../../services/apiClient';
 
 const AdminPosts = () => {
   const [posts, setPosts] = useState([]);
@@ -13,10 +12,12 @@ const AdminPosts = () => {
     const fetchPosts = async () => {
       try {
         setLoading(true);
-        const postsRef = collection(db, 'posts');
-        const snapshot = await getDocs(postsRef);
-        const postsList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        setPosts(postsList);
+        const postsList = await api.get('/posts');
+        const normalized = (postsList || []).map(p => ({
+          ...p,
+          createdAt: p.createdAt ? new Date(p.createdAt) : null,
+        }));
+        setPosts(normalized);
       } catch (err) {
         setError('Erro ao carregar posts.');
       } finally {
@@ -30,7 +31,7 @@ const AdminPosts = () => {
     if (!window.confirm('Tem certeza que deseja excluir este post?')) return;
     setDeletingId(postId);
     try {
-      await deleteDoc(doc(db, 'posts', postId));
+      await api.del(`/posts/${postId}`);
       setPosts(prev => prev.filter(post => post.id !== postId));
     } catch (err) {
       alert('Erro ao excluir post.');
@@ -56,7 +57,7 @@ const AdminPosts = () => {
                 <div>
                   <h3>{post.createdBy || 'Usuário'}</h3>
                   <span className={styles.postDate}>
-                    {post.createdAt?.toDate ? post.createdAt.toDate().toLocaleDateString('pt-BR') : 'Data desconhecida'}
+                    {post.createdAt ? post.createdAt.toLocaleDateString('pt-BR') : 'Data desconhecida'}
                   </span>
                 </div>
               </div>

@@ -1,6 +1,7 @@
 import { useState, useEffect, useReducer } from "react"
 import { db } from '../firebase/config'
 import { collection, addDoc, Timestamp } from 'firebase/firestore'
+import api from '../services/apiClient'
 
 const initialState = {
     loading: null,
@@ -33,19 +34,26 @@ export const useInsertDocument = (docCollection) => {
     const insertDocument = async (document) => {
         checkCancelBeforeDispatch({type:"LOADING"})
         try{
-            const newDocument = {...document, createAt:Timestamp.now()}
-            const docRef = await addDoc(
-                collection(db, docCollection),
-                newDocument
-            )
+            if (docCollection === 'agendamentos') {
+                // Create via API and return a pseudo docRef with id
+                const result = await api.post('/agendamentos', document)
+                const docRef = { id: result.id }
+                checkCancelBeforeDispatch({ type: "INSERTED_DOC", payload: docRef })
+                return docRef
+            } else {
+                const newDocument = { ...document, createAt: Timestamp.now() }
+                const docRef = await addDoc(
+                    collection(db, docCollection),
+                    newDocument
+                )
 
-            checkCancelBeforeDispatch({
-                type:"INSERTED_DOC",
-                payload: docRef
-            })
-            
-            // Retornar a referência do documento para uso posterior
-            return docRef;
+                checkCancelBeforeDispatch({
+                    type:"INSERTED_DOC",
+                    payload: docRef
+                })
+                
+                return docRef
+            }
         }catch(error){
             checkCancelBeforeDispatch({type:"ERROR", payload: error.message})
             throw error; // Propagar o erro para ser tratado pelo chamador

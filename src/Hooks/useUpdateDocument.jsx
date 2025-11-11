@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { db } from "../firebase/config";
 import { doc, updateDoc, arrayUnion, arrayRemove, getDoc } from "firebase/firestore";
+import api from "../services/apiClient";
 
 export const useUpdateDocument = (docCollection) => {
   const [loading, setLoading] = useState(false);
@@ -22,8 +23,12 @@ export const useUpdateDocument = (docCollection) => {
     });
 
     try {
-      const docRef = doc(db, docCollection, id);
-      await updateDoc(docRef, data);
+      if (docCollection === 'agendamentos') {
+        await api.put(`/agendamentos/${id}`, data)
+      } else {
+        const docRef = doc(db, docCollection, id);
+        await updateDoc(docRef, data);
+      }
 
       checkCancelBeforeDispatch(() => {
         setSuccess(true);
@@ -49,28 +54,7 @@ export const useUpdateDocument = (docCollection) => {
     setError(null);
 
     try {
-      const postRef = doc(db, docCollection, postId);
-      const postDoc = await getDoc(postRef);
-      
-      if (!postDoc.exists()) {
-        throw new Error("Post não encontrado");
-      }
-      
-      const postData = postDoc.data();
-      const likes = postData.likes || [];
-      
-      // Verifica se o usuário já deu like
-      if (likes.includes(userId)) {
-        // Remove o like
-        await updateDoc(postRef, {
-          likes: arrayRemove(userId)
-        });
-      } else {
-        // Adiciona o like
-        await updateDoc(postRef, {
-          likes: arrayUnion(userId)
-        });
-      }
+      await api.post(`/posts/${postId}/like/toggle`, {})
       
       setSuccess(true);
       setLoading(false);
@@ -92,18 +76,10 @@ export const useUpdateDocument = (docCollection) => {
     setError(null);
 
     try {
-      const postRef = doc(db, docCollection, postId);
-      
-      const comment = {
-        userId,
-        userName,
+      await api.post(`/posts/${postId}/comments`, {
         text: commentText,
-        createdAt: new Date()
-      };
-      
-      await updateDoc(postRef, {
-        comments: arrayUnion(comment)
-      });
+        userName,
+      })
       
       setSuccess(true);
       setLoading(false);
@@ -123,27 +99,13 @@ export const useUpdateDocument = (docCollection) => {
     setLoading(true);
     setError(null);
     try {
-      const postRef = doc(db, docCollection, postId);
-      const postDoc = await getDoc(postRef);
-      if (!postDoc.exists()) {
-        throw new Error("Post não encontrado");
-      }
-      const postData = postDoc.data();
-      const comments = postData.comments || [];
-      // Substitui apenas o comentário do usuário autenticado e com o mesmo timestamp
-      const updatedComments = comments.map(comment => {
-        let commentTime = comment.createdAt;
-        let originalTime = originalCreatedAt;
-        if (commentTime?.seconds) commentTime = commentTime.seconds;
-        else if (commentTime instanceof Date) commentTime = commentTime.getTime();
-        if (originalTime?.seconds) originalTime = originalTime.seconds;
-        else if (originalTime instanceof Date) originalTime = originalTime.getTime();
-        if (comment.userId === userId && commentTime === originalTime) {
-          return { ...comment, text: newText };
-        }
-        return comment;
-      });
-      await updateDoc(postRef, { comments: updatedComments });
+      const originalSeconds = originalCreatedAt?.seconds
+        ? originalCreatedAt.seconds
+        : (originalCreatedAt instanceof Date ? Math.floor(originalCreatedAt.getTime() / 1000) : null)
+      await api.put(`/posts/${postId}/comments`, {
+        OriginalCreatedAtSeconds: originalSeconds,
+        NewText: newText,
+      })
       setSuccess(true);
       setLoading(false);
     } catch (error) {
@@ -161,24 +123,13 @@ export const useUpdateDocument = (docCollection) => {
     setLoading(true);
     setError(null);
     try {
-      const postRef = doc(db, docCollection, postId);
-      const postDoc = await getDoc(postRef);
-      if (!postDoc.exists()) {
-        throw new Error("Post não encontrado");
-      }
-      const postData = postDoc.data();
-      const comments = postData.comments || [];
-      // Remove o comentário do usuário autenticado e com o mesmo timestamp
-      const updatedComments = comments.filter(comment => {
-        let commentTime = comment.createdAt;
-        let originalTime = createdAt;
-        if (commentTime?.seconds) commentTime = commentTime.seconds;
-        else if (commentTime instanceof Date) commentTime = commentTime.getTime();
-        if (originalTime?.seconds) originalTime = originalTime.seconds;
-        else if (originalTime instanceof Date) originalTime = originalTime.getTime();
-        return !(comment.userId === userId && commentTime === originalTime);
-      });
-      await updateDoc(postRef, { comments: updatedComments });
+      const originalSeconds = createdAt?.seconds
+        ? createdAt.seconds
+        : (createdAt instanceof Date ? Math.floor(createdAt.getTime() / 1000) : null)
+      await api.del(`/posts/${postId}/comments`, {
+        body: JSON.stringify({ CreatedAtSeconds: originalSeconds }),
+        headers: { 'Content-Type': 'application/json' },
+      })
       setSuccess(true);
       setLoading(false);
     } catch (error) {
