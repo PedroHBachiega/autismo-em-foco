@@ -1,11 +1,11 @@
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import { useAuthentication } from '../Hooks/UseAuthentication'; 
+import { useAuthValue } from '../context/AuthContext'; 
 
 
 const ProtectedRoute = ({ children, allowedRoles = [] }) => {
   const location = useLocation();
-  const { user, userProfile, loading } = useAuthentication();
+  const { user, userProfile, loading } = useAuthValue();
 
   // enquanto ainda estiver carregando, não renderiza nada
   if (loading) return null;

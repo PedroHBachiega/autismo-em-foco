@@ -1,14 +1,12 @@
 import { useState } from "react";
-import { auth, db } from "../../firebase/config";
-import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { setDoc, doc, getDoc } from "firebase/firestore";
+// import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useNavigate, Link } from "react-router-dom";
-import GoogleButton from "../../components/GoogleButton";
 import Button from "../../components/Button";
 import { MdPersonAdd } from 'react-icons/md';
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useAuthentication } from "../../Hooks/UseAuthentication";
 
 const schema = yup.object().shape({
   email: yup.string().email("Email inválido").required("Email é obrigatório"),
@@ -17,16 +15,15 @@ const schema = yup.object().shape({
 });
 
 function Register() {
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [formError, setFormError] = useState("");
   const navigate = useNavigate();
+  const { register: registerAccount, error: authError, actionLoading } = useAuthentication();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     trigger,
-    setValue,
   } = useForm({
     resolver: yupResolver(schema),
     mode: "onChange",
@@ -34,54 +31,15 @@ function Register() {
     defaultValues: { userType: "usuario" },
   });
 
-  // Registro com Email e Senha
+  // Registro via API
   const onSubmit = async (data) => {
-    setLoading(true);
-    setError("");
-    try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        data.email,
-        data.password
-      );
-      const user = userCredential.user;
-      await setDoc(doc(db, "users", user.uid), {
-        email: user.email,
-        createdAt: new Date(),
-        userType: data.userType,
-        isProfileComplete: false,
-      });
-      navigate("/");
-    } catch (err) {
-      setError("Erro ao criar conta: " + err.message);
+    setFormError("");
+    const ok = await registerAccount("", data.email, data.password, data.userType);
+    if (ok) {
+      navigate("/", { replace: true });
     }
-    setLoading(false);
   };
 
-  // Registro/Login com Google
-  const handleGoogleRegister = async () => {
-    setLoading(true);
-    setError("");
-    const provider = new GoogleAuthProvider();
-    try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      const userDocRef = doc(db, "users", user.uid);
-      const userDoc = await getDoc(userDocRef);
-      if (!userDoc.exists()) {
-        await setDoc(userDocRef, {
-          email: user.email,
-          createdAt: new Date(),
-          userType: "usuario", // padrão para Google
-          isProfileComplete: false,
-        });
-      }
-      navigate("/");
-    } catch (err) {
-      setError("Erro ao autenticar com Google: " + err.message);
-    }
-    setLoading(false);
-  };
 
   return (
     <div className="min-h-screen p-12 sm:p-6 flex justify-center items-start font-sans">
@@ -146,10 +104,10 @@ function Register() {
                   <span id="userType-error" className="text-red-500 text-xs">{errors.userType.message}</span>
                 )}
               </div>
-              {error && <p className="text-red-500 text-sm text-center mt-2">{error}</p>}
+              {(authError || formError) && <p className="text-red-500 text-sm text-center mt-2">{authError || formError}</p>}
               <Button
                 type="submit"
-                loading={loading}
+                loading={actionLoading}
                 loadingText="Cadastrando..."
                 variant="primary"
                 size="large"
@@ -158,11 +116,6 @@ function Register() {
               >
                 Cadastrar
               </Button>
-              <GoogleButton
-                onClick={handleGoogleRegister}
-                loading={loading}
-                text="Cadastrar com Google"
-              />
             </form>
           </div>
           <div className="py-4 px-6 border-t border-gray-100">

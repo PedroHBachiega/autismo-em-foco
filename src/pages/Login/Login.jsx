@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import GoogleButton from '../../components/GoogleButton';
 import Button from '../../components/Button';
 import { MdLogin } from 'react-icons/md';
 import { useAuthentication } from '../../Hooks/UseAuthentication';
@@ -16,7 +15,7 @@ const schema = yup.object().shape({
 });
 
 function Login() {
-  const { login, loginWithGoogle, error, loading } = useAuthentication();
+  const { login, error, loading } = useAuthentication();
   const { trackLogin } = useGTM();
   const { showErrorToast } = useAgendamentoToast();
   const location = useLocation();
@@ -63,14 +62,6 @@ function Login() {
     }
   };
 
-  const handleGoogleLogin = async () => {
-    const success = await loginWithGoogle();
-
-    if (success) {
-      trackLogin('google');
-      navigate(fromPath, { replace: true });
-    }
-  };
 
   return (
     <div className="min-h-screen p-12 sm:p-6 flex justify-center items-center font-sans">
@@ -157,11 +148,6 @@ function Login() {
                 Entrar
               </Button>
 
-              <GoogleButton
-                onClick={handleGoogleLogin}
-                loading={loading}
-                text="Entrar com Google"
-              />
             </form>
           </div>
 

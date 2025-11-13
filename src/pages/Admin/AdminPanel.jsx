@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { db } from '../../firebase/config';
-import { collection, getDocs, doc, updateDoc } from 'firebase/firestore';
-import { useAuthValue } from '../../context/AuthContext';
+import { useAuthentication } from '../../Hooks/UseAuthentication';
 import { useNavigate, Link } from 'react-router-dom';
+import api from '../../services/api';
 import styles from './AdminPanel.module.css';
 
 const AdminPanel = () => {
-  const { userProfile } = useAuthValue();
+  const { userProfile } = useAuthentication();
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -23,13 +22,8 @@ const AdminPanel = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const usersCollection = collection(db, 'users');
-        const userSnapshot = await getDocs(usersCollection);
-        const usersList = userSnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        }));
-        setUsers(usersList);
+        const list = await api.get('/users');
+        setUsers(list);
       } catch (err) {
         console.error('Erro ao buscar usuários:', err);
         setError('Erro ao carregar usuários');
@@ -44,17 +38,8 @@ const AdminPanel = () => {
   // Função para alterar o tipo de usuário
   const changeUserType = async (userId, newType) => {
     try {
-      const userRef = doc(db, 'users', userId);
-      await updateDoc(userRef, {
-        userType: newType
-      });
-      
-      // Atualizar a lista local
-      setUsers(prevUsers => 
-        prevUsers.map(user => 
-          user.id === userId ? { ...user, userType: newType } : user
-        )
-      );
+      const updated = await api.put(`/users/${userId}/type`, { userType: newType });
+      setUsers(prevUsers => prevUsers.map(u => u.id === userId ? updated : u));
     } catch (err) {
       console.error('Erro ao atualizar tipo de usuário:', err);
       alert('Erro ao atualizar tipo de usuário');
@@ -105,10 +90,10 @@ const AdminPanel = () => {
             {users.map(user => (
               <tr key={user.id}>
                 <td>{user.email}</td>
-                <td>{user.displayName || 'Não informado'}</td>
+                <td>{user.nome || 'Não informado'}</td>
                 <td>{user.userType || 'usuario'}</td>
                 <td>
-                  {user.createdAt?.toDate().toLocaleDateString('pt-BR') || 'N/A'}
+                  {user.criadoEm ? new Date(user.criadoEm).toLocaleDateString('pt-BR') : 'N/A'}
                 </td>
                 <td>
                   <select

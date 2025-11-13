@@ -1,14 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthValue } from '../../context/AuthContext';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
-import { db } from '../../firebase/config';
+import api from '../../services/api';
 import styles from './Profile.module.css';
 import Ranking from '../../components/Ranking/Ranking';
 import UserStats from '../../components/UserStats/UserStats';
 
 const Profile = () => {
-  const { user } = useAuthValue();
+  const { user, logout } = useAuthValue();
   const navigate = useNavigate();
   const [userData, setUserData] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -40,27 +39,23 @@ const Profile = () => {
     const fetchUserData = async () => {
       if (user) {
         try {
-          const userDoc = await getDoc(doc(db, 'users', user.uid));
-          if (userDoc.exists()) {
-            const data = userDoc.data();
-            setUserData(data);
-            setFormData({
-              displayName: data.displayName || '',
-              bio: data.bio || '',
-              telefone: data.telefone || '',
-              cidade: data.cidade || '',
-              estado: data.estado || '',
-              especialidade: data.especialidade || '',
-              registroProfissional: data.registroProfissional || '',
-              experienciaAutismo: data.experienciaAutismo || '',
-              atendimentoOnline: data.atendimentoOnline || false,
-              atendimentoPresencial: data.atendimentoPresencial || false,
-              // Novos campos
-              latitude: data.latitude || '',
-              longitude: data.longitude || '',
-              endereco: data.endereco || ''
-            });
-          }
+          const data = await api.get(`/profile/${user.uid}`);
+          setUserData(data);
+          setFormData({
+            displayName: data.displayName || '',
+            bio: data.bio || '',
+            telefone: data.telefone || '',
+            cidade: data.cidade || '',
+            estado: data.estado || '',
+            especialidade: data.especialidade || '',
+            registroProfissional: data.registroProfissional || '',
+            experienciaAutismo: data.experienciaAutismo || '',
+            atendimentoOnline: data.atendimentoOnline || false,
+            atendimentoPresencial: data.atendimentoPresencial || false,
+            latitude: data.latitude || '',
+            longitude: data.longitude || '',
+            endereco: data.endereco || ''
+          });
         } catch (error) {
           console.error('Erro ao buscar dados do usuário:', error);
         }
@@ -80,13 +75,27 @@ const Profile = () => {
 
   const handleSave = async () => {
     try {
-      await updateDoc(doc(db, 'users', user.uid), formData);
-      setUserData({ ...userData, ...formData });
+      const data = await api.put(`/profile/${user.uid}`, formData);
+      setUserData(data);
       setIsEditing(false);
       alert('Perfil atualizado com sucesso!');
     } catch (error) {
       console.error('Erro ao atualizar perfil:', error);
       alert('Erro ao atualizar perfil. Tente novamente.');
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    if (!user) return;
+    const confirmDelete = window.confirm('Tem certeza que deseja excluir sua conta? Esta ação não pode ser desfeita.');
+    if (!confirmDelete) return;
+    try {
+      await api.delete(`/users/${user.uid}`);
+      alert('Conta excluída com sucesso.');
+      await logout();
+    } catch (error) {
+      console.error('Erro ao excluir conta:', error);
+      alert('Erro ao excluir conta. Tente novamente.');
     }
   };
 
@@ -118,7 +127,7 @@ const Profile = () => {
           <h3 style={{ color: 'var(--text)'}}>Informações Pessoais</h3>
           <div className={styles.infoCard}>
             <div className={styles.infoItem}>
-              <strong style={{ color: 'var(--text)'}}>Email:</strong> {user.email}
+              <strong style={{ color: 'var(--text)'}}>Email:</strong> {userData.email || user.email || 'Não informado'}
             </div>
             <div className={styles.infoItem}>
               <strong  style={{ color: 'var(--text)'}}>Nome:</strong> {userData.displayName || 'Não informado'}
@@ -172,12 +181,20 @@ const Profile = () => {
         </div>
 
         {!isEditing ? (
-          <button 
-            className={styles.editButton}
-            onClick={() => setIsEditing(true)}
-          >
-            Editar Perfil
-          </button>
+          <div className={styles.formActions}>
+            <button 
+              className={styles.editButton}
+              onClick={() => setIsEditing(true)}
+            >
+              Editar Perfil
+            </button>
+            <button 
+              className={styles.cancelButton}
+              onClick={handleDeleteAccount}
+            >
+              Excluir Conta
+            </button>
+          </div>
         ) : (
           <div className={styles.editForm}>
             <h3 style={{ color: 'var(--text)'}}>Editar Perfil</h3>
@@ -348,6 +365,12 @@ const Profile = () => {
                 onClick={() => setIsEditing(false)}
               >
                 Cancelar
+              </button>
+              <button 
+                className={styles.cancelButton}
+                onClick={handleDeleteAccount}
+              >
+                Excluir Conta
               </button>
             </div>
           </div>

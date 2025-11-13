@@ -1,165 +1,133 @@
 // src/hooks/useAuthentication.jsx
 import { useState, useEffect } from "react";
-import {
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-  GoogleAuthProvider,
-  sendPasswordResetEmail,
-} from "firebase/auth";
+import { useNavigate, useLocation } from "react-router-dom";
+import api from "../services/api";
+import { signInWithCustomToken } from "firebase/auth";
 import { auth, db } from "../firebase/config";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { useNavigate, useLocation } from "react-router-dom";
 
 export function useAuthentication() {
   const [user, setUser] = useState(null);
   const [userProfile, setUserProfile] = useState(null);
-
   const [initialLoading, setInitialLoading] = useState(true);
   const [actionLoading, setActionLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const googleProvider = new GoogleAuthProvider();
-
-  const fetchUserProfile = async (uid) => {
-    try {
-      const ref = doc(db, "users", uid);
-      const snap = await getDoc(ref);
-      if (snap.exists()) {
-        const data = snap.data();
-        setUserProfile({ id: snap.id, ...data });
-        return data;
-      }
-    } catch (err) {
-      console.error("Erro ao buscar perfil:", err);
-    }
-    setUserProfile(null);
-    return null;
-  };
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, async (u) => {
-      if (u) {
-        setUser(u);
-        await fetchUserProfile(u.uid);
-      } else {
-        setUser(null);
-        setUserProfile(null);
+    const savedUser = localStorage.getItem("aef_user");
+    const savedToken = localStorage.getItem("aef_token");
+    if (savedUser && savedToken) {
+      try {
+        const parsed = JSON.parse(savedUser);
+        setUser(parsed);
+        setUserProfile({ ...parsed });
+      } catch (_err) {
+        console.warn("Falha ao ler usuário salvo", _err);
       }
+    }
+    setInitialLoading(false);
 
-      setInitialLoading(false);
-
-      const publicPaths = [
-        "/login",
-        "/register",
-        "/sobreautismo",
-        "/leisedireitos",
-        "/eventos",
-        "/tratamentos",
-        "/sobre",
-        "/recuperar-senha",
-      ];
-
-      if (!u && !publicPaths.includes(pathname)) {
-        navigate("/", { replace: true });
-      }
-    });
-
-    return () => unsub();
+    const publicPaths = [
+      "/login",
+      "/register",
+      "/sobreautismo",
+      "/leisedireitos",
+      "/eventos",
+      "/tratamentos",
+      "/sobre",
+      "/recuperar-senha",
+    ];
+    if (!savedUser && !publicPaths.includes(pathname)) {
+      navigate("/", { replace: true });
+    }
   }, [navigate, pathname]);
 
-  // 1) Login com email/senha
-  const login = async (email, password) => {
+  const login = async (email, senha) => {
     setActionLoading(true);
     setError(null);
     try {
-      const cred = await signInWithEmailAndPassword(auth, email, password);
-      const profile = await fetchUserProfile(cred.user.uid);
-
-      if (!profile) {
-        await setDoc(doc(db, "users", cred.user.uid), {
-          uid: cred.user.uid,
-          email: cred.user.email,
-          displayName: cred.user.displayName || "",
-          cidade: "",
-          estado: "",
-          telefone: "",
-          bio: "",
-          createdAt: new Date(),
-        });
+      const resp = await api.post("/auth/login", { email, senha });
+      await signInWithCustomToken(auth, resp.firebaseToken);
+      localStorage.setItem("aef_token", resp.token);
+      localStorage.setItem("aef_user", JSON.stringify(resp.user));
+      setUser(resp.user);
+      setUserProfile({ ...resp.user });
+      try {
+        const ref = doc(db, "users", resp.user.id);
+        const snap = await getDoc(ref);
+        if (!snap.exists()) {
+          await setDoc(ref, {
+            uid: resp.user.id,
+            email: resp.user.email,
+            displayName: resp.user.nome || "",
+            createdAt: new Date(),
+          });
+        }
+      } catch (_err) {
+        console.warn("Falha ao sincronizar perfil no Firestore", _err);
       }
-
-      await fetchUserProfile(cred.user.uid);
       return true;
-    } catch {
-      setError("Email ou senha inválidos.");
+    } catch (err) {
+      setError(err?.message || "Email ou senha inválidos.");
       return false;
     } finally {
       setActionLoading(false);
     }
   };
 
-  // 2) Login com Google
+  const register = async (nome, email, senha, userType = "usuario") => {
+    setActionLoading(true);
+    setError(null);
+    try {
+      const resp = await api.post("/auth/register", { nome, email, senha, userType });
+      await signInWithCustomToken(auth, resp.firebaseToken);
+      localStorage.setItem("aef_token", resp.token);
+      localStorage.setItem("aef_user", JSON.stringify(resp.user));
+      setUser(resp.user);
+      setUserProfile({ ...resp.user });
+      try {
+        const ref = doc(db, "users", resp.user.id);
+        const snap = await getDoc(ref);
+        if (!snap.exists()) {
+          await setDoc(ref, {
+            uid: resp.user.id,
+            email: resp.user.email,
+            displayName: resp.user.nome || "",
+            userType: userType,
+            createdAt: new Date(),
+          });
+        }
+      } catch (_err) {
+        console.warn("Falha ao sincronizar perfil no Firestore", _err);
+      }
+      return true;
+    } catch (err) {
+      setError(err?.message || "Erro ao criar conta.");
+      return false;
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
   const loginWithGoogle = async () => {
-    setActionLoading(true);
-    setError(null);
-    try {
-      const result = await signInWithPopup(auth, googleProvider);
-      const googleUser = result.user;
-
-      const profile = await fetchUserProfile(googleUser.uid);
-
-      if (!profile) {
-        await setDoc(doc(db, "users", googleUser.uid), {
-          uid: googleUser.uid,
-          email: googleUser.email,
-          displayName: googleUser.displayName || "",
-          cidade: "",
-          estado: "",
-          telefone: "",
-          bio: "",
-          createdAt: new Date(),
-        });
-      }
-
-      await fetchUserProfile(googleUser.uid);
-      return true;
-    } catch {
-      setError("Falha no login com Google.");
-      return false;
-    } finally {
-      setActionLoading(false);
-    }
+    setError("Login com Google indisponível nesta versão.");
+    return false;
   };
 
-  // 3) Logout
   const logout = async () => {
-    await auth.signOut();
+    localStorage.removeItem("aef_token");
+    localStorage.removeItem("aef_user");
     setUser(null);
     setUserProfile(null);
     navigate("/login", { replace: true });
   };
 
-  // 4) Reset de senha
-  const resetPassword = async (email) => {
-    setActionLoading(true);
-    setError(null);
-    try {
-      await sendPasswordResetEmail(auth, email);
-      return true;
-    } catch (err) {
-      setError(
-        {
-          "auth/user-not-found": "Email não encontrado.",
-          "auth/invalid-email": "Email inválido.",
-        }[err.code] || "Erro ao enviar email de redefinição."
-      );
-      return false;
-    } finally {
-      setActionLoading(false);
-    }
+  const resetPassword = async () => {
+    setError("Recuperação de senha indisponível nesta versão.");
+    return false;
   };
 
   return {
@@ -169,6 +137,7 @@ export function useAuthentication() {
     actionLoading,
     error,
     login,
+    register,
     loginWithGoogle,
     logout,
     resetPassword,

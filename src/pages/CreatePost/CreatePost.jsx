@@ -15,7 +15,7 @@ import { MdCreate } from 'react-icons/md';
 
 const CreatePost = () => {
   const navigate = useNavigate();
-  const { user } = useAuthValue();
+  const { user, userProfile } = useAuthValue();
   const { trackPostCreation } = useGTM();
   const { trackAction } = useGamification();
 
@@ -77,7 +77,7 @@ const CreatePost = () => {
         tags: tagsArray,
         imageUrl,
         uid: user.uid,
-        createdBy: user.displayName || user.email,
+        createdBy: (userProfile?.displayName || userProfile?.nome || user.displayName || user.email || 'Usuário'),
         createdAt: Timestamp.now(),
       });
 
@@ -112,7 +112,7 @@ const CreatePost = () => {
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        {({ isSubmitting, setFieldValue, values }) => (
+        {({ isSubmitting, setFieldValue }) => (
           <Form>
             <div className={styles.form_group}>
               <label htmlFor="title">Título:</label>

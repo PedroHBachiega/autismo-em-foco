@@ -3,7 +3,7 @@ import { db } from '../../../firebase/config';
 import { useAuthValue } from '../../../context/AuthContext';
 import { useDeleteDocument } from '../../../Hooks/useDeleteDocument';
 import { useUpdateDocument } from '../../../Hooks/useUpdateDocument';
-import { collection, getDocs, onSnapshot, query, orderBy } from 'firebase/firestore';
+import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 import { useGamification } from '../../../Hooks/useGamification';
 import toast from 'react-hot-toast';
 
@@ -17,7 +17,7 @@ export const useComunidade = () => {
   const [activeCommentPost, setActiveCommentPost] = useState(null);
 
   const { deleteDocument } = useDeleteDocument("posts");
-  const { toggleLike, addComment, editComment, deleteComment, loading: updateLoading, error: updateError, success: updateSuccess } = useUpdateDocument("posts");
+  const { toggleLike, addComment, editComment, deleteComment, loading: updateLoading } = useUpdateDocument("posts");
   const { trackAction } = useGamification();
 
   // Adicionar useEffect para buscar os posts
@@ -30,12 +30,16 @@ export const useComunidade = () => {
         const postsRef = collection(db, 'posts');
         const q = query(postsRef, orderBy('createdAt', 'desc'));
         const querySnapshot = await getDocs(q);
-        
         const posts = [];
-        querySnapshot.forEach((doc) => {
-          posts.push({ id: doc.id, ...doc.data() });
+        querySnapshot.forEach((docSnap) => {
+          const data = docSnap.data();
+          posts.push({
+            id: docSnap.id,
+            ...data,
+            likes: Array.isArray(data?.likes) ? data.likes : [],
+            comments: Array.isArray(data?.comments) ? data.comments : [],
+          });
         });
-        
         setFetchedPosts(posts);
       } catch (error) {
         console.error('Erro ao buscar posts:', error);
@@ -56,16 +60,20 @@ export const useComunidade = () => {
     try {
         await toggleLike(postId, uid);
         // Atualize o estado local dos posts
-        setFetchedPosts(prevPosts => prevPosts.map(post => 
-            post.id === postId 
-            ? { ...post, likes: post.likes.includes(uid) 
-                ? post.likes.filter(id => id !== uid) 
-                : [...post.likes, uid] }
-            : post
-        ));
+        setFetchedPosts(prevPosts => prevPosts.map(post => {
+            if (post.id !== postId) return post;
+            const currentLikes = Array.isArray(post.likes) ? post.likes : [];
+            const hasLike = currentLikes.includes(uid);
+            return {
+              ...post,
+              likes: hasLike
+                ? currentLikes.filter(id => id !== uid)
+                : [...currentLikes, uid]
+            };
+        }));
         await trackAction('LIKE');
-    } catch (error) {
-        console.error('Erro ao curtir o post:', error);
+    } catch {
+        console.error('Erro ao curtir o post');
     }
 };
   
@@ -108,17 +116,6 @@ export const useComunidade = () => {
   };
 
   // Função para editar comentário
-  const handleEditCommentInternal = async (postId, comment, newText) => {
-    await editComment(postId, uid, comment.createdAt, newText);
-    // Atualize os comentários localmente:
-    setFetchedPosts((prev) => prev.map(post =>
-      post.id === postId
-        ? { ...post, comments: post.comments.map(c =>
-            c.createdAt === comment.createdAt ? { ...c, text: newText } : c
-          ) }
-        : post
-    ));
-  };
 
   const handleDeletePost = async (postId) => {
     try {
@@ -147,7 +144,7 @@ export const useComunidade = () => {
           : post
       ));
       toast.success('Comentário excluído com sucesso!');
-    } catch (error) {
+    } catch {
       toast.error('Erro ao excluir comentário.');
     }
   };
@@ -164,7 +161,7 @@ export const useComunidade = () => {
           : post
       ));
       toast.success('Comentário editado com sucesso!');
-    } catch (error) {
+    } catch {
       toast.error('Erro ao editar comentário.');
     }
   };
