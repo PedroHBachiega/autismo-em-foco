@@ -2,14 +2,17 @@
 import { useState, useEffect } from "react";
 import {
   onAuthStateChanged,
-  signInWithEmailAndPassword,
+  signInWithCustomToken,
   signInWithPopup,
   GoogleAuthProvider,
   sendPasswordResetEmail,
+  signOut,
 } from "firebase/auth";
 import { auth, db } from "../firebase/config";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { useNavigate, useLocation } from "react-router-dom";
+
+const API_URL = "https://apiautismoemfoco.onrender.com";
 
 export function useAuthentication() {
   const [user, setUser] = useState(null);
@@ -70,41 +73,68 @@ export function useAuthentication() {
     return () => unsub();
   }, [navigate, pathname]);
 
-  // 1) Login com email/senha
+  // =====================================================================================
+  // 1) LOGIN VIA API + Firebase CUSTOM TOKEN
+  // =====================================================================================
+
   const login = async (email, password) => {
     setActionLoading(true);
     setError(null);
+
     try {
-      const cred = await signInWithEmailAndPassword(auth, email, password);
+      // 1) Chama sua API
+      const res = await fetch(`${API_URL}/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, senha: password }),
+      });
+
+      if (!res.ok) {
+        setError("Email ou senha inválidos.");
+        return false;
+      }
+
+      const data = await res.json();
+      const firebaseToken = data.firebaseToken;
+
+      // 2) Faz login usando custom token
+      const cred = await signInWithCustomToken(auth, firebaseToken);
+
+      // 3) Verifica/cria perfil no Firestore
       const profile = await fetchUserProfile(cred.user.uid);
 
       if (!profile) {
         await setDoc(doc(db, "users", cred.user.uid), {
           uid: cred.user.uid,
-          email: cred.user.email,
-          displayName: cred.user.displayName || "",
+          email: email,
+          displayName: "",
+          createdAt: new Date(),
           cidade: "",
           estado: "",
           telefone: "",
           bio: "",
-          createdAt: new Date(),
         });
       }
 
       await fetchUserProfile(cred.user.uid);
       return true;
-    } catch {
-      setError("Email ou senha inválidos.");
+    } catch (err) {
+      console.error("Erro no login API + Firebase:", err);
+      setError("Erro ao conectar à API.");
       return false;
     } finally {
       setActionLoading(false);
     }
   };
 
-  // 2) Login com Google
+  // =====================================================================================
+  // 2) LOGIN COM GOOGLE (continua direto pelo Firebase)
+  // =====================================================================================
+
   const loginWithGoogle = async () => {
     setActionLoading(true);
     setError(null);
+
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const googleUser = result.user;
@@ -134,15 +164,21 @@ export function useAuthentication() {
     }
   };
 
+  // =====================================================================================
   // 3) Logout
+  // =====================================================================================
+
   const logout = async () => {
-    await auth.signOut();
+    await signOut(auth);
     setUser(null);
     setUserProfile(null);
     navigate("/login", { replace: true });
   };
 
+  // =====================================================================================
   // 4) Reset de senha
+  // =====================================================================================
+
   const resetPassword = async (email) => {
     setActionLoading(true);
     setError(null);
