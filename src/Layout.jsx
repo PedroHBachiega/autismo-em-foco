@@ -4,7 +4,6 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ReadInstructions from './components/ReadInstructions/ReadInstructions';
 import ThemeToggle from './components/ThemeToggle';
-import HighContrastToggle from './components/HighContrastToggle';
 import NotificationManager from './components/NotificationManager/NotificationManager';
 import ToastProvider from './components/ToastProvider/ToastProvider';
 
@@ -18,7 +17,6 @@ const Layout = () => {
       <Footer />
       <ReadInstructions />
       <ThemeToggle />
-      <HighContrastToggle />
       <NotificationManager />
       <ToastProvider />
     </>

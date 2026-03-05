@@ -20,15 +20,6 @@
   --button-text: #ffffff;
 }
 
-.high-contrast {
-  --primary: #ffff00;
-  --primary-hover: #ffff33;
-  --background: #000000;
-  --text: #ffff00;
-  --button-bg: #ffff00;
-  --button-hover: #ffff33;
-  --button-text: #000000;
-}
 /* Prevenir scroll horizontal */
 html, body {
  overflow-x: hidden;

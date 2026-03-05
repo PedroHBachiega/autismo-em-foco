@@ -14,7 +14,7 @@
     "@react-google-maps/api": "^2.20.7",
     "@tailwindcss/vite": "^4.1.7",
     "firebase": "^11.8.1",
-    "firebase-admin": "^13.4.0",
+    "firebase-admin": "^13.7.0",
     "formik": "^2.4.6",
     "leaflet": "^1.9.4",
     "prop-types": "^15.8.1",
