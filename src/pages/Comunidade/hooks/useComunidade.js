@@ -58,9 +58,9 @@ export const useComunidade = () => {
         // Atualize o estado local dos posts
         setFetchedPosts(prevPosts => prevPosts.map(post => 
             post.id === postId 
-            ? { ...post, likes: post.likes.includes(uid) 
-                ? post.likes.filter(id => id !== uid) 
-                : [...post.likes, uid] }
+            ? { ...post, likes: (post.likes || []).includes(uid)
+                ? post.likes.filter(id => id !== uid)
+                : [...(post.likes || []), uid] }
             : post
         ));
         await trackAction('LIKE');

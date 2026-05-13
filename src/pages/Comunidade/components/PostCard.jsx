@@ -65,7 +65,7 @@ const PostCard = ({
       </div>
       <div className={styles.postActions}>
         <button 
-          className={`${styles.actionButton} ${post.likes?.includes(user?.uid) ? styles.liked : ""}`}
+          className={`${styles.actionButton} ${Array.isArray(post.likes) && post.likes.includes(user?.uid) ? styles.liked : ""}`}
           onClick={() => handleLike(post.id)}
           disabled={updateLoading}
         >
